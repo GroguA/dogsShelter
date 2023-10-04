@@ -36,11 +36,11 @@ class AddNewDogViewModel {
             return
         }
         let dog = DogCoreDataModel(name: name, breed: breed)
-        guard dogStorage.saveDog(dog: dog) else {
+        if dogStorage.saveDog(dog: dog) {
+            currentState = AddNewDogState.success
+        } else {
             onAction(AddNewDogAction.saveError)
-            return
         }
-        currentState = AddNewDogState.success
+        
     }
-    
 }

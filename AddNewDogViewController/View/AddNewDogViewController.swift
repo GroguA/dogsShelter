@@ -45,12 +45,6 @@ class AddNewDogViewController: UIViewController {
         return picker
     }()
     
-    private lazy var alert: UIAlertController = {
-        let alert = UIAlertController(title: "Error", message: "Check dog info again", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default))
-        return alert
-    }()
-    
     private lazy var saveDogButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = .systemBlue
@@ -95,8 +89,11 @@ class AddNewDogViewController: UIViewController {
         }
         
         viewModel.onAction = { action in
-            if action == .error {
-                self.present(self.alert, animated: true)
+            switch action {
+            case .editingError:
+                self.showAlertMessage(message: action.rawValue)
+            case .saveError:
+                self.showAlertMessage(message: action.rawValue)
             }
         }
     }
@@ -137,23 +134,17 @@ class AddNewDogViewController: UIViewController {
     
     @objc private func saveDogToStorage(sender: UIButton) {
         viewModel.onAddDogBtnClicked(name: nameTextField.text, breed: breedTextField.text)
-//            showSavedIcon()
     }
-    
-//    private func showSavedIcon() {
-//        savedIcon.isHidden = false
-//        UIView.animate(withDuration: 1, delay: 0, options: UIView.AnimationOptions.transitionFlipFromTop, animations: {
-//            self.savedIcon.alpha = 0
-//        }, completion: { finished in
-//            self.savedIcon.isHidden = true
-//            self.savedIcon.alpha = 1
-//        })
-//    }
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
     
+    private func showAlertMessage(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(alert, animated: true)
+    }
 }
 
 extension AddNewDogViewController: UIPickerViewDelegate {

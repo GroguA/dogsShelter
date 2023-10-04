@@ -45,8 +45,14 @@ class AddNewDogViewController: UIViewController {
         return picker
     }()
     
-    private lazy var alert: UIAlertController = {
-        let alert = UIAlertController(title: "Error", message: "Check dog info again", preferredStyle: .alert)
+    private lazy var alertForEditingError: UIAlertController = {
+        let alert = UIAlertController(title: "Error", message: "Make sure all fields are completed", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        return alert
+    }()
+    
+    private lazy var alertForSaveError: UIAlertController = {
+        let alert = UIAlertController(title: "Error", message: "Can't save such dog, try again later", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default))
         return alert
     }()
@@ -95,8 +101,10 @@ class AddNewDogViewController: UIViewController {
         }
         
         viewModel.onAction = { action in
-            if action == .error {
-                self.present(self.alert, animated: true)
+            if action == .editingError {
+                self.present(self.alertForEditingError, animated: true)
+            } else {
+                self.present(self.alertForSaveError, animated: true)
             }
         }
     }

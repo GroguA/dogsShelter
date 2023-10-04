@@ -8,5 +8,6 @@
 import Foundation
 
 enum AddNewDogAction {
-    case error
+    case editingError
+    case saveError
 }

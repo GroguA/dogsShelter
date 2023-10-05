@@ -10,9 +10,11 @@ import Foundation
 class DogCoreDataModel {
     let name: String
     let breed: String
+    let age: String
     
-    init(name: String, breed: String) {
+    init(name: String, breed: String, age: String) {
         self.name = name
         self.breed = breed
+        self.age = age
     }
 }

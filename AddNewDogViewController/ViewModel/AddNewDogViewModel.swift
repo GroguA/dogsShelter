@@ -30,17 +30,36 @@ class AddNewDogViewModel {
     
     private let dogStorage = DogStorageService.shared
     
-    func onAddDogBtnClicked(name: String?, breed: String?) {
-        guard let name = name?.trimmingCharacters(in: .whitespaces), !name.isEmpty, let breed = breed?.trimmingCharacters(in: .whitespaces), !breed.isEmpty else {
+    func onAddDogBtnClicked(name: String?, breed: String?, dateOfBirth: String?) {
+        guard let name = name?.trimmingCharacters(in: .whitespaces), !name.isEmpty, let breed = breed, !breed.isEmpty, let dateOfBirth = dateOfBirth, !dateOfBirth.isEmpty else {
             onAction(AddNewDogAction.editingError)
             return
         }
-        let dog = DogCoreDataModel(name: name, breed: breed)
+        let age = String(getAge(dateOfBirth: dateOfBirth))
+        let dog = DogCoreDataModel(name: name, breed: breed, age: age)
         if dogStorage.saveDog(dog: dog) {
             currentState = AddNewDogState.success
         } else {
             onAction(AddNewDogAction.saveError)
         }
+        
+    }
+    
+    private func getAge(dateOfBirth: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
+            return 0
+        }
+        let calendar = Calendar.current
+        let currentDate = Date()
+        let currentDays = calendar.component(.year, from: currentDate)
+        
+        let birthDays = calendar.component(.year, from: dateOfBirth)
+
+        let age = currentDays - birthDays
+        
+        return age
         
     }
 }

@@ -28,16 +28,15 @@ class ShelterViewModel {
     
     func loadSavedDogs() {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
-        var displayedDogs = [DogModel]()
-        savedDogs.forEach({ dog in
-            let dogAge = getAge(dateOfBirth: dog.dateOfBirth)
-            let dog = DogModel(name: dog.name, breed: dog.breed, age: String(dogAge))
-            displayedDogs.append(dog)
+        var displayedDogs = savedDogs.map({ dogCoreData in
+            let dogAge = getAge(dateOfBirth: dogCoreData.dateOfBirth)
+            let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: String(dogAge))
+            return dog
         })
         currentState = .success(dogs: displayedDogs)
     }
     
-    func getAge(dateOfBirth: String) -> Int {
+    private func getAge(dateOfBirth: String) -> Int {
        let dateFormatter = DateFormatter()
        dateFormatter.dateFormat = "dd.MM.yyyy"
        guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {

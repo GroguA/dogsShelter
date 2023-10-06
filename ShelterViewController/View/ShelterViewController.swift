@@ -9,7 +9,7 @@ import UIKit
 
 class ShelterViewController: UIViewController {
     
-    private var dogs = [DogCoreDataModel]()
+    private var dogs = [DogModel]()
     
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 13

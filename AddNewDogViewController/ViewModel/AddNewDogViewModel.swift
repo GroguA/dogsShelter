@@ -35,8 +35,7 @@ class AddNewDogViewModel {
             onAction(AddNewDogAction.editingError)
             return
         }
-        let age = String(getAge(dateOfBirth: dateOfBirth))
-        let dog = DogCoreDataModel(name: name, breed: breed, age: age)
+        let dog = DogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth)
         if dogStorage.saveDog(dog: dog) {
             currentState = AddNewDogState.success
         } else {
@@ -45,7 +44,7 @@ class AddNewDogViewModel {
         
     }
     
-    private func getAge(dateOfBirth: String) -> Int {
+     func getAge(dateOfBirth: String) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
         guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {

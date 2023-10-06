@@ -40,7 +40,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setupViews(dog: DogCoreDataModel) {
+    func setupViews(dog: DogModel) {
         contentView.addSubview(nameLabel)
         contentView.addSubview(breedLabel)
         contentView.addSubview(ageLabel)
@@ -52,7 +52,6 @@ class CustomCollectionViewCell: UICollectionViewCell {
         let constraints = [
             nameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
-//            nameLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             
             breedLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
             breedLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),

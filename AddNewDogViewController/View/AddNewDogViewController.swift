@@ -38,6 +38,20 @@ class AddNewDogViewController: UIViewController {
         return breed
     }()
     
+    private lazy var dateOfBirthTextField: UITextField = {
+        let date = UITextField()
+        date.delegate = self
+        date.placeholder = "Select date of birth"
+        date.keyboardType = .default
+        date.autocapitalizationType = .words
+        date.borderStyle = .roundedRect
+        date.autocorrectionType = .no
+        date.inputView = dateOfBirthPicker
+        date.inputAccessoryView = toolBar
+        date.translatesAutoresizingMaskIntoConstraints = false
+        return date
+    }()
+    
     private lazy var breedPicker: UIPickerView = {
         let picker = UIPickerView()
         picker.delegate = self
@@ -45,11 +59,21 @@ class AddNewDogViewController: UIViewController {
         return picker
     }()
     
+    private lazy var dateOfBirthPicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.timeZone = .current
+        picker.backgroundColor = .white
+        picker.datePickerMode = .date
+        picker.timeZone = .autoupdatingCurrent
+        picker.preferredDatePickerStyle = .wheels
+        picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        return picker
+    }()
+    
     private lazy var saveDogButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = .systemBlue
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
-        
         let button = UIButton(configuration: configuration)
         button.setTitle("Save this dog", for: .normal)
         button.tintColor = .white
@@ -103,6 +127,7 @@ class AddNewDogViewController: UIViewController {
         view.addSubview(breedTextField)
         view.addSubview(saveDogButton)
         view.addSubview(savedIcon)
+        view.addSubview(dateOfBirthTextField)
         savedIcon.isHidden = true
         navigationItem.title = "Add new dog"
 
@@ -116,6 +141,10 @@ class AddNewDogViewController: UIViewController {
             breedTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 16),
             breedTextField.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
             breedTextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            
+            dateOfBirthTextField.topAnchor.constraint(equalTo: breedTextField.bottomAnchor, constant: 16),
+            dateOfBirthTextField.trailingAnchor.constraint(equalTo: breedTextField.trailingAnchor),
+            dateOfBirthTextField.leadingAnchor.constraint(equalTo: breedTextField.leadingAnchor),
             
             saveDogButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             saveDogButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -133,7 +162,7 @@ class AddNewDogViewController: UIViewController {
     }
     
     @objc private func saveDogToStorage(sender: UIButton) {
-        viewModel.onAddDogBtnClicked(name: nameTextField.text, breed: breedTextField.text)
+        viewModel.onAddDogBtnClicked(name: nameTextField.text, breed: breedTextField.text, dateOfBirth: dateOfBirthTextField.text)
     }
     
     @objc private func dismissKeyboard() {
@@ -144,6 +173,13 @@ class AddNewDogViewController: UIViewController {
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .default))
         present(alert, animated: true)
+    }
+    
+    @objc private func datePickerValueChanged(_ sender: UIDatePicker){
+        let dateFormatter: DateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        dateOfBirthTextField.text = selectedDate
     }
 }
 

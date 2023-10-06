@@ -22,6 +22,7 @@
 		7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648932ACC6A1800FD5DB1 /* DogStorageService.swift */; };
 		7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648952ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld */; };
 		7CE6489B2ACD814B00FD5DB1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6489A2ACD814B00FD5DB1 /* .gitignore */; };
+		7CE6489F2ACFF69400FD5DB1 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6489E2ACFF69400FD5DB1 /* DogModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		7CE648932ACC6A1800FD5DB1 /* DogStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStorageService.swift; sourceTree = "<group>"; };
 		7CE648962ACD63B400FD5DB1 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		7CE6489A2ACD814B00FD5DB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7CE6489E2ACFF69400FD5DB1 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		7CB798382AC1BBD8001E4801 /* ShelterViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7CE6489C2ACFF67B00FD5DB1 /* Model */,
 				7CB7983B2AC1BC14001E4801 /* View */,
 				7CB798392AC1BBFD001E4801 /* ViewModel */,
 			);
@@ -156,6 +159,14 @@
 				7CE648952ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		7CE6489C2ACFF67B00FD5DB1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7CE6489E2ACFF69400FD5DB1 /* DogModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,6 +245,7 @@
 				7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */,
 				7CB7983D2AC1BC3D001E4801 /* ShelterViewController.swift in Sources */,
 				7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */,
+				7CE6489F2ACFF69400FD5DB1 /* DogModel.swift in Sources */,
 				7CB798482AC1D138001E4801 /* CustomCollectionViewCell.swift in Sources */,
 				7CB798252AC1BA83001E4801 /* AppDelegate.swift in Sources */,
 				7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */,

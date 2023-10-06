@@ -8,5 +8,5 @@
 import Foundation
 
 enum ShelterState {
-    case success(dogs: [DogCoreDataModel])
+    case success(dogs: [DogModel])
 }

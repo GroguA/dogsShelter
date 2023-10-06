@@ -44,21 +44,4 @@ class AddNewDogViewModel {
         
     }
     
-     func getAge(dateOfBirth: String) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
-            return 0
-        }
-        let calendar = Calendar.current
-        let currentDate = Date()
-        let currentDays = calendar.component(.year, from: currentDate)
-        
-        let birthDays = calendar.component(.year, from: dateOfBirth)
-
-        let age = currentDays - birthDays
-        
-        return age
-        
-    }
 }

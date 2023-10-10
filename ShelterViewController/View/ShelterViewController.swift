@@ -36,6 +36,17 @@ class ShelterViewController: UIViewController {
         return button
     }()
     
+    private lazy var emptyDogsStorageLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = "No one dog added"
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -54,6 +65,8 @@ class ShelterViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(dogsCollectionView)
         view.addSubview(addDogButton)
+        view.addSubview(emptyDogsStorageLabel)
+        emptyDogsStorageLabel.isHidden = true
         navigationItem.title = "Dogs"
         
         let constraint = [
@@ -65,7 +78,10 @@ class ShelterViewController: UIViewController {
             addDogButton.trailingAnchor.constraint(equalTo: dogsCollectionView.trailingAnchor, constant: -32),
             addDogButton.bottomAnchor.constraint(equalTo: dogsCollectionView.bottomAnchor, constant: -16),
             addDogButton.widthAnchor.constraint(equalToConstant: 44),
-            addDogButton.heightAnchor.constraint(equalToConstant: 44)
+            addDogButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            emptyDogsStorageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyDogsStorageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(constraint)
@@ -81,8 +97,13 @@ class ShelterViewController: UIViewController {
     private func renderViewState(state: ShelterState) {
         switch state {
         case .success(let savedDogs):
+            dogsCollectionView.isHidden = false
+            emptyDogsStorageLabel.isHidden = true
             dogs = savedDogs
             dogsCollectionView.reloadData()
+        case .empty:
+            dogsCollectionView.isHidden = true
+            emptyDogsStorageLabel.isHidden = false
         }
     }
 }

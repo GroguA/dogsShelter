@@ -83,14 +83,6 @@ class AddNewDogViewController: UIViewController {
         return button
     }()
     
-    private lazy var savedIcon: UIImageView = {
-        let icon = UIImageView()
-        icon.image = UIImage(systemName: "checkmark")
-        icon.tintColor = .systemGreen
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        return icon
-    }()
-    
     private lazy var toolBar: UIToolbar = {
        let bar = UIToolbar()
         bar.barStyle = UIBarStyle.default
@@ -126,9 +118,7 @@ class AddNewDogViewController: UIViewController {
         view.addSubview(nameTextField)
         view.addSubview(breedTextField)
         view.addSubview(saveDogButton)
-        view.addSubview(savedIcon)
         view.addSubview(dateOfBirthTextField)
-        savedIcon.isHidden = true
         navigationItem.title = "Add new dog"
 
         view.backgroundColor = .white
@@ -147,12 +137,8 @@ class AddNewDogViewController: UIViewController {
             dateOfBirthTextField.leadingAnchor.constraint(equalTo: breedTextField.leadingAnchor),
             
             saveDogButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            saveDogButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveDogButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
-            savedIcon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            savedIcon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            savedIcon.widthAnchor.constraint(equalToConstant: 44),
-            savedIcon.heightAnchor.constraint(equalToConstant: 44)
         ]
         
         NSLayoutConstraint.activate(constraints)

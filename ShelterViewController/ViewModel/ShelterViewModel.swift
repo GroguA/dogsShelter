@@ -28,12 +28,16 @@ class ShelterViewModel {
     
     func loadSavedDogs() {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
-        var displayedDogs = savedDogs.map({ dogCoreData in
-            let dogAge = getAge(dateOfBirth: dogCoreData.dateOfBirth)
-            let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: String(dogAge))
-            return dog
-        })
-        currentState = .success(dogs: displayedDogs)
+        if !savedDogs.isEmpty{
+            let displayedDogs = savedDogs.map({ dogCoreData in
+                let dogAge = getAge(dateOfBirth: dogCoreData.dateOfBirth)
+                let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: String(dogAge))
+                return dog
+            })
+            currentState = .success(dogs: displayedDogs)
+        } else {
+            currentState = .empty
+        }
     }
     
     private func getAge(dateOfBirth: String) -> Int {

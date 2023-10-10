@@ -9,4 +9,5 @@ import Foundation
 
 enum ShelterState {
     case success(dogs: [DogModel])
+    case empty
 }

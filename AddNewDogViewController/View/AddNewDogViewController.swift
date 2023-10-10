@@ -12,7 +12,7 @@ class AddNewDogViewController: UIViewController {
     private let breeds = ["German Shepherd Dog","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian"]
     
     private let viewModel = AddNewDogViewModel()
-        
+    
     private lazy var nameTextField: UITextField = {
         let name = UITextField()
         name.placeholder = "Fill name"
@@ -84,7 +84,7 @@ class AddNewDogViewController: UIViewController {
     }()
     
     private lazy var toolBar: UIToolbar = {
-       let bar = UIToolbar()
+        let bar = UIToolbar()
         bar.barStyle = UIBarStyle.default
         bar.isTranslucent = true
         bar.sizeToFit()
@@ -120,7 +120,7 @@ class AddNewDogViewController: UIViewController {
         view.addSubview(saveDogButton)
         view.addSubview(dateOfBirthTextField)
         navigationItem.title = "Add new dog"
-
+        
         view.backgroundColor = .white
         
         let constraints = [

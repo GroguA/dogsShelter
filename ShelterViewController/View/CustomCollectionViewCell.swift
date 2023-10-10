@@ -9,7 +9,7 @@ import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
     static let identifier = "dogs"
-        
+    
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0

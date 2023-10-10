@@ -58,7 +58,7 @@ class ShelterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         viewModel.loadSavedDogs()
-
+        
     }
     
     private func setupViews() {

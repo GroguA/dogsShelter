@@ -31,7 +31,7 @@ class ShelterViewModel {
         if !savedDogs.isEmpty{
             let displayedDogs = savedDogs.map({ dogCoreData in
                 let dogAge = getAge(dateOfBirth: dogCoreData.dateOfBirth)
-                let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: String(dogAge))
+                let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
                 return dog
             })
             currentState = .success(dogs: displayedDogs)
@@ -40,11 +40,11 @@ class ShelterViewModel {
         }
     }
     
-    private func getAge(dateOfBirth: String) -> Int {
+    private func getAge(dateOfBirth: String) -> String {
        let dateFormatter = DateFormatter()
        dateFormatter.dateFormat = "dd.MM.yyyy"
        guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
-           return 0
+           return "0"
        }
        let calendar = Calendar.current
        let currentDate = Date()
@@ -54,7 +54,7 @@ class ShelterViewModel {
 
        let age = currentYear - birthYear
        
-       return age
+       return String(age)
        
    }
 }

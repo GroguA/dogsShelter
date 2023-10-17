@@ -12,8 +12,8 @@ class ShelterViewController: UIViewController {
     private var dogs = [DogModel]()
     
     private let itemsPerRow: CGFloat = 1
-    private let itemsPerView: CGFloat = 13
-    private var sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    private let itemsPerView: CGFloat = 7
+    private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private let viewModel = ShelterViewModel()
     
@@ -109,8 +109,11 @@ class ShelterViewController: UIViewController {
 }
 
 extension ShelterViewController: UICollectionViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let oneDog = dogs[indexPath.row]
+        let oneDogViewController = OneDogViewController()
+        oneDogViewController.id = oneDog.id
+        navigationController?.pushViewController(oneDogViewController, animated: true)
     }
 }
 

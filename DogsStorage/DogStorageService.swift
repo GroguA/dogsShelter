@@ -33,6 +33,8 @@ class DogStorageService  {
         dogsNSManagedObject.setValue(dog.name, forKey: "name")
         dogsNSManagedObject.setValue(dog.breed, forKey: "breed")
         dogsNSManagedObject.setValue(dog.dateOfBirth, forKey: "dateOfBirth")
+        dogsNSManagedObject.setValue(dog.image, forKey: "image")
+        dogsNSManagedObject.setValue(dog.id, forKey: "id")
         
         do {
             try managedContext.save()
@@ -60,11 +62,13 @@ class DogStorageService  {
             dogsManagedObjects.forEach({ dogManagedObj in
                 guard let name = dogManagedObj.value(forKey: "name") as? String,
                       let breed = dogManagedObj.value(forKey: "breed") as? String,
-                      let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String
+                      let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
+                      let image = dogManagedObj.value(forKey: "image") as? Data,
+                      let id = dogManagedObj.value(forKey: "id") as? String
                 else {
                     return
                 }
-                let dog = DogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth)
+                let dog = DogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: id)
                 dogsArr.append(dog)
             })
         } catch let error as NSError {
@@ -72,5 +76,4 @@ class DogStorageService  {
         }
         return dogsArr
     }
-    
 }

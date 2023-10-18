@@ -12,9 +12,13 @@ class CalculateDogAge {
     
     private init() {}
     
-    func getAge(dateOfBirth: String) -> String {
+    private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
+        return dateFormatter
+    }()
+    
+    func getAge(dateOfBirth: String) -> String {
         guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
             return "0"
         }

@@ -103,6 +103,16 @@ class OneDogViewController: UIViewController {
         return label
     }()
     
+    private lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.textColor = .black
+        return label
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,6 +122,11 @@ class OneDogViewController: UIViewController {
         
         viewModel.viewStateDidChange = { viewState in
             self.renderViewState(state: viewState)
+        }
+        
+        viewModel.onAction = { action in
+            self.errorLabel.text = action.rawValue
+            self.errorLabel.isHidden = false
         }
     }
     
@@ -126,6 +141,8 @@ class OneDogViewController: UIViewController {
         titlesStackView.addArrangedSubview(breed)
         titlesStackView.addArrangedSubview(age)
         view.addSubview(titlesStackView)
+        view.addSubview(errorLabel)
+        errorLabel.isHidden = true
         
         navigationItem.title = "Dog info"
         
@@ -141,7 +158,9 @@ class OneDogViewController: UIViewController {
             
             infoStackView.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 16),
             infoStackView.leadingAnchor.constraint(lessThanOrEqualTo: titlesStackView.trailingAnchor),
-            infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+            infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
@@ -151,6 +170,7 @@ class OneDogViewController: UIViewController {
     private func renderViewState(state: OneDogState) {
         switch state {
         case .success(let dog):
+            errorLabel.isHidden = true
             dogName.text = dog.name
             dogBreed.text = dog.breed
             dogAge.text = dog.age

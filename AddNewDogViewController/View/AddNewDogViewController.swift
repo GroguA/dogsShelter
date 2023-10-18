@@ -9,7 +9,7 @@ import UIKit
 
 class AddNewDogViewController: UIViewController {
     
-    private let breeds = ["German Shepherd Dog","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian"]
+    private let breeds = ["German Shepherd","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian"]
     
     private let viewModel = AddNewDogViewModel()
     
@@ -63,6 +63,8 @@ class AddNewDogViewController: UIViewController {
         let picker = UIDatePicker()
         picker.timeZone = .current
         picker.backgroundColor = .white
+        picker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+        picker.minimumDate = Calendar.current.date(byAdding: .year, value: -30, to: Date())
         picker.datePickerMode = .date
         picker.timeZone = .autoupdatingCurrent
         picker.preferredDatePickerStyle = .wheels
@@ -94,6 +96,29 @@ class AddNewDogViewController: UIViewController {
         return bar
     }()
     
+    private lazy var dogImage: UIImageView = {
+        let defaultImage = UIImageView()
+        defaultImage.image = UIImage(systemName: "dog")
+        defaultImage.translatesAutoresizingMaskIntoConstraints = false
+        defaultImage.contentMode = .scaleAspectFit
+        return defaultImage
+    }()
+    
+    private lazy var menuItems: [UIAction] = {
+        return [
+            UIAction(title: "Gallery", image: UIImage(systemName: "photo"), handler: { photo in self.addDogPhotoFromGallery()
+            }),
+            UIAction(title: "Camera", image: UIImage(systemName: "camera"), handler: { photo in
+                self.addDogPhotoFromCamera()
+            })
+        ]
+    }()
+
+    private lazy var addDogPhotoMenu: UIMenu = {
+        return UIMenu(title: "Choose", image: nil, identifier: nil, options: [], children: menuItems)
+    }()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -112,6 +137,7 @@ class AddNewDogViewController: UIViewController {
                 self.showAlertMessage(message: action.rawValue)
             }
         }
+
     }
     
     private func setupViews() {
@@ -119,7 +145,10 @@ class AddNewDogViewController: UIViewController {
         view.addSubview(breedTextField)
         view.addSubview(saveDogButton)
         view.addSubview(dateOfBirthTextField)
+        view.addSubview(dogImage)
+        
         navigationItem.title = "Add new dog"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add dog image", menu: addDogPhotoMenu)
         
         view.backgroundColor = .white
         
@@ -136,6 +165,11 @@ class AddNewDogViewController: UIViewController {
             dateOfBirthTextField.trailingAnchor.constraint(equalTo: breedTextField.trailingAnchor),
             dateOfBirthTextField.leadingAnchor.constraint(equalTo: breedTextField.leadingAnchor),
             
+            dogImage.topAnchor.constraint(equalTo: dateOfBirthTextField.bottomAnchor, constant: 16),
+            dogImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            dogImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -16),
+            dogImage.bottomAnchor.constraint(lessThanOrEqualTo: saveDogButton.topAnchor, constant: -16),
+            
             saveDogButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             saveDogButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
@@ -148,7 +182,7 @@ class AddNewDogViewController: UIViewController {
     }
     
     @objc private func saveDogToStorage(sender: UIButton) {
-        viewModel.onAddDogBtnClicked(name: nameTextField.text, breed: breedTextField.text, dateOfBirth: dateOfBirthTextField.text)
+        viewModel.onAddDogBtnClicked(name: nameTextField.text, breed: breedTextField.text, dateOfBirth: dateOfBirthTextField.text, image: dogImage.image?.pngData())
     }
     
     @objc private func dismissKeyboard() {
@@ -166,6 +200,21 @@ class AddNewDogViewController: UIViewController {
         dateFormatter.dateFormat = "dd.MM.yyyy"
         let selectedDate: String = dateFormatter.string(from: sender.date)
         dateOfBirthTextField.text = selectedDate
+    }
+    
+    private func addDogPhotoFromGallery() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    private func addDogPhotoFromCamera() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        picker.sourceType = .camera
+        present(picker, animated: true)
     }
 }
 
@@ -196,4 +245,16 @@ extension AddNewDogViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         false
     }
+}
+
+extension AddNewDogViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[.editedImage] as? UIImage else { return }
+        self.dogImage.image = image
+    }
+}
+ 
+extension AddNewDogViewController: UINavigationControllerDelegate {
+    
 }

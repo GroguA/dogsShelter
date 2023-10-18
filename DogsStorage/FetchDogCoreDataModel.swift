@@ -7,14 +7,18 @@
 
 import Foundation
 
-class DogCoreDataModel {
+class FetchDogCoreDataModel {
     let name: String
     let breed: String
     let dateOfBirth: String
+    let image: Data
+    let id: String
     
-    init(name: String, breed: String, dateOfBirth: String) {
+    init(name: String, breed: String, dateOfBirth: String, image: Data, id: String) {
         self.name = name
         self.breed = breed
         self.dateOfBirth = dateOfBirth
+        self.image = image
+        self.id = id
     }
 }

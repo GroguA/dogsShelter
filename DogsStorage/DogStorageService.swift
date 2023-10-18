@@ -18,7 +18,7 @@ class DogStorageService  {
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     
-    func saveDog(dog: DogCoreDataModel) -> Bool {
+    func saveDog(dog: SaveDogCoreDataModel) -> Bool {
         
         guard let appDelegate = appDelegate else { return false }
         
@@ -33,7 +33,7 @@ class DogStorageService  {
         dogsNSManagedObject.setValue(dog.name, forKey: "name")
         dogsNSManagedObject.setValue(dog.breed, forKey: "breed")
         dogsNSManagedObject.setValue(dog.dateOfBirth, forKey: "dateOfBirth")
-        
+        dogsNSManagedObject.setValue(dog.image, forKey: "image")
         do {
             try managedContext.save()
             return true
@@ -43,9 +43,9 @@ class DogStorageService  {
         }
     }
     
-    func fetchSavedDogs() -> Array<DogCoreDataModel> {
+    func fetchSavedDogs() -> Array<FetchDogCoreDataModel> {
         
-        var dogsArr = [DogCoreDataModel]()
+        var dogsArr = [FetchDogCoreDataModel]()
         
         guard let appDelegate = appDelegate else {
             return []
@@ -60,11 +60,12 @@ class DogStorageService  {
             dogsManagedObjects.forEach({ dogManagedObj in
                 guard let name = dogManagedObj.value(forKey: "name") as? String,
                       let breed = dogManagedObj.value(forKey: "breed") as? String,
-                      let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String
+                      let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
+                      let image = dogManagedObj.value(forKey: "image") as? Data
                 else {
                     return
                 }
-                let dog = DogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth)
+                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
                 dogsArr.append(dog)
             })
         } catch let error as NSError {
@@ -73,4 +74,27 @@ class DogStorageService  {
         return dogsArr
     }
     
+    
+    func getOneDogById(id: String) -> FetchDogCoreDataModel? {
+        guard let appDelegate = appDelegate else {
+            return nil
+        }
+        var dog: FetchDogCoreDataModel? = nil
+        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return nil }
+        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
+        guard let objectID = objectID else { return nil }
+        let dogManagedObj = managedContext.object(with: objectID)
+        
+        guard let name = dogManagedObj.value(forKey: "name") as? String,
+              let breed = dogManagedObj.value(forKey: "breed") as? String,
+              let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
+              let image = dogManagedObj.value(forKey: "image") as? Data
+        else {
+            return nil
+        }
+        dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
+        return dog
+    }
 }
+

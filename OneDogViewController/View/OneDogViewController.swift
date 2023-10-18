@@ -107,6 +107,12 @@ class OneDogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        
+        viewModel.getOneDogByID(id: id)
+        
+        viewModel.viewStateDidChange = { viewState in
+            self.renderViewState(state: viewState)
+        }
     }
     
     private func setupViews() {
@@ -140,12 +146,16 @@ class OneDogViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
         
-        let dog = viewModel.getOneDog(id: id)
-        guard let nonOptDog = dog else { return }
-        dogName.text = nonOptDog.name
-        dogBreed.text = nonOptDog.breed
-        dogAge.text = nonOptDog.age
-        dogImage.image = UIImage(data: nonOptDog.image)
+    }
+    
+    private func renderViewState(state: OneDogState) {
+        switch state {
+        case .success(let dog):
+            dogName.text = dog.name
+            dogBreed.text = dog.breed
+            dogAge.text = dog.age
+            dogImage.image = UIImage(data: dog.image)
+        }
     }
     
 }

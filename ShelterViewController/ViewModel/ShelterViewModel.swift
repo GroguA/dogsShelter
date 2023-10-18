@@ -28,11 +28,11 @@ class ShelterViewModel {
     
     func loadSavedDogs() {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
-        if !savedDogs.isEmpty{
+        if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
-                let dogAge = getAge(dateOfBirth: dogCoreData.dateOfBirth)
+                    let dogAge = CalculateDogAge.shared.getAge(dateOfBirth: dogCoreData.dateOfBirth)
                 let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
-                return dog
+                    return dog
             })
             currentState = .success(dogs: displayedDogs)
         } else {
@@ -40,21 +40,4 @@ class ShelterViewModel {
         }
     }
     
-    private func getAge(dateOfBirth: String) -> String {
-       let dateFormatter = DateFormatter()
-       dateFormatter.dateFormat = "dd.MM.yyyy"
-       guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
-           return "0"
-       }
-       let calendar = Calendar.current
-       let currentDate = Date()
-       let currentYear = calendar.component(.year, from: currentDate)
-       
-       let birthYear = calendar.component(.year, from: dateOfBirth)
-
-       let age = currentYear - birthYear
-       
-       return String(age)
-       
-   }
 }

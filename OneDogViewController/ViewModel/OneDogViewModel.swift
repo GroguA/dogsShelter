@@ -9,32 +9,33 @@ import Foundation
 
 class OneDogViewModel {
     
-    private func getAge(dateOfBirth: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
-            return "0"
+    var viewStateDidChange: (OneDogState) -> () = { _ in } {
+        didSet {
+            guard let currentState = currentState else {
+                return
+            }
+            viewStateDidChange(currentState)
         }
-        let calendar = Calendar.current
-        let currentDate = Date()
-        let currentYear = calendar.component(.year, from: currentDate)
-        
-        let birthYear = calendar.component(.year, from: dateOfBirth)
-        
-        let age = currentYear - birthYear
-        
-        return String(age)
+    }
+    
+    var onAction: (OneDogAction) -> ()  = { _ in }
+    
+    private var currentState: OneDogState? = nil  {
+        didSet {
+            if let currentState = currentState {
+                viewStateDidChange(currentState)
+            }
+        }
+    }
+    
+    func getOneDogByID(id: String) {
+        if let dog = DogStorageService.shared.getOneDogById(id: id) {
+            let dogModel = DogModel(name: dog.name, breed: dog.breed, age: CalculateDogAge.shared.getAge(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id)
+            currentState = .success(dog: dogModel)
+        } else {
+            onAction(OneDogAction.error)
+        }
         
     }
     
-    func getOneDog(id: String) -> DogModel? {
-        let dogs = DogStorageService.shared.fetchSavedDogs()
-        let oneCoreDataDog = dogs.first(where: {dog in
-            dog.id == id})
-        if let nonOptDog = oneCoreDataDog {
-            return DogModel(name: nonOptDog.name, breed: nonOptDog.breed, age: getAge(dateOfBirth: nonOptDog.dateOfBirth), image: nonOptDog.image, id: id)
-        } else {
-            return nil
-        }
-    }
 }

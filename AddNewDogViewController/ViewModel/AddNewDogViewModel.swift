@@ -35,8 +35,7 @@ class AddNewDogViewModel {
             onAction(AddNewDogAction.editingError)
             return
         }
-        let id = UUID().uuidString
-        let dog = DogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: id)
+        let dog = SaveDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image)
         if dogStorage.saveDog(dog: dog) {
             currentState = AddNewDogState.success
         } else {

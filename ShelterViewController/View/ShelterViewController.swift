@@ -51,10 +51,8 @@ class ShelterViewController: UIViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Find dog"
-        searchController.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
         searchController.searchBar.delegate = self
-        navigationItem.searchController = searchController
         return searchController
     }()
     
@@ -79,6 +77,8 @@ class ShelterViewController: UIViewController {
         emptyDogsStorageLabel.isHidden = true
         navigationItem.title = "Dogs"
         view.addSubview(searchController.searchBar)
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
         
         let constraint = [
             dogsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -173,14 +173,12 @@ extension ShelterViewController: UISearchResultsUpdating {
       let searchBar = searchController.searchBar
       guard let text = searchBar.text else { return }
       viewModel.dogSearchByName(searchText: text)
-      dogsCollectionView.reloadData()
   }
 }
 
 extension ShelterViewController:  UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.disableSearch()
-        dogsCollectionView.reloadData()
     }
 }
 

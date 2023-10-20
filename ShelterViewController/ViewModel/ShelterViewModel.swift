@@ -26,18 +26,35 @@ class ShelterViewModel {
         }
     }
     
+    private var dogsBeforeSearch: [DogModel] = []
+        
     func loadSavedDogs() {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
-                    let dogAge = CalculateDogAge.shared.getAge(dateOfBirth: dogCoreData.dateOfBirth)
+                let dogAge = CalculateDogAge.shared.getAge(dateOfBirth: dogCoreData.dateOfBirth)
                 let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
-                    return dog
+                return dog
             })
+            dogsBeforeSearch = displayedDogs
             currentState = .success(dogs: displayedDogs)
         } else {
             currentState = .empty
         }
     }
     
+    func dogSearchByName(searchText: String, category: DogModel? = nil) {
+        if searchText.isEmpty {
+            currentState = .success(dogs: dogsBeforeSearch)
+        } else {
+            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogModel) -> Bool in
+                return dog.name.lowercased().contains(searchText.lowercased())
+            })
+            currentState = .success(dogs: filteredDogs)
+        }
+    }
+    
+    func disableSearch() {
+        currentState = .success(dogs: dogsBeforeSearch)
+    }
 }

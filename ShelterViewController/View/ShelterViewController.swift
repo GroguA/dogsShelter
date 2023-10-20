@@ -10,7 +10,7 @@ import UIKit
 class ShelterViewController: UIViewController {
     
     private var dogs = [DogModel]()
-    
+        
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 7
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -47,6 +47,15 @@ class ShelterViewController: UIViewController {
         return label
     }()
     
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Find dog"
+        definesPresentationContext = true
+        searchController.searchBar.delegate = self
+        return searchController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -58,7 +67,6 @@ class ShelterViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         viewModel.loadSavedDogs()
-        
     }
     
     private func setupViews() {
@@ -68,6 +76,9 @@ class ShelterViewController: UIViewController {
         view.addSubview(emptyDogsStorageLabel)
         emptyDogsStorageLabel.isHidden = true
         navigationItem.title = "Dogs"
+        view.addSubview(searchController.searchBar)
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
         
         let constraint = [
             dogsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -107,6 +118,7 @@ class ShelterViewController: UIViewController {
         }
     }
 }
+    
 
 extension ShelterViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -119,8 +131,8 @@ extension ShelterViewController: UICollectionViewDelegate {
 
 extension ShelterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dogs.count
-    }
+            return dogs.count
+        }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
@@ -128,8 +140,8 @@ extension ShelterViewController: UICollectionViewDataSource {
         cell.setupViews(dog: dog)
         return cell
     }
-    
 }
+    
 
 extension ShelterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -155,3 +167,18 @@ extension ShelterViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
+
+extension ShelterViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+      let searchBar = searchController.searchBar
+      guard let text = searchBar.text else { return }
+      viewModel.dogSearchByName(searchText: text)
+  }
+}
+
+extension ShelterViewController:  UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.disableSearch()
+    }
+}
+

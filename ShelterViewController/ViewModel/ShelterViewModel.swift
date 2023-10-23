@@ -43,7 +43,7 @@ class ShelterViewModel {
         }
     }
     
-    func dogSearchByName(searchText: String, category: DogModel? = nil) {
+    func dogSearchByName(searchText: String) {
         if searchText.isEmpty {
             currentState = .success(dogs: dogsBeforeSearch)
         } else {

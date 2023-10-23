@@ -121,14 +121,15 @@ class ShelterViewController: UIViewController {
     }
     
     @objc private func searchFilterButton() {
-        let nav = UINavigationController(rootViewController: FilterDogsViewController())
-        nav.modalPresentationStyle = .pageSheet
-        if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium()]
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 10
-        }
-        present(nav, animated: true)
+//        let nav = UINavigationController(rootViewController: FilterDogsViewController())
+        navigationController?.pushViewController(FilterDogsViewController(), animated: true)
+//        nav.modalPresentationStyle = .pageSheet
+//        if let sheet = nav.sheetPresentationController {
+//            sheet.detents = [.medium()]
+//            sheet.prefersGrabberVisible = true
+//            sheet.preferredCornerRadius = 10
+//        }
+//        present(nav, animated: true)
     }
 }
 

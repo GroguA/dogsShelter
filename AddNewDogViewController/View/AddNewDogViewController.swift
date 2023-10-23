@@ -9,7 +9,7 @@ import UIKit
 
 class AddNewDogViewController: UIViewController {
     
-    private let breeds = ["German Shepherd","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian"]
+    private let breeds = Breeds.shared.breeds
     
     private let viewModel = AddNewDogViewModel()
     

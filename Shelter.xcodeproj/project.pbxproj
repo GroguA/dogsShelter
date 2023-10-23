@@ -10,6 +10,7 @@
 		7C13C1092AE29EF300D14041 /* FilterDogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C1082AE29EF300D14041 /* FilterDogsViewController.swift */; };
 		7C13C10D2AE67AD200D14041 /* FilterDogsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C10C2AE67AD200D14041 /* FilterDogsViewModel.swift */; };
 		7C13C10F2AE67B0300D14041 /* FilterDogsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C10E2AE67B0300D14041 /* FilterDogsState.swift */; };
+		7C13C1112AE69BA100D14041 /* Breeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C1102AE69BA100D14041 /* Breeds.swift */; };
 		7C429FD22AC4228600D43549 /* ShelterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C429FD12AC4228600D43549 /* ShelterViewModel.swift */; };
 		7CB798252AC1BA83001E4801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB798242AC1BA83001E4801 /* AppDelegate.swift */; };
 		7CB798272AC1BA83001E4801 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB798262AC1BA83001E4801 /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 		7C13C1082AE29EF300D14041 /* FilterDogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDogsViewController.swift; sourceTree = "<group>"; };
 		7C13C10C2AE67AD200D14041 /* FilterDogsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDogsViewModel.swift; sourceTree = "<group>"; };
 		7C13C10E2AE67B0300D14041 /* FilterDogsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDogsState.swift; sourceTree = "<group>"; };
+		7C13C1102AE69BA100D14041 /* Breeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breeds.swift; sourceTree = "<group>"; };
 		7C429FD12AC4228600D43549 /* ShelterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterViewModel.swift; sourceTree = "<group>"; };
 		7CB798212AC1BA83001E4801 /* Shelter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB798242AC1BA83001E4801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				7CC0B4F62ADFCDBB007B80BD /* CalculateDogAge.swift */,
+				7C13C1102AE69BA100D14041 /* Breeds.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				7C13C10F2AE67B0300D14041 /* FilterDogsState.swift in Sources */,
 				7C429FD22AC4228600D43549 /* ShelterViewModel.swift in Sources */,
 				7CE648602AC6B79300FD5DB1 /* AddNewDogState.swift in Sources */,
+				7C13C1112AE69BA100D14041 /* Breeds.swift in Sources */,
 				7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */,
 				7CB7983D2AC1BC3D001E4801 /* ShelterViewController.swift in Sources */,
 				7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */,

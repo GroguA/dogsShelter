@@ -9,8 +9,8 @@ import UIKit
 
 class AddNewDogViewController: UIViewController {
     
-    private let breeds = ["German Shepherd","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian"]
-    
+    private let breeds = BreedsList.shared.breeds
+        
     private let viewModel = AddNewDogViewModel()
     
     private lazy var nameTextField: UITextField = {
@@ -32,9 +32,8 @@ class AddNewDogViewController: UIViewController {
         breed.autocapitalizationType = .words
         breed.borderStyle = .roundedRect
         breed.autocorrectionType = .no
-        breed.inputView = breedPicker
-        breed.inputAccessoryView = toolBar
         breed.translatesAutoresizingMaskIntoConstraints = false
+        breed.addTarget(self, action: #selector(onBreedTextFieldClicked), for: .touchDown)
         return breed
     }()
     
@@ -50,13 +49,6 @@ class AddNewDogViewController: UIViewController {
         date.inputAccessoryView = toolBar
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
-    }()
-    
-    private lazy var breedPicker: UIPickerView = {
-        let picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
-        return picker
     }()
     
     private lazy var dateOfBirthPicker: UIDatePicker = {
@@ -200,6 +192,15 @@ class AddNewDogViewController: UIViewController {
         dateFormatter.dateFormat = "dd.MM.yyyy"
         let selectedDate: String = dateFormatter.string(from: sender.date)
         dateOfBirthTextField.text = selectedDate
+    }
+    
+    @objc private func onBreedTextFieldClicked(_ sender: UITextField) {
+        let vc = SelectBreedFilterViewController()
+        vc.isSingleSelectMode = true
+        vc.doOnSingleSelect = { selectedBreed in
+            self.breedTextField.text = selectedBreed
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func addDogPhotoFromGallery() {

@@ -65,10 +65,6 @@ class ShelterViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.loadSavedDogs()
-    }
-    
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(dogsCollectionView)
@@ -79,6 +75,11 @@ class ShelterViewController: UIViewController {
         view.addSubview(searchController.searchBar)
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(openFilterView))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
+        navigationItem.leftBarButtonItem?.isHidden = true
         
         let constraint = [
             dogsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -107,18 +108,41 @@ class ShelterViewController: UIViewController {
     
     private func renderViewState(state: ShelterState) {
         switch state {
-        case .success(let savedDogs):
+        case .success(let savedDogs, let isFiltering):
             dogsCollectionView.isHidden = false
             emptyDogsStorageLabel.isHidden = true
             dogs = savedDogs
             dogsCollectionView.reloadData()
-        case .empty:
+            if isFiltering {
+                self.navigationItem.leftBarButtonItem?.isHidden = false
+            } else {
+                self.navigationItem.leftBarButtonItem?.isHidden = true
+            }
+        case .empty(let isFiltering):
+            if isFiltering {
+                self.navigationItem.leftBarButtonItem?.isHidden = false
+            } else {
+                self.navigationItem.leftBarButtonItem?.isHidden = true
+            }
             dogsCollectionView.isHidden = true
             emptyDogsStorageLabel.isHidden = false
         }
     }
-}
     
+    @objc private func openFilterView() {
+        let vc = DogsFilterViewController()
+        vc.filterByBreed = { breeds in
+            self.viewModel.onFilterSelected(breeds: breeds)
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func resetFilter() {
+        viewModel.onResetFilterTapped()
+        self.navigationItem.leftBarButtonItem?.isHidden = true
+    }
+}
+
 
 extension ShelterViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -131,8 +155,8 @@ extension ShelterViewController: UICollectionViewDelegate {
 
 extension ShelterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return dogs.count
-        }
+        return dogs.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
@@ -141,7 +165,7 @@ extension ShelterViewController: UICollectionViewDataSource {
         return cell
     }
 }
-    
+
 
 extension ShelterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -169,11 +193,11 @@ extension ShelterViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ShelterViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-      let searchBar = searchController.searchBar
-      guard let text = searchBar.text else { return }
-      viewModel.dogSearchByName(searchText: text)
-  }
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        guard let text = searchBar.text else { return }
+        viewModel.dogSearchByName(searchText: text)
+    }
 }
 
 extension ShelterViewController:  UISearchBarDelegate {

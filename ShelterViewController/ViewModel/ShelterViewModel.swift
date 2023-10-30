@@ -8,7 +8,7 @@
 import Foundation
 
 class ShelterViewModel {
-    
+        
     var viewStateDidChange: (ShelterState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
@@ -27,7 +27,7 @@ class ShelterViewModel {
     }
     
     private var dogsBeforeSearch: [DogModel] = []
-        
+    
     func loadSavedDogs() {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
@@ -37,24 +37,41 @@ class ShelterViewModel {
                 return dog
             })
             dogsBeforeSearch = displayedDogs
-            currentState = .success(dogs: displayedDogs)
+            currentState = .success(dogs: displayedDogs, isFiltering: false)
         } else {
-            currentState = .empty
+            currentState = .empty(isFiltering: false)
         }
     }
     
     func dogSearchByName(searchText: String, category: DogModel? = nil) {
         if searchText.isEmpty {
-            currentState = .success(dogs: dogsBeforeSearch)
+            currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
         } else {
             let filteredDogs = dogsBeforeSearch.filter({ (dog: DogModel) -> Bool in
                 return dog.name.lowercased().contains(searchText.lowercased())
             })
-            currentState = .success(dogs: filteredDogs)
+            currentState = .success(dogs: filteredDogs, isFiltering: false)
         }
     }
     
     func disableSearch() {
-        currentState = .success(dogs: dogsBeforeSearch)
+        currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
+    }
+    
+    func onFilterSelected(breeds: [String]) {
+        let dogs = dogsBeforeSearch.filter({ dog in
+            return breeds.contains(where: { dogBreed in
+                dog.breed == dogBreed
+            })
+        })
+        if !dogs.isEmpty {
+            currentState = .success(dogs: dogs, isFiltering: true)
+        } else {
+            currentState = .empty(isFiltering: true)
+        }
+    }
+    
+    func onResetFilterTapped() {
+        currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
     }
 }

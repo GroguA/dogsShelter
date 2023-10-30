@@ -9,5 +9,5 @@ import Foundation
 
 enum ShelterState {
     case success(dogs: [DogModel], isFiltering: Bool)
-    case empty
+    case empty(isFiltering: Bool)
 }

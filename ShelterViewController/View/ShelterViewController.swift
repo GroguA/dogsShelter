@@ -118,7 +118,12 @@ class ShelterViewController: UIViewController {
             } else {
                 self.navigationItem.leftBarButtonItem?.isHidden = true
             }
-        case .empty:
+        case .empty(let isFiltering):
+            if isFiltering {
+                self.navigationItem.leftBarButtonItem?.isHidden = false
+            } else {
+                self.navigationItem.leftBarButtonItem?.isHidden = true
+            }
             dogsCollectionView.isHidden = true
             emptyDogsStorageLabel.isHidden = false
         }

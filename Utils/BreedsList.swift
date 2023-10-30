@@ -12,6 +12,6 @@ class BreedsList {
     
     private init() {}
     
-    let breeds = ["German Shepherd","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian"]
+    let breeds = ["German Shepherd","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian", "Brussels Griffon"]
 
 }

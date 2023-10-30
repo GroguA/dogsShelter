@@ -39,7 +39,7 @@ class ShelterViewModel {
             dogsBeforeSearch = displayedDogs
             currentState = .success(dogs: displayedDogs, isFiltering: false)
         } else {
-            currentState = .empty
+            currentState = .empty(isFiltering: false)
         }
     }
     
@@ -64,7 +64,11 @@ class ShelterViewModel {
                 dog.breed == dogBreed
             })
         })
-        currentState = .success(dogs: dogs, isFiltering: true)
+        if !dogs.isEmpty {
+            currentState = .success(dogs: dogs, isFiltering: true)
+        } else {
+            currentState = .empty(isFiltering: true)
+        }
     }
     
     func onResetFilterTapped() {

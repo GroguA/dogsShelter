@@ -9,6 +9,8 @@ import Foundation
 
 class ShelterViewModel {
     
+    var isFiltering = false
+    
     var viewStateDidChange: (ShelterState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
@@ -27,7 +29,7 @@ class ShelterViewModel {
     }
     
     private var dogsBeforeSearch: [DogModel] = []
-        
+    
     func loadSavedDogs() {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
@@ -55,6 +57,21 @@ class ShelterViewModel {
     }
     
     func disableSearch() {
+        currentState = .success(dogs: dogsBeforeSearch)
+    }
+    
+    func showFilteredDogsByBreed(breeds: [String]) {
+        let dogs = dogsBeforeSearch.filter({ dog in
+            return breeds.contains(where: { dogBreed in
+                dog.breed == dogBreed
+            })
+        })
+        currentState = .success(dogs: dogs)
+        isFiltering = true
+    }
+    
+    func onResetFilterTapped() {
+        isFiltering = false
         currentState = .success(dogs: dogsBeforeSearch)
     }
 }

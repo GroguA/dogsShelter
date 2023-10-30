@@ -12,7 +12,7 @@ class ShelterViewController: UIViewController {
     private var dogs = [DogModel]()
         
     private let itemsPerRow: CGFloat = 1
-    private let itemsPerView: CGFloat = 7
+    private let itemsPerView: CGFloat = 6.5
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private let viewModel = ShelterViewModel()
@@ -65,10 +65,6 @@ class ShelterViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        viewModel.loadSavedDogs()
-    }
-    
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(dogsCollectionView)
@@ -79,6 +75,11 @@ class ShelterViewController: UIViewController {
         view.addSubview(searchController.searchBar)
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(openFilterView))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
+        navigationItem.leftBarButtonItem?.isHidden = true
         
         let constraint = [
             dogsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -117,8 +118,26 @@ class ShelterViewController: UIViewController {
             emptyDogsStorageLabel.isHidden = false
         }
     }
-}
     
+    @objc private func openFilterView() {
+        let vc = DogsFilterViewController()
+        vc.filterByBreed = { breeds in
+            self.viewModel.showFilteredDogsByBreed(breeds: breeds)
+            if self.viewModel.isFiltering {
+                self.navigationItem.leftBarButtonItem?.isHidden = false
+            } else {
+                self.navigationItem.leftBarButtonItem?.isHidden = true
+            }
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func resetFilter() {
+        viewModel.onResetFilterTapped()
+        self.navigationItem.leftBarButtonItem?.isHidden = true
+    }
+}
+
 
 extension ShelterViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -131,8 +150,8 @@ extension ShelterViewController: UICollectionViewDelegate {
 
 extension ShelterViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return dogs.count
-        }
+        return dogs.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as! CustomCollectionViewCell
@@ -141,7 +160,7 @@ extension ShelterViewController: UICollectionViewDataSource {
         return cell
     }
 }
-    
+
 
 extension ShelterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -169,11 +188,11 @@ extension ShelterViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ShelterViewController: UISearchResultsUpdating {
-  func updateSearchResults(for searchController: UISearchController) {
-      let searchBar = searchController.searchBar
-      guard let text = searchBar.text else { return }
-      viewModel.dogSearchByName(searchText: text)
-  }
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        guard let text = searchBar.text else { return }
+        viewModel.dogSearchByName(searchText: text)
+    }
 }
 
 extension ShelterViewController:  UISearchBarDelegate {

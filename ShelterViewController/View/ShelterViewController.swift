@@ -12,7 +12,7 @@ class ShelterViewController: UIViewController {
     private var dogs = [DogModel]()
         
     private let itemsPerRow: CGFloat = 1
-    private let itemsPerView: CGFloat = 6.5
+    private let itemsPerView: CGFloat = 7
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private let viewModel = ShelterViewModel()
@@ -108,11 +108,16 @@ class ShelterViewController: UIViewController {
     
     private func renderViewState(state: ShelterState) {
         switch state {
-        case .success(let savedDogs):
+        case .success(let savedDogs, let isFiltering):
             dogsCollectionView.isHidden = false
             emptyDogsStorageLabel.isHidden = true
             dogs = savedDogs
             dogsCollectionView.reloadData()
+            if isFiltering {
+                self.navigationItem.leftBarButtonItem?.isHidden = false
+            } else {
+                self.navigationItem.leftBarButtonItem?.isHidden = true
+            }
         case .empty:
             dogsCollectionView.isHidden = true
             emptyDogsStorageLabel.isHidden = false
@@ -122,12 +127,7 @@ class ShelterViewController: UIViewController {
     @objc private func openFilterView() {
         let vc = DogsFilterViewController()
         vc.filterByBreed = { breeds in
-            self.viewModel.showFilteredDogsByBreed(breeds: breeds)
-            if self.viewModel.isFiltering {
-                self.navigationItem.leftBarButtonItem?.isHidden = false
-            } else {
-                self.navigationItem.leftBarButtonItem?.isHidden = true
-            }
+            self.viewModel.onFilterSelected(breeds: breeds)
         }
         navigationController?.pushViewController(vc, animated: true)
     }

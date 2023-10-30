@@ -95,7 +95,6 @@ class DogsFilterViewController: UIViewController {
         
         let breedFilterSelectTap = UITapGestureRecognizer(target: self, action: #selector(breedFilterSelected))
         breedFilterLabel.addGestureRecognizer(breedFilterSelectTap)
-//        breedFilterIcon.addGestureRecognizer(breedFilterSelectTap)
     }
     
     @objc private func breedFilterSelected() {

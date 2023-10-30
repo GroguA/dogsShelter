@@ -20,7 +20,7 @@ class SelectBreedViewModel {
     
     var onAction: (SelectBreedAction) -> ()  = { _ in }
     
-    var isSingleSelectMode = true
+    private var isSingleSelectMode = true
     
     private var currentState: SelectBreedState? = nil  {
         didSet {

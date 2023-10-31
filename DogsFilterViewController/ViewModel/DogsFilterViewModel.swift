@@ -29,17 +29,23 @@ class DogsFilterViewModel {
     }
     
     
-    func breedsSelected(breeds: [String]) {
+    func onBreedFilterTapped(breeds: [String]) {
         currentState = .breedFilter(breeds: breeds)
     }
     
     func onApplyButtonTapped() {
         switch currentState {
         case .breedFilter(let breeds):
-            onAction(FilterDogAction.applyFilter(value: breeds))
+            onAction(FilterDogAction.applyBreedFilter(breeds: breeds))
+        case .ageFilter(let age):
+            onAction(FilterDogAction.applyAgeFilter(age: age))
         case nil:
             return
         }
+    }
+    
+    func onAgeFilterTapped(age: String) {
+        currentState = .ageFilter(age: age)
     }
     
 }

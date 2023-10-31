@@ -8,5 +8,6 @@
 import Foundation
 
 enum FilterDogAction {
-    case applyFilter(value: [String])
+    case applyBreedFilter(breeds: [String])
+    case applyAgeFilter(age: String)
 }

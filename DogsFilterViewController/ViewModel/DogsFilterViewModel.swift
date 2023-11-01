@@ -28,24 +28,33 @@ class DogsFilterViewModel {
         }
     }
     
-    
-    func onBreedFilterTapped(breeds: [String]) {
-        currentState = .breedFilter(breeds: breeds)
-    }
+
     
     func onApplyButtonTapped() {
         switch currentState {
-        case .breedFilter(let breeds):
-            onAction(FilterDogAction.applyBreedFilter(breeds: breeds))
-        case .ageFilter(let age):
-            onAction(FilterDogAction.applyAgeFilter(age: age))
+        case .success(let filter):
+            onAction(FilterDogAction.applyFilter(filter: filter))
         case nil:
             return
         }
     }
     
     func onAgeFilterTapped(age: String) {
-        currentState = .ageFilter(age: age)
+        switch currentState {
+        case .success(let filter):
+            currentState = .success(filter: FilterForDogs(breeds: filter.breeds, age: age))
+        case nil:
+            currentState = .success(filter: FilterForDogs(breeds: nil, age: age))
+        }
+    }
+    
+    func onBreedFilterTapped(breeds: [String]) {
+        switch currentState {
+        case .success(let filter):
+            currentState = .success(filter: FilterForDogs(breeds: breeds, age: filter.age))
+        case nil:
+            currentState = .success(filter: FilterForDogs(breeds: breeds, age: nil))
+        }
     }
     
 }

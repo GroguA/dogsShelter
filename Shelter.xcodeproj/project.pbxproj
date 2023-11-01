@@ -17,6 +17,7 @@
 		7C13C12A2AEBDC1100D14041 /* DogsFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C1292AEBDC1100D14041 /* DogsFilterViewModel.swift */; };
 		7C13C12D2AEBDC6200D14041 /* FilterDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C12C2AEBDC6200D14041 /* FilterDogState.swift */; };
 		7C13C12F2AEBDC9D00D14041 /* FilterDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C12E2AEBDC9D00D14041 /* FilterDogAction.swift */; };
+		7C13C1312AF12DBA00D14041 /* FilterForDogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C13C1302AF12DBA00D14041 /* FilterForDogs.swift */; };
 		7C429FD22AC4228600D43549 /* ShelterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C429FD12AC4228600D43549 /* ShelterViewModel.swift */; };
 		7CB798252AC1BA83001E4801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB798242AC1BA83001E4801 /* AppDelegate.swift */; };
 		7CB798272AC1BA83001E4801 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB798262AC1BA83001E4801 /* SceneDelegate.swift */; };
@@ -52,6 +53,7 @@
 		7C13C1292AEBDC1100D14041 /* DogsFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsFilterViewModel.swift; sourceTree = "<group>"; };
 		7C13C12C2AEBDC6200D14041 /* FilterDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDogState.swift; sourceTree = "<group>"; };
 		7C13C12E2AEBDC9D00D14041 /* FilterDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDogAction.swift; sourceTree = "<group>"; };
+		7C13C1302AF12DBA00D14041 /* FilterForDogs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterForDogs.swift; sourceTree = "<group>"; };
 		7C429FD12AC4228600D43549 /* ShelterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterViewModel.swift; sourceTree = "<group>"; };
 		7CB798212AC1BA83001E4801 /* Shelter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shelter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB798242AC1BA83001E4801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				7CC0B4F62ADFCDBB007B80BD /* CalculateDogAge.swift */,
 				7C13C1122AE9025900D14041 /* BreedsList.swift */,
+				7C13C1302AF12DBA00D14041 /* FilterForDogs.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				7C13C12F2AEBDC9D00D14041 /* FilterDogAction.swift in Sources */,
 				7C13C1132AE9025900D14041 /* BreedsList.swift in Sources */,
 				7CB798252AC1BA83001E4801 /* AppDelegate.swift in Sources */,
+				7C13C1312AF12DBA00D14041 /* FilterForDogs.swift in Sources */,
 				7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */,
 				7CC0B4F92ADFD499007B80BD /* SaveDogCoreDataModel.swift in Sources */,
 				7C13C1162AE9033400D14041 /* DogsFilterViewController.swift in Sources */,

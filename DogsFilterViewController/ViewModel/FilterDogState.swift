@@ -8,6 +8,5 @@
 import Foundation
 
 enum FilterDogState {
-    case breedFilter(breeds: [String])
-    case ageFilter(age: String)
+    case success(filter: FilterForDogs)
 }

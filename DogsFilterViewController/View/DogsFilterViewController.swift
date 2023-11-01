@@ -9,10 +9,8 @@ import UIKit
 
 class DogsFilterViewController: UIViewController {
     
-    var filterByBreed: ((_ selectedBreeds: [String]) -> Void)? = nil
-    
-    var filterByAge: ((_ age: String) -> Void)? = nil
-    
+    var filterDogs: ((_ filter: FilterForDogs) -> Void)? = nil
+        
     private var viewModel = DogsFilterViewModel()
     
     private lazy var breedFilterIcon: UIImageView = {
@@ -41,6 +39,15 @@ class DogsFilterViewController: UIViewController {
         label.textColor = .black
         label.numberOfLines = 0
         return label
+    }()
+    
+    private lazy var breedsStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 16
+        view.distribution = .equalSpacing
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private lazy var applyFilterButton: UIButton = {
@@ -100,9 +107,10 @@ class DogsFilterViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = .white
+        view.addSubview(breedsStackView)
         view.addSubview(breedFilterIcon)
-        view.addSubview(breedFilterLabel)
-        view.addSubview(selectedBreedsLabel)
+        breedsStackView.addArrangedSubview(breedFilterLabel)
+        breedsStackView.addArrangedSubview(selectedBreedsLabel)
         view.addSubview(applyFilterButton)
         navigationItem.title = "Filter"
         view.addSubview(ageFilterLabel)
@@ -117,27 +125,24 @@ class DogsFilterViewController: UIViewController {
             breedFilterIcon.heightAnchor.constraint(equalTo: breedFilterLabel.heightAnchor),
             breedFilterIcon.widthAnchor.constraint(equalTo: breedFilterIcon.heightAnchor),
             
-            breedFilterLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            breedFilterLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
-            selectedBreedsLabel.topAnchor.constraint(equalTo: breedFilterLabel.bottomAnchor, constant: 8),
-            selectedBreedsLabel.leadingAnchor.constraint(equalTo: breedFilterLabel.leadingAnchor),
-            selectedBreedsLabel.trailingAnchor.constraint(equalTo: breedFilterIcon.trailingAnchor),
+            breedsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            breedsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            breedsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             applyFilterButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
             applyFilterButton.widthAnchor.constraint(equalToConstant: 88),
             applyFilterButton.heightAnchor.constraint(equalToConstant: 44),
             applyFilterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            ageFilterLabel.topAnchor.constraint(equalTo: breedFilterLabel.bottomAnchor, constant: 16),
-            ageFilterLabel.leadingAnchor.constraint(equalTo: breedFilterLabel.leadingAnchor),
+            ageFilterLabel.topAnchor.constraint(equalTo: breedsStackView.bottomAnchor, constant: 16),
+            ageFilterLabel.leadingAnchor.constraint(equalTo: breedsStackView.leadingAnchor),
             
             ageFilterIcon.topAnchor.constraint(equalTo: ageFilterLabel.topAnchor),
             ageFilterIcon.trailingAnchor.constraint(equalTo: breedFilterIcon.trailingAnchor),
             ageFilterIcon.widthAnchor.constraint(equalTo: breedFilterIcon.widthAnchor),
             ageFilterIcon.heightAnchor.constraint(equalTo: breedFilterIcon.heightAnchor),
             
-            ageFilterTextField.topAnchor.constraint(equalTo: ageFilterLabel.bottomAnchor, constant: 8),
+            ageFilterTextField.topAnchor.constraint(equalTo: ageFilterLabel.bottomAnchor, constant: 16),
             ageFilterTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             ageFilterTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ]
@@ -166,11 +171,8 @@ class DogsFilterViewController: UIViewController {
     
     private func processAction(action: FilterDogAction) {
         switch action {
-        case .applyBreedFilter(let value):
-            self.filterByBreed?(value)
-            navigationController?.popViewController(animated: true)
-        case .applyAgeFilter(let age):
-            self.filterByAge?(age)
+        case .applyFilter(let filter):
+            self.filterDogs?(filter)
             navigationController?.popViewController(animated: true)
         }
     }
@@ -187,10 +189,10 @@ class DogsFilterViewController: UIViewController {
     
     private func rendereViewState(state: FilterDogState) {
         switch state {
-        case .breedFilter(let breeds):
-            self.selectedBreedsLabel.text = breeds.joined(separator: ", ")
-        case .ageFilter(age: let age):
-            ageFilterTextField.text = age
+        case .success(let filter):
+            if let breeds = filter.breeds {
+                self.selectedBreedsLabel.text = breeds.joined(separator: ", ")
+            }
         }
     }
     

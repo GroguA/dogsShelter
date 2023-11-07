@@ -131,11 +131,8 @@ class ShelterViewController: UIViewController {
     
     @objc private func openFilterView() {
         let vc = DogsFilterViewController()
-        vc.filterByBreed = { breeds in
-            self.viewModel.onBreedFilterSelected(breeds: breeds)
-        }
-        vc.filterByAge = { age in
-            self.viewModel.onAgeFilterSelected(age: age)
+        vc.filterDogs = { filter in
+            self.viewModel.onFilterSelected(filter: filter)
         }
         navigationController?.pushViewController(vc, animated: true)
     }

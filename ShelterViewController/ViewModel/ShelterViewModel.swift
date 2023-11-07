@@ -8,7 +8,7 @@
 import Foundation
 
 class ShelterViewModel {
-        
+    
     var viewStateDidChange: (ShelterState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
@@ -58,29 +58,28 @@ class ShelterViewModel {
         currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
     }
     
-    func onBreedFilterSelected(breeds: [String]) {
-        let dogs = dogsBeforeSearch.filter({ dog in
-            return breeds.contains(where: { dogBreed in
-                dog.breed == dogBreed
-            })
-        })
-        if !dogs.isEmpty {
-            currentState = .success(dogs: dogs, isFiltering: true)
+    func onFilterSelected(filter: FilterForDogs) {
+        let filteredDogs = dogsBeforeSearch.filter { dog in
+            if let age = filter.age, let breeds = filter.breeds {
+                return Int(age) == Int(dog.age) && breeds.contains(where: { breed in
+                    breed == dog.breed
+                })
+            } else if let age = filter.age {
+                return Int(age) == Int(dog.age)
+            } else if let breeds = filter.breeds {
+                return breeds.contains(where: { breed in
+                    breed == dog.breed
+                })
+            }
+            return false
+        }
+        if !filteredDogs.isEmpty {
+            currentState = .success(dogs: filteredDogs, isFiltering: true)
         } else {
             currentState = .empty(isFiltering: true)
         }
     }
     
-    func onAgeFilterSelected(age: String) {
-        let dogs = dogsBeforeSearch.filter({ dog in
-            return Int(dog.age) == Int(age)
-        })
-        if !dogs.isEmpty {
-            currentState = .success(dogs: dogs, isFiltering: true)
-        } else {
-            currentState = .empty(isFiltering: true)
-        }
-    }
     
     func onResetFilterTapped() {
         currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)

@@ -12,6 +12,22 @@ class BreedsList {
     
     private init() {}
     
-    let breeds = ["German Shepherd","Basset Hound","Dachshund","Beagle","Akita", "Dalmatian", "Brussels Griffon"]
-
+    private func loadJson(fileName: String) -> BreedDataModel? {
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(BreedDataModel.self, from: data)
+                return jsonData
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        return nil
+    }
+        
+    func getBreeds() -> [String] {
+        guard let dogs = loadJson(fileName: "breeds") else { return [] }
+        return dogs.breeds.map { String($0) }
+    }
 }

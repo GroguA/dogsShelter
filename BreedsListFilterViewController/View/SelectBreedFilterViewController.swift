@@ -44,8 +44,18 @@ class SelectBreedFilterViewController: UIViewController {
         return button
     }()
     
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Find breed"
+        definesPresentationContext = true
+        searchController.searchBar.delegate = self
+        return searchController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(searchController.searchBar)
         setupViews()
         viewModel.loadBreeds(isSingleSelect: isSingleSelectMode)
         viewModel.viewStateDidChange = { viewState in
@@ -60,6 +70,9 @@ class SelectBreedFilterViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(breedsCollectionView)
         navigationItem.title = "Breeds"
+        navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
         
         var constraints: [NSLayoutConstraint] = []
         
@@ -164,3 +177,18 @@ extension SelectBreedFilterViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
+
+extension SelectBreedFilterViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        guard let text = searchBar.text else { return }
+        viewModel.onSearchBarTapped(searchText: text)
+    }
+}
+
+extension SelectBreedFilterViewController:  UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.disableSearch()
+    }
+}
+

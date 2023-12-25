@@ -35,6 +35,7 @@
 		7CC0B4F92ADFD499007B80BD /* SaveDogCoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4F82ADFD499007B80BD /* SaveDogCoreDataModel.swift */; };
 		7CC0B4FB2ADFE5BC007B80BD /* OneDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FA2ADFE5BC007B80BD /* OneDogState.swift */; };
 		7CC0B4FD2ADFE712007B80BD /* OneDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FC2ADFE712007B80BD /* OneDogAction.swift */; };
+		7CDB88972B34507D0081886F /* SelectableBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB88962B34507D0081886F /* SelectableBreed.swift */; };
 		7CE648602AC6B79300FD5DB1 /* AddNewDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */; };
 		7CE648622AC6B7D800FD5DB1 /* AddNewDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */; };
 		7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */; };
@@ -75,6 +76,7 @@
 		7CC0B4F82ADFD499007B80BD /* SaveDogCoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDogCoreDataModel.swift; sourceTree = "<group>"; };
 		7CC0B4FA2ADFE5BC007B80BD /* OneDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogState.swift; sourceTree = "<group>"; };
 		7CC0B4FC2ADFE712007B80BD /* OneDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogAction.swift; sourceTree = "<group>"; };
+		7CDB88962B34507D0081886F /* SelectableBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableBreed.swift; sourceTree = "<group>"; };
 		7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogState.swift; sourceTree = "<group>"; };
 		7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogAction.swift; sourceTree = "<group>"; };
 		7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogViewModel.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		7C13C1182AE906B300D14041 /* BreedsListFilterViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7CDB88952B3450570081886F /* Model */,
 				7C13C11E2AEA5B6200D14041 /* ViewModel */,
 				7C13C11B2AE9080100D14041 /* View */,
 			);
@@ -296,6 +299,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		7CDB88952B3450570081886F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7CDB88962B34507D0081886F /* SelectableBreed.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7CE6485D2AC6B76F00FD5DB1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CE648622AC6B7D800FD5DB1 /* AddNewDogAction.swift in Sources */,
+				7CDB88972B34507D0081886F /* SelectableBreed.swift in Sources */,
 				7C13C11A2AE906D100D14041 /* SelectBreedFilterViewController.swift in Sources */,
 				7C429FD22AC4228600D43549 /* ShelterViewModel.swift in Sources */,
 				7CE648602AC6B79300FD5DB1 /* AddNewDogState.swift in Sources */,

@@ -9,7 +9,7 @@ import UIKit
 
 class SelectBreedFilterViewController: UIViewController {
     
-    private var breeds: [String] = []
+    private var breeds: [SelectableBreed] = []
     
     private let viewModel = SelectBreedViewModel()
     
@@ -123,12 +123,7 @@ class SelectBreedFilterViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped() {
-        let indecies = breedsCollectionView.indexPathsForSelectedItems?.map({ index in
-            return index.row
-        })
-        guard let nonOptIndecies = indecies else { return }
-        
-        viewModel.onDoneButtonClicked(indecies: nonOptIndecies)
+        viewModel.onDoneButtonClicked()
     }
 }
 

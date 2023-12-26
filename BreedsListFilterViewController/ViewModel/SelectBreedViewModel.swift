@@ -54,10 +54,8 @@ class SelectBreedViewModel {
                 if let breedIndex = breedIndex {
                     if !breedsBeforeSearch[breedIndex].isSelected == true {
                         breedsBeforeSearch[breedIndex].isSelected = true
-                        currentState = .success(breeds: breedsBeforeSearch)
                     } else {
                         breedsBeforeSearch[breedIndex].isSelected = false
-                        currentState = .success(breeds: breedsBeforeSearch)
                     }
                 }
             }
@@ -67,7 +65,9 @@ class SelectBreedViewModel {
     
     func onDoneButtonClicked() {
         if case .success(let breeds) = currentState {
-            onAction(SelectBreedAction.closeWithBreeds(breeds: breeds.map({ $0.breed })))
+            var selectedBreeds = breeds.filter({$0.isSelected})
+            onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed
+            })))
         }
     }
     

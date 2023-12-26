@@ -45,7 +45,7 @@ class ShelterViewModel {
     
     func dogSearchByName(searchText: String) {
         if searchText.isEmpty {
-            currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
+            currentState = .empty(isFiltering: false)
         } else {
             let filteredDogs = dogsBeforeSearch.filter({ (dog: DogModel) -> Bool in
                 return dog.name.lowercased().contains(searchText.lowercased())
@@ -55,7 +55,11 @@ class ShelterViewModel {
     }
     
     func disableSearch() {
-        currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
+        if !dogsBeforeSearch.isEmpty {
+            currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
+        } else {
+            currentState = .empty(isFiltering: false)
+        }
     }
     
     func onFilterSelected(filter: FilterForDogs) {

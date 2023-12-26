@@ -9,4 +9,5 @@ import Foundation
 
 enum OneDogAction: String {
     case error = "Error"
+    case deleteDog
 }

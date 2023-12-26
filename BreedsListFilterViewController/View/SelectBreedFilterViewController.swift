@@ -50,6 +50,8 @@ class SelectBreedFilterViewController: UIViewController {
         searchController.searchBar.placeholder = "Find breed"
         definesPresentationContext = true
         searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
         return searchController
     }()
     
@@ -58,6 +60,7 @@ class SelectBreedFilterViewController: UIViewController {
         view.addSubview(searchController.searchBar)
         setupViews()
         viewModel.loadBreeds(isSingleSelect: isSingleSelectMode)
+        
         viewModel.viewStateDidChange = { viewState in
             self.renderViewState(state: viewState)
         }
@@ -71,8 +74,7 @@ class SelectBreedFilterViewController: UIViewController {
         view.addSubview(breedsCollectionView)
         navigationItem.title = "Breeds"
         navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         
         var constraints: [NSLayoutConstraint] = []
         

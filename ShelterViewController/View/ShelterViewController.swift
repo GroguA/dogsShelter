@@ -10,7 +10,7 @@ import UIKit
 class ShelterViewController: UIViewController {
     
     private var dogs = [DogModel]()
-        
+    
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 7
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -51,10 +51,17 @@ class ShelterViewController: UIViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = "Find dog"
-        definesPresentationContext = true
+        definesPresentationContext = false
         searchController.searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         return searchController
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        viewModel.loadSavedDogs()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,10 +79,9 @@ class ShelterViewController: UIViewController {
         view.addSubview(emptyDogsStorageLabel)
         emptyDogsStorageLabel.isHidden = true
         navigationItem.title = "Dogs"
-        view.addSubview(searchController.searchBar)
         navigationItem.searchController = searchController
-        searchController.obscuresBackgroundDuringPresentation = false
-        
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(openFilterView))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
@@ -111,8 +117,9 @@ class ShelterViewController: UIViewController {
         case .success(let savedDogs, let isFiltering):
             dogsCollectionView.isHidden = false
             emptyDogsStorageLabel.isHidden = true
-            dogs = savedDogs
             dogsCollectionView.reloadData()
+            dogs = savedDogs
+
             if isFiltering {
                 self.navigationItem.leftBarButtonItem?.isHidden = false
             } else {
@@ -196,11 +203,13 @@ extension ShelterViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         guard let text = searchBar.text else { return }
-        viewModel.dogSearchByName(searchText: text)
+        if !text.isEmpty {
+            viewModel.dogSearchByName(searchText: text)
+        }
     }
 }
 
-extension ShelterViewController:  UISearchBarDelegate {
+extension ShelterViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.disableSearch()
     }

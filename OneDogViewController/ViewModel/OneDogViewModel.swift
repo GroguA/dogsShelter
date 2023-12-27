@@ -38,4 +38,12 @@ class OneDogViewModel {
         
     }
     
+    func deleteDogByID(id: String) {
+        if !DogStorageService.shared.deleteDog(id: id) {
+            onAction(OneDogAction.error)
+        } else {
+            onAction(OneDogAction.deleteDog)
+        }
+    }
+    
 }

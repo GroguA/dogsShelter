@@ -9,7 +9,7 @@ import UIKit
 
 class SelectBreedFilterViewController: UIViewController {
     
-    private var breeds: [String] = []
+    private var breeds: [SelectableBreed] = []
     
     private let viewModel = SelectBreedViewModel()
     
@@ -44,10 +44,23 @@ class SelectBreedFilterViewController: UIViewController {
         return button
     }()
     
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Find breed"
+        definesPresentationContext = true
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        return searchController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(searchController.searchBar)
         setupViews()
         viewModel.loadBreeds(isSingleSelect: isSingleSelectMode)
+        
         viewModel.viewStateDidChange = { viewState in
             self.renderViewState(state: viewState)
         }
@@ -60,6 +73,8 @@ class SelectBreedFilterViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(breedsCollectionView)
         navigationItem.title = "Breeds"
+        navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         
         var constraints: [NSLayoutConstraint] = []
         
@@ -110,12 +125,7 @@ class SelectBreedFilterViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped() {
-        let indecies = breedsCollectionView.indexPathsForSelectedItems?.map({ index in
-            return index.row
-        })
-        guard let nonOptIndecies = indecies else { return }
-        
-        viewModel.onDoneButtonClicked(indecies: nonOptIndecies)
+        viewModel.onDoneButtonClicked()
     }
 }
 
@@ -164,3 +174,18 @@ extension SelectBreedFilterViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
+
+extension SelectBreedFilterViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        guard let text = searchBar.text else { return }
+        viewModel.onSearchBarTapped(searchText: text)
+    }
+}
+
+extension SelectBreedFilterViewController:  UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.disableSearch()
+    }
+}
+

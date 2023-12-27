@@ -14,10 +14,7 @@ class BreedsCollectionViewCell: UICollectionViewCell {
         didSet {
             if isSelected {
                 selectBreedImage.image = UIImage(systemName: "circle.fill")
-            }
-        }
-        willSet {
-            if isSelected {
+            } else {
                 selectBreedImage.image = UIImage(systemName: "circle")
             }
         }
@@ -37,11 +34,17 @@ class BreedsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setupViews(breed: String) {
+    func setupViews(breed: SelectableBreed) {
         contentView.addSubview(selectBreedImage)
         contentView.addSubview(breedLabel)
         
-        breedLabel.text = breed
+        breedLabel.text = breed.breed
+        
+        if breed.isSelected {
+            selectBreedImage.image = UIImage(systemName: "circle.fill")
+        } else {
+            selectBreedImage.image = UIImage(systemName: "circle")
+        }
         
         let constraints = [
             selectBreedImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),

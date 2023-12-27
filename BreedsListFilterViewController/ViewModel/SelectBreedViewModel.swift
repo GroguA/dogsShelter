@@ -8,7 +8,7 @@
 import Foundation
 
 class SelectBreedViewModel {
-        
+    
     var viewStateDidChange: (SelectBreedState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
@@ -22,6 +22,10 @@ class SelectBreedViewModel {
     
     private var isSingleSelectMode = true
     
+    private var breedsBeforeSearch: [SelectableBreed] = BreedsList.shared.getBreeds().map({ breed in
+        return SelectableBreed(breed: breed, isSelected: false)
+    })
+    
     private var currentState: SelectBreedState? = nil  {
         didSet {
             if let currentState = currentState {
@@ -32,21 +36,54 @@ class SelectBreedViewModel {
     
     func loadBreeds(isSingleSelect: Bool) {
         isSingleSelectMode = isSingleSelect
-        currentState = .success(breeds: BreedsList.shared.breeds)
+        currentState = .success(breeds: breedsBeforeSearch)
     }
     
     func onDogClicked(dogIndex: Int) {
         if isSingleSelectMode {
-            let breed = BreedsList.shared.breeds[dogIndex]
-            onAction(SelectBreedAction.closeWithBreed(breed: breed))
+            if case .success(let breeds) = currentState {
+                let breed = breeds[dogIndex].breed
+                onAction(SelectBreedAction.closeWithBreed(breed: breed))
+            }
+        } else {
+            if case .success(let breeds) = currentState {
+                let currentBreedName = breeds[dogIndex].breed
+                let breedIndex = breedsBeforeSearch.firstIndex(where: { selectableBreed in
+                    selectableBreed.breed == currentBreedName
+                })
+                if let breedIndex = breedIndex {
+                    if !breedsBeforeSearch[breedIndex].isSelected == true {
+                        breedsBeforeSearch[breedIndex].isSelected = true
+                    } else {
+                        breedsBeforeSearch[breedIndex].isSelected = false
+                    }
+                }
+            }
         }
     }
-    func onDoneButtonClicked(indecies: [Int]) {
-        let breeds = BreedsList.shared.breeds
-        let selectedBreeds = indecies.map({ index in
-            return breeds[index]
-        })
-        onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds))
+    
+    
+    func onDoneButtonClicked() {
+        if case .success(let breeds) = currentState {
+            var selectedBreeds = breeds.filter({$0.isSelected})
+            onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed
+            })))
+        }
+    }
+    
+    func onSearchBarTapped(searchText: String) {
+        if searchText.isEmpty {
+            currentState = .success(breeds: breedsBeforeSearch)
+        } else {
+            let filteredBreeds = breedsBeforeSearch.filter({ breed in
+                return breed.breed.lowercased().contains(searchText.lowercased())
+            })
+            currentState = .success(breeds: filteredBreeds)
+        }
+    }
+    
+    func disableSearch() {
+        currentState = .success(breeds: breedsBeforeSearch)
     }
     
 }

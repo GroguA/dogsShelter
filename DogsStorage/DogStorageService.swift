@@ -74,7 +74,6 @@ class DogStorageService  {
         return dogsArr
     }
     
-    
     func getOneDogById(id: String) -> FetchDogCoreDataModel? {
         guard let appDelegate = appDelegate else {
             return nil
@@ -95,6 +94,27 @@ class DogStorageService  {
         }
         dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
         return dog
+    }
+    
+    func deleteDog(id: String) -> Bool {
+        guard let appDelegate = appDelegate else {
+            return false
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false }
+        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
+        guard let objectID = objectID else { return false }
+        let dogManagedObj = managedContext.object(with: objectID)
+        
+        managedContext.delete(dogManagedObj)
+        
+        do {
+            try managedContext.save()
+            return true
+        } catch let error as NSError {
+            print("Could not delete this object. \(error), \(error.userInfo)")
+            return false
+        }
     }
 }
 

@@ -19,7 +19,7 @@ class DogsFilterViewModel {
     }
     
     var onAction: (FilterDogAction) -> ()  = { _ in }
-        
+    
     private var currentState: FilterDogState? = nil  {
         didSet {
             if let currentState = currentState {
@@ -27,8 +27,6 @@ class DogsFilterViewModel {
             }
         }
     }
-    
-
     
     func onApplyButtonTapped() {
         switch currentState {

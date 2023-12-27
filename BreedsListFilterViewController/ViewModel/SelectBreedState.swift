@@ -8,5 +8,5 @@
 import Foundation
 
 enum SelectBreedState {
-    case success(breeds: [String])
+    case success(breeds: [SelectableBreed])
 }

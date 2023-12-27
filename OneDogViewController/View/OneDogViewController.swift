@@ -125,9 +125,17 @@ class OneDogViewController: UIViewController {
         }
         
         viewModel.onAction = { action in
-            self.errorLabel.text = action.rawValue
-            self.errorLabel.isHidden = false
+            if action == .error {
+                self.errorLabel.text = action.rawValue
+                self.errorLabel.isHidden = false
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteDogTapped))
+        self.navigationItem.rightBarButtonItem?.tintColor = .red
+
     }
     
     private func setupViews() {
@@ -176,6 +184,10 @@ class OneDogViewController: UIViewController {
             dogAge.text = dog.age
             dogImage.image = UIImage(data: dog.image)
         }
+    }
+    
+    @objc private func deleteDogTapped() {
+        viewModel.deleteDogByID(id: id)
     }
     
 }

@@ -125,10 +125,11 @@ class OneDogViewController: UIViewController {
         }
         
         viewModel.onAction = { action in
-            if action == .error {
+            switch action {
+            case .error:
                 self.errorLabel.text = action.rawValue
                 self.errorLabel.isHidden = false
-            } else {
+            case .deleteDog:
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -187,7 +188,7 @@ class OneDogViewController: UIViewController {
     }
     
     @objc private func deleteDogTapped() {
-        viewModel.deleteDogByID(id: id)
+        viewModel.deleteDogClicked(id: id)
     }
     
 }

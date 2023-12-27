@@ -29,6 +29,11 @@ class ShelterViewModel {
     private var dogsBeforeSearch: [DogModel] = []
     
     func loadSavedDogs() {
+        if case .success(let dogs, let isFiltering) = currentState {
+            if isFiltering {
+                return
+            }
+        }
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in

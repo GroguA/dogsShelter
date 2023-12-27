@@ -61,12 +61,12 @@ class ShelterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         viewModel.loadSavedDogs()
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        viewModel.loadSavedDogs()
         viewModel.viewStateDidChange = { viewState in
             self.renderViewState(state: viewState)
         }
@@ -119,7 +119,6 @@ class ShelterViewController: UIViewController {
             emptyDogsStorageLabel.isHidden = true
             dogsCollectionView.reloadData()
             dogs = savedDogs
-
             if isFiltering {
                 self.navigationItem.leftBarButtonItem?.isHidden = false
             } else {

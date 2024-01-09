@@ -7,8 +7,8 @@
 
 import Foundation
 
-class CalculateDogAge {
-    static let shared = CalculateDogAge()
+class CalculateDates {
+    static let shared = CalculateDates()
     
     private init() {}
     
@@ -18,7 +18,7 @@ class CalculateDogAge {
         return dateFormatter
     }()
     
-    func getAge(dateOfBirth: String) -> String {
+    func getDogAge(dateOfBirth: String) -> String {
         guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
             return "0"
         }
@@ -32,5 +32,9 @@ class CalculateDogAge {
         
         return String(age)
         
+    }
+    
+    func getCurrentDate()  -> String {
+        return dateFormatter.string(from: Date())
     }
 }

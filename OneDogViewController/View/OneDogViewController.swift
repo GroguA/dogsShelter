@@ -77,7 +77,7 @@ class OneDogViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "name: "
+        label.text = "Name: "
         return label
     }()
     
@@ -88,7 +88,7 @@ class OneDogViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "breed: "
+        label.text = "Breed: "
         return label
     }()
     
@@ -99,7 +99,7 @@ class OneDogViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "age: "
+        label.text = "Age: "
         return label
     }()
     
@@ -113,6 +113,39 @@ class OneDogViewController: UIViewController {
         return label
     }()
     
+    private lazy var dateOfWashTitle: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.text = "Dog's last wash: "
+        return label
+    }()
+    
+    private lazy var lastDogsWash: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.text = "None"
+        return label
+    }()
+    
+    private lazy var updateWashDateButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Dog washed", for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 8
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(updateDogsWash), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,10 +160,12 @@ class OneDogViewController: UIViewController {
         viewModel.onAction = { action in
             switch action {
             case .error:
-                self.errorLabel.text = action.rawValue
+                self.errorLabel.text = "Error"
                 self.errorLabel.isHidden = false
             case .deleteDog:
                 self.navigationController?.popViewController(animated: true)
+            case .updateDogWashDate(let date):
+                self.lastDogsWash.text = date
             }
         }
         
@@ -145,13 +180,16 @@ class OneDogViewController: UIViewController {
         infoStackView.addArrangedSubview(dogName)
         infoStackView.addArrangedSubview(dogBreed)
         infoStackView.addArrangedSubview(dogAge)
+        infoStackView.addArrangedSubview(lastDogsWash)
         view.addSubview(infoStackView)
         titlesStackView.addArrangedSubview(name)
         titlesStackView.addArrangedSubview(breed)
         titlesStackView.addArrangedSubview(age)
+        titlesStackView.addArrangedSubview(dateOfWashTitle)
         view.addSubview(titlesStackView)
         view.addSubview(errorLabel)
         errorLabel.isHidden = true
+        view.addSubview(updateWashDateButton)
         
         navigationItem.title = "Dog info"
         
@@ -166,10 +204,15 @@ class OneDogViewController: UIViewController {
             titlesStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
             infoStackView.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 16),
-            infoStackView.leadingAnchor.constraint(lessThanOrEqualTo: titlesStackView.trailingAnchor),
+            infoStackView.leadingAnchor.constraint(lessThanOrEqualTo: titlesStackView.trailingAnchor, constant: 4),
             infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
-            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            updateWashDateButton.leadingAnchor.constraint(equalTo: infoStackView.trailingAnchor, constant: 16),
+            updateWashDateButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            updateWashDateButton.bottomAnchor.constraint(equalTo: titlesStackView.bottomAnchor)
+            
         ]
         
         NSLayoutConstraint.activate(constraints)
@@ -189,6 +232,10 @@ class OneDogViewController: UIViewController {
     
     @objc private func deleteDogTapped() {
         viewModel.deleteDogClicked(id: id)
+    }
+    
+    @objc private func updateDogsWash() {
+        viewModel.updateDogWashClicked(id: id)
     }
     
 }

@@ -7,7 +7,9 @@
 
 import Foundation
 
-enum OneDogAction: String {
-    case error = "Error"
+enum OneDogAction {
+    case error
     case deleteDog
+    case updateDogWashDate(date: String)
 }
+

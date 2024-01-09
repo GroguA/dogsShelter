@@ -116,5 +116,28 @@ class DogStorageService  {
             return false
         }
     }
+    
+    func saveDogsDateOfWash(id: String, date: String) -> Bool {
+        
+        guard let appDelegate = appDelegate else { return false }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false }
+        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
+        guard let objectID = objectID else { return false }
+        let dogManagedObj = managedContext.object(with: objectID)
+        
+        dogManagedObj.setValue(date, forKey: "dateOfWash")
+        
+        do {
+            try managedContext.save()
+            return true
+        } catch let error as NSError {
+            print("Could not save this date. \(error), \(error.userInfo)")
+            return false
+        }
+        
+    }
+    
 }
-

@@ -31,7 +31,7 @@
 		7CB7984A2AC41FE7001E4801 /* ShelterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB798492AC41FE7001E4801 /* ShelterState.swift */; };
 		7CC0B4F22ADE75E3007B80BD /* OneDogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4F12ADE75E3007B80BD /* OneDogViewController.swift */; };
 		7CC0B4F42ADE8070007B80BD /* OneDogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4F32ADE8070007B80BD /* OneDogViewModel.swift */; };
-		7CC0B4F72ADFCDBB007B80BD /* CalculateDogAge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4F62ADFCDBB007B80BD /* CalculateDogAge.swift */; };
+		7CC0B4F72ADFCDBB007B80BD /* CalculateDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4F62ADFCDBB007B80BD /* CalculateDates.swift */; };
 		7CC0B4F92ADFD499007B80BD /* SaveDogCoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4F82ADFD499007B80BD /* SaveDogCoreDataModel.swift */; };
 		7CC0B4FB2ADFE5BC007B80BD /* OneDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FA2ADFE5BC007B80BD /* OneDogState.swift */; };
 		7CC0B4FD2ADFE712007B80BD /* OneDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FC2ADFE712007B80BD /* OneDogAction.swift */; };
@@ -72,7 +72,7 @@
 		7CB798492AC41FE7001E4801 /* ShelterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterState.swift; sourceTree = "<group>"; };
 		7CC0B4F12ADE75E3007B80BD /* OneDogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogViewController.swift; sourceTree = "<group>"; };
 		7CC0B4F32ADE8070007B80BD /* OneDogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogViewModel.swift; sourceTree = "<group>"; };
-		7CC0B4F62ADFCDBB007B80BD /* CalculateDogAge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateDogAge.swift; sourceTree = "<group>"; };
+		7CC0B4F62ADFCDBB007B80BD /* CalculateDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateDates.swift; sourceTree = "<group>"; };
 		7CC0B4F82ADFD499007B80BD /* SaveDogCoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDogCoreDataModel.swift; sourceTree = "<group>"; };
 		7CC0B4FA2ADFE5BC007B80BD /* OneDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogState.swift; sourceTree = "<group>"; };
 		7CC0B4FC2ADFE712007B80BD /* OneDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogAction.swift; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 		7CC0B4F52ADFCD9B007B80BD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				7CC0B4F62ADFCDBB007B80BD /* CalculateDogAge.swift */,
+				7CC0B4F62ADFCDBB007B80BD /* CalculateDates.swift */,
 				7C13C1122AE9025900D14041 /* BreedsList.swift */,
 				7C13C1302AF12DBA00D14041 /* FilterForDogs.swift */,
 			);
@@ -416,7 +416,7 @@
 				7C13C1222AEA5BC100D14041 /* SelectBreedState.swift in Sources */,
 				7CE6489F2ACFF69400FD5DB1 /* DogModel.swift in Sources */,
 				7CC0B4FD2ADFE712007B80BD /* OneDogAction.swift in Sources */,
-				7CC0B4F72ADFCDBB007B80BD /* CalculateDogAge.swift in Sources */,
+				7CC0B4F72ADFCDBB007B80BD /* CalculateDates.swift in Sources */,
 				7CB798482AC1D138001E4801 /* CustomCollectionViewCell.swift in Sources */,
 				7C13C12D2AEBDC6200D14041 /* FilterDogState.swift in Sources */,
 				7C13C1272AEA5C8E00D14041 /* SelectBreedAction.swift in Sources */,

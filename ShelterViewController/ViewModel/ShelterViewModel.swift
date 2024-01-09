@@ -37,7 +37,7 @@ class ShelterViewModel {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
-                let dogAge = CalculateDogAge.shared.getAge(dateOfBirth: dogCoreData.dateOfBirth)
+                let dogAge = CalculateDates.shared.getDogAge(dateOfBirth: dogCoreData.dateOfBirth)
                 let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
                 return dog
             })

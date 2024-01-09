@@ -30,7 +30,7 @@ class OneDogViewModel {
     
     func getOneDogByID(id: String) {
         if let dog = DogStorageService.shared.getOneDogById(id: id) {
-            let dogModel = DogModel(name: dog.name, breed: dog.breed, age: CalculateDogAge.shared.getAge(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id)
+            let dogModel = DogModel(name: dog.name, breed: dog.breed, age: CalculateDates.shared.getDogAge(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id)
             currentState = .success(dog: dogModel)
         } else {
             onAction(OneDogAction.error)
@@ -46,4 +46,12 @@ class OneDogViewModel {
         }
     }
     
+    func updateDogWashClicked(id: String) {
+        let date = CalculateDates.shared.getCurrentDate()
+        if DogStorageService.shared.saveDogsDateOfWash(id: id, date: date) {
+            onAction(OneDogAction.updateDogWashDate(date: date))
+        } else {
+            onAction(OneDogAction.error)
+        }
+    }
 }

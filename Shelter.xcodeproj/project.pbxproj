@@ -36,13 +36,14 @@
 		7CC0B4FB2ADFE5BC007B80BD /* OneDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FA2ADFE5BC007B80BD /* OneDogState.swift */; };
 		7CC0B4FD2ADFE712007B80BD /* OneDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FC2ADFE712007B80BD /* OneDogAction.swift */; };
 		7CDB88972B34507D0081886F /* SelectableBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB88962B34507D0081886F /* SelectableBreed.swift */; };
+		7CDB889A2B4E94EE0081886F /* OneDogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB88992B4E94EE0081886F /* OneDogModel.swift */; };
 		7CE648602AC6B79300FD5DB1 /* AddNewDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */; };
 		7CE648622AC6B7D800FD5DB1 /* AddNewDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */; };
 		7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */; };
 		7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648932ACC6A1800FD5DB1 /* DogStorageService.swift */; };
 		7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648952ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld */; };
 		7CE6489B2ACD814B00FD5DB1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6489A2ACD814B00FD5DB1 /* .gitignore */; };
-		7CE6489F2ACFF69400FD5DB1 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6489E2ACFF69400FD5DB1 /* DogModel.swift */; };
+		7CE6489F2ACFF69400FD5DB1 /* ShelterDogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6489E2ACFF69400FD5DB1 /* ShelterDogModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,13 +78,14 @@
 		7CC0B4FA2ADFE5BC007B80BD /* OneDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogState.swift; sourceTree = "<group>"; };
 		7CC0B4FC2ADFE712007B80BD /* OneDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogAction.swift; sourceTree = "<group>"; };
 		7CDB88962B34507D0081886F /* SelectableBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectableBreed.swift; sourceTree = "<group>"; };
+		7CDB88992B4E94EE0081886F /* OneDogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDogModel.swift; sourceTree = "<group>"; };
 		7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogState.swift; sourceTree = "<group>"; };
 		7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogAction.swift; sourceTree = "<group>"; };
 		7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogViewModel.swift; sourceTree = "<group>"; };
 		7CE648932ACC6A1800FD5DB1 /* DogStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStorageService.swift; sourceTree = "<group>"; };
 		7CE648962ACD63B400FD5DB1 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		7CE6489A2ACD814B00FD5DB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		7CE6489E2ACFF69400FD5DB1 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
+		7CE6489E2ACFF69400FD5DB1 /* ShelterDogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterDogModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 		7CC0B4EE2ADE753A007B80BD /* OneDogViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7CDB88982B4E94DF0081886F /* Model */,
 				7CC0B4EF2ADE759C007B80BD /* View */,
 				7CC0B4F02ADE75A7007B80BD /* ViewModel */,
 			);
@@ -307,6 +310,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		7CDB88982B4E94DF0081886F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7CDB88992B4E94EE0081886F /* OneDogModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7CE6485D2AC6B76F00FD5DB1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,7 +339,7 @@
 		7CE6489C2ACFF67B00FD5DB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7CE6489E2ACFF69400FD5DB1 /* DogModel.swift */,
+				7CE6489E2ACFF69400FD5DB1 /* ShelterDogModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -414,7 +425,7 @@
 				7CB7983D2AC1BC3D001E4801 /* ShelterViewController.swift in Sources */,
 				7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */,
 				7C13C1222AEA5BC100D14041 /* SelectBreedState.swift in Sources */,
-				7CE6489F2ACFF69400FD5DB1 /* DogModel.swift in Sources */,
+				7CE6489F2ACFF69400FD5DB1 /* ShelterDogModel.swift in Sources */,
 				7CC0B4FD2ADFE712007B80BD /* OneDogAction.swift in Sources */,
 				7CC0B4F72ADFCDBB007B80BD /* CalculateDates.swift in Sources */,
 				7CB798482AC1D138001E4801 /* CustomCollectionViewCell.swift in Sources */,
@@ -429,6 +440,7 @@
 				7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */,
 				7CC0B4F92ADFD499007B80BD /* SaveDogCoreDataModel.swift in Sources */,
 				7C13C1162AE9033400D14041 /* DogsFilterViewController.swift in Sources */,
+				7CDB889A2B4E94EE0081886F /* OneDogModel.swift in Sources */,
 				7CB7984A2AC41FE7001E4801 /* ShelterState.swift in Sources */,
 				7CB798462AC1CCCF001E4801 /* FetchDogCoreDataModel.swift in Sources */,
 				7C13C11D2AE9082D00D14041 /* BreedsCollectionViewCell.swift in Sources */,

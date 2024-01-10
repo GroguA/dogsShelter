@@ -135,13 +135,22 @@ class OneDogViewController: UIViewController {
     }()
     
     private lazy var updateWashDateButton: UIButton = {
-        let button = UIButton()
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = .systemBlue
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
+        let button = UIButton(configuration: configuration)
         button.setTitle("Wash dog", for: .normal)
         button.tintColor = .white
+        button.configuration?.titleTextAttributesTransformer =
+        UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            return outgoing
+        }
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
         button.isEnabled = true
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        button.setTitleColor(.black, for: .disabled)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(updateDogsWash), for: .touchUpInside)
         return button
@@ -174,7 +183,7 @@ class OneDogViewController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteDogTapped))
         self.navigationItem.rightBarButtonItem?.tintColor = .red
-
+        
     }
     
     private func setupViews() {

@@ -1,13 +1,13 @@
 //
-//  DogModel.swift
+//  OneDogModel.swift
 //  Shelter
 //
-//  Created by Александра Сергеева on 06.10.2023.
+//  Created by Александра Сергеева on 10.01.2024.
 //
 
 import Foundation
 
-class DogModel {
+class OneDogModel {
     let name: String
     let breed: String
     let age: String

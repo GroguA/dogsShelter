@@ -8,5 +8,5 @@
 import Foundation
 
 enum OneDogState {
-    case success(dog: DogModel)
+    case success(dog: OneDogModel)
 }

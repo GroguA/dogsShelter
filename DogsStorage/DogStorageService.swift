@@ -61,12 +61,11 @@ class DogStorageService  {
                 guard let name = dogManagedObj.value(forKey: "name") as? String,
                       let breed = dogManagedObj.value(forKey: "breed") as? String,
                       let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
-                      let image = dogManagedObj.value(forKey: "image") as? Data,
-                      let dateOfWash = dogManagedObj.value(forKey: "dateOfWash") as? String
+                      let image = dogManagedObj.value(forKey: "image") as? Data
                 else {
                     return
                 }
-                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: dateOfWash)
+                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: nil)
                 dogsArr.append(dog)
             })
         } catch let error as NSError {
@@ -92,7 +91,14 @@ class DogStorageService  {
               let image = dogManagedObj.value(forKey: "image") as? Data,
               let dateOfWash = dogManagedObj.value(forKey: "dateOfWash") as? String
         else {
-            return nil
+            guard let name = dogManagedObj.value(forKey: "name") as? String,
+                  let breed = dogManagedObj.value(forKey: "breed") as? String,
+                  let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
+                  let image = dogManagedObj.value(forKey: "image") as? Data  else {
+                return nil
+            }
+            dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: nil)
+            return dog
         }
         dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: dateOfWash)
         return dog

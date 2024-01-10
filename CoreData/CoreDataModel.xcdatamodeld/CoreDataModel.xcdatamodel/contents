@@ -3,7 +3,7 @@
     <entity name="Dog" representedClassName="Dog" syncable="YES" codeGenerationType="class">
         <attribute name="breed" optional="YES" attributeType="String"/>
         <attribute name="dateOfBirth" optional="YES" attributeType="String"/>
-        <attribute name="dateOfWash" optional="YES" attributeType="String" defaultValueString="None"/>
+        <attribute name="dateOfWash" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>

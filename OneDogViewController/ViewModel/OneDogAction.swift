@@ -10,6 +10,5 @@ import Foundation
 enum OneDogAction {
     case error
     case deleteDog
-    case updateDogWashDate(date: String)
 }
 

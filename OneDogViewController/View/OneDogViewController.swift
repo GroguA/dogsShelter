@@ -173,11 +173,6 @@ class OneDogViewController: UIViewController {
                 self.errorLabel.isHidden = false
             case .deleteDog:
                 self.navigationController?.popViewController(animated: true)
-            case .updateDogWashDate(let date):
-                self.lastDogsWash.text = date
-                self.updateWashDateButton.setTitle("Dog washed", for: .normal)
-                self.updateWashDateButton.isEnabled = false
-                self.updateWashDateButton.backgroundColor = .systemGray
             }
         }
         
@@ -192,14 +187,14 @@ class OneDogViewController: UIViewController {
         infoStackView.addArrangedSubview(dogName)
         infoStackView.addArrangedSubview(dogBreed)
         infoStackView.addArrangedSubview(dogAge)
-        infoStackView.addArrangedSubview(lastDogsWash)
         view.addSubview(infoStackView)
         titlesStackView.addArrangedSubview(name)
         titlesStackView.addArrangedSubview(breed)
         titlesStackView.addArrangedSubview(age)
-        titlesStackView.addArrangedSubview(dateOfWashTitle)
         view.addSubview(titlesStackView)
         view.addSubview(errorLabel)
+        view.addSubview(dateOfWashTitle)
+        view.addSubview(lastDogsWash)
         errorLabel.isHidden = true
         view.addSubview(updateWashDateButton)
         
@@ -216,14 +211,21 @@ class OneDogViewController: UIViewController {
             titlesStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
             infoStackView.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 16),
-            infoStackView.leadingAnchor.constraint(lessThanOrEqualTo: titlesStackView.trailingAnchor, constant: 4),
+            infoStackView.leadingAnchor.constraint(lessThanOrEqualTo: titlesStackView.trailingAnchor, constant: 1),
             infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
             errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            updateWashDateButton.leadingAnchor.constraint(equalTo: infoStackView.trailingAnchor, constant: 16),
+            dateOfWashTitle.topAnchor.constraint(equalTo: titlesStackView.bottomAnchor, constant: 16),
+            dateOfWashTitle.trailingAnchor.constraint(equalTo: lastDogsWash.leadingAnchor, constant: -1),
+            dateOfWashTitle.leadingAnchor.constraint(equalTo: titlesStackView.leadingAnchor),
+            
+            lastDogsWash.topAnchor.constraint(equalTo: infoStackView.bottomAnchor, constant: 16),
+            lastDogsWash.leadingAnchor.constraint(equalTo: dateOfWashTitle.trailingAnchor, constant: 16),
+            lastDogsWash.trailingAnchor.constraint(greaterThanOrEqualTo: updateWashDateButton.leadingAnchor, constant: -16),
+            
             updateWashDateButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            updateWashDateButton.bottomAnchor.constraint(equalTo: titlesStackView.bottomAnchor)
+            updateWashDateButton.topAnchor.constraint(equalTo: infoStackView.bottomAnchor)
             
         ]
         
@@ -233,13 +235,18 @@ class OneDogViewController: UIViewController {
     
     private func renderViewState(state: OneDogState) {
         switch state {
-        case .success(let dog):
+        case .success(let dog, let isDogWashed):
             errorLabel.isHidden = true
             dogName.text = dog.name
             dogBreed.text = dog.breed
             dogAge.text = dog.age
             dogImage.image = UIImage(data: dog.image)
             lastDogsWash.text = dog.dateOfWash
+            if isDogWashed {
+                self.lastDogsWash.text = dog.dateOfWash
+            } else {
+                self.lastDogsWash.text = "None"
+            }
         }
     }
     
@@ -249,6 +256,9 @@ class OneDogViewController: UIViewController {
     
     @objc private func updateDogsWash() {
         viewModel.updateDogWashClicked(id: id)
+        self.updateWashDateButton.setTitle("Dog washed", for: .normal)
+        self.updateWashDateButton.isEnabled = false
+        self.updateWashDateButton.backgroundColor = .systemGray
     }
     
 }

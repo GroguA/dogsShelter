@@ -255,7 +255,7 @@ class OneDogViewController: UIViewController {
     }
     
     @objc private func updateDogsWash() {
-        viewModel.updateDogWashClicked(id: id)
+        viewModel.updateDogWashClicked()
         self.updateWashDateButton.setTitle("Dog washed", for: .normal)
         self.updateWashDateButton.isEnabled = false
         self.updateWashDateButton.backgroundColor = .systemGray

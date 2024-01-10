@@ -28,18 +28,17 @@ class OneDogViewModel {
         }
     }
     
-    private var dogBeforeWash: OneDogModel? = nil
+    private var currentDog: OneDogModel? = nil
     
     func getOneDogByID(id: String) {
         if let dog = DogStorageService.shared.getOneDogById(id: id) {
             let dogModel = OneDogModel(name: dog.name, breed: dog.breed, age: CalculateDates.shared.getDogAge(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id, dateOfWash: dog.dateOfWash)
             if  dogModel.dateOfWash == nil {
                 currentState = .success(dog: dogModel, isDogWashClicked: false)
-                dogBeforeWash = dogModel
             } else {
                 currentState = .success(dog: dogModel, isDogWashClicked: true)
-                dogBeforeWash = dogModel
             }
+            currentDog = dogModel
         } else {
             onAction(OneDogAction.error)
         }
@@ -54,12 +53,12 @@ class OneDogViewModel {
         }
     }
     
-    func updateDogWashClicked(id: String) {
+    func updateDogWashClicked() {
         let date = CalculateDates.shared.getCurrentDate()
-        if !DogStorageService.shared.saveDogsDateOfWash(id: id, date: date) {
+        guard let dogBeforeWash = currentDog else { return }
+        if !DogStorageService.shared.saveDogsDateOfWash(id: dogBeforeWash.id, date: date) {
             onAction(OneDogAction.error)
         } else {
-            if let dogBeforeWash = dogBeforeWash {
                 let dogAfterWash = OneDogModel(name: dogBeforeWash.name,
                                          breed: dogBeforeWash.breed,
                                          age: dogBeforeWash.age,
@@ -69,5 +68,4 @@ class OneDogViewModel {
                 currentState = .success(dog: dogAfterWash, isDogWashClicked: true)
             }
         }
-    }
 }

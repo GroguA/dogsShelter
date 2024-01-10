@@ -94,7 +94,8 @@ class DogStorageService  {
             guard let name = dogManagedObj.value(forKey: "name") as? String,
                   let breed = dogManagedObj.value(forKey: "breed") as? String,
                   let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
-                  let image = dogManagedObj.value(forKey: "image") as? Data  else {
+                  let image = dogManagedObj.value(forKey: "image") as? Data  
+            else {
                 return nil
             }
             dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: nil)

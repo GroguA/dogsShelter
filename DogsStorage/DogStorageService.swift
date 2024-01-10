@@ -61,11 +61,12 @@ class DogStorageService  {
                 guard let name = dogManagedObj.value(forKey: "name") as? String,
                       let breed = dogManagedObj.value(forKey: "breed") as? String,
                       let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
-                      let image = dogManagedObj.value(forKey: "image") as? Data
+                      let image = dogManagedObj.value(forKey: "image") as? Data,
+                      let dateOfWash = dogManagedObj.value(forKey: "dateOfWash") as? String
                 else {
                     return
                 }
-                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
+                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: dateOfWash)
                 dogsArr.append(dog)
             })
         } catch let error as NSError {
@@ -88,11 +89,12 @@ class DogStorageService  {
         guard let name = dogManagedObj.value(forKey: "name") as? String,
               let breed = dogManagedObj.value(forKey: "breed") as? String,
               let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
-              let image = dogManagedObj.value(forKey: "image") as? Data
+              let image = dogManagedObj.value(forKey: "image") as? Data,
+              let dateOfWash = dogManagedObj.value(forKey: "dateOfWash") as? String
         else {
             return nil
         }
-        dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
+        dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: dateOfWash)
         return dog
     }
     

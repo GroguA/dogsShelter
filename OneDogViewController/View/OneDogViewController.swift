@@ -131,7 +131,6 @@ class OneDogViewController: UIViewController {
         label.backgroundColor = .white
         label.textColor = .black
         label.numberOfLines = 0
-        label.text = "None"
         return label
     }()
     
@@ -227,6 +226,7 @@ class OneDogViewController: UIViewController {
             dogBreed.text = dog.breed
             dogAge.text = dog.age
             dogImage.image = UIImage(data: dog.image)
+            lastDogsWash.text = dog.dateOfWash
         }
     }
     

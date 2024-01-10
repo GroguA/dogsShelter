@@ -136,10 +136,11 @@ class OneDogViewController: UIViewController {
     
     private lazy var updateWashDateButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Dog washed", for: .normal)
+        button.setTitle("Wash dog", for: .normal)
         button.tintColor = .white
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
+        button.isEnabled = true
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(updateDogsWash), for: .touchUpInside)
@@ -165,6 +166,9 @@ class OneDogViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             case .updateDogWashDate(let date):
                 self.lastDogsWash.text = date
+                self.updateWashDateButton.setTitle("Dog washed", for: .normal)
+                self.updateWashDateButton.isEnabled = false
+                self.updateWashDateButton.backgroundColor = .systemGray
             }
         }
         

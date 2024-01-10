@@ -59,13 +59,14 @@ class OneDogViewModel {
         if !DogStorageService.shared.saveDogsDateOfWash(id: dogBeforeWash.id, date: date) {
             onAction(OneDogAction.error)
         } else {
-                let dogAfterWash = OneDogModel(name: dogBeforeWash.name,
-                                         breed: dogBeforeWash.breed,
-                                         age: dogBeforeWash.age,
-                                         image: dogBeforeWash.image,
-                                         id: dogBeforeWash.id,
-                                         dateOfWash: date)
-                currentState = .success(dog: dogAfterWash, isDogWashClicked: true)
-            }
+            let dogAfterWash = OneDogModel(name: dogBeforeWash.name,
+                                           breed: dogBeforeWash.breed,
+                                           age: dogBeforeWash.age,
+                                           image: dogBeforeWash.image,
+                                           id: dogBeforeWash.id,
+                                           dateOfWash: date)
+            currentState = .success(dog: dogAfterWash, isDogWashClicked: true)
+            currentDog = dogAfterWash
         }
+    }
 }

@@ -26,10 +26,10 @@ class ShelterViewModel {
         }
     }
     
-    private var dogsBeforeSearch: [DogModel] = []
+    private var dogsBeforeSearch: [ShelterDogModel] = []
     
     func loadSavedDogs() {
-        if case .success(let dogs, let isFiltering) = currentState {
+        if case .success(_, let isFiltering) = currentState {
             if isFiltering {
                 return
             }
@@ -37,8 +37,8 @@ class ShelterViewModel {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
-                let dogAge = CalculateDogAge.shared.getAge(dateOfBirth: dogCoreData.dateOfBirth)
-                let dog = DogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
+                let dogAge = CalculateDates.shared.getDogAge(dateOfBirth: dogCoreData.dateOfBirth)
+                let dog = ShelterDogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
                 return dog
             })
             dogsBeforeSearch = displayedDogs
@@ -52,7 +52,7 @@ class ShelterViewModel {
         if searchText.isEmpty {
             currentState = .empty(isFiltering: false)
         } else {
-            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogModel) -> Bool in
+            let filteredDogs = dogsBeforeSearch.filter({ (dog: ShelterDogModel) -> Bool in
                 return dog.name.lowercased().contains(searchText.lowercased())
             })
             currentState = .success(dogs: filteredDogs, isFiltering: false)

@@ -69,6 +69,12 @@ class AddNewDogViewController: UIViewController {
         configuration.baseBackgroundColor = .systemBlue
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
         let button = UIButton(configuration: configuration)
+        button.configuration?.titleTextAttributesTransformer =
+        UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            return outgoing
+        }
         button.setTitle("Save this dog", for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 8

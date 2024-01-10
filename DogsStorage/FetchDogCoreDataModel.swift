@@ -13,12 +13,14 @@ class FetchDogCoreDataModel {
     let dateOfBirth: String
     let image: Data
     let id: String
+    let dateOfWash: String?
     
-    init(name: String, breed: String, dateOfBirth: String, image: Data, id: String) {
+    init(name: String, breed: String, dateOfBirth: String, image: Data, id: String, dateOfWash: String?) {
         self.name = name
         self.breed = breed
         self.dateOfBirth = dateOfBirth
         self.image = image
         self.id = id
+        self.dateOfWash = dateOfWash
     }
 }

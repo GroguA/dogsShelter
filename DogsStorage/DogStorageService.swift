@@ -65,7 +65,7 @@ class DogStorageService  {
                 else {
                     return
                 }
-                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
+                let dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: nil)
                 dogsArr.append(dog)
             })
         } catch let error as NSError {
@@ -88,11 +88,20 @@ class DogStorageService  {
         guard let name = dogManagedObj.value(forKey: "name") as? String,
               let breed = dogManagedObj.value(forKey: "breed") as? String,
               let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
-              let image = dogManagedObj.value(forKey: "image") as? Data
+              let image = dogManagedObj.value(forKey: "image") as? Data,
+              let dateOfWash = dogManagedObj.value(forKey: "dateOfWash") as? String
         else {
-            return nil
+            guard let name = dogManagedObj.value(forKey: "name") as? String,
+                  let breed = dogManagedObj.value(forKey: "breed") as? String,
+                  let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
+                  let image = dogManagedObj.value(forKey: "image") as? Data  
+            else {
+                return nil
+            }
+            dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: nil)
+            return dog
         }
-        dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString)
+        dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: dateOfWash)
         return dog
     }
     
@@ -116,5 +125,28 @@ class DogStorageService  {
             return false
         }
     }
+    
+    func saveDogsDateOfWash(id: String, date: String) -> Bool {
+        
+        guard let appDelegate = appDelegate else { return false }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false }
+        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
+        guard let objectID = objectID else { return false }
+        let dogManagedObj = managedContext.object(with: objectID)
+        
+        dogManagedObj.setValue(date, forKey: "dateOfWash")
+        
+        do {
+            try managedContext.save()
+            return true
+        } catch let error as NSError {
+            print("Could not save this date. \(error), \(error.userInfo)")
+            return false
+        }
+        
+    }
+    
 }
-

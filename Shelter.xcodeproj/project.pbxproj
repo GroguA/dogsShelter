@@ -583,8 +583,8 @@
 				DEVELOPMENT_TEAM = 243GUG75DN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shelter/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = " $(PRODUCT_NAME) camera use";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) photo use";
+				INFOPLIST_KEY_NSCameraUsageDescription = " Shelter camera use";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Shelter photo use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -615,8 +615,8 @@
 				DEVELOPMENT_TEAM = 243GUG75DN;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shelter/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = " $(PRODUCT_NAME) camera use";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) photo use";
+				INFOPLIST_KEY_NSCameraUsageDescription = " Shelter camera use";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Shelter photo use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

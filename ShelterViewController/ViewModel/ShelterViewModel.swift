@@ -29,6 +29,11 @@ class ShelterViewModel {
     private var dogsBeforeSearch: [ShelterDogModel] = []
     
     func loadSavedDogs() {
+        if case .empty(let isFiltering) = currentState {
+            if isFiltering {
+                return
+            }
+        }
         if case .success(_, let isFiltering) = currentState {
             if isFiltering {
                 return

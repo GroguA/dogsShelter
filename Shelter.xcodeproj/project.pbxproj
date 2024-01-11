@@ -116,14 +116,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		7C13C1182AE906B300D14041 /* BreedsListFilterViewController */ = {
+		7C13C1182AE906B300D14041 /* SelectedBreedsListFilterViewController */ = {
 			isa = PBXGroup;
 			children = (
 				7CDB88952B3450570081886F /* Model */,
 				7C13C11E2AEA5B6200D14041 /* ViewModel */,
 				7C13C11B2AE9080100D14041 /* View */,
 			);
-			path = BreedsListFilterViewController;
+			path = SelectedBreedsListFilterViewController;
 			sourceTree = "<group>";
 		};
 		7C13C11B2AE9080100D14041 /* View */ = {
@@ -180,7 +180,7 @@
 				7CE6489A2ACD814B00FD5DB1 /* .gitignore */,
 				7CC0B4F52ADFCD9B007B80BD /* Utils */,
 				7CB798422AC1C8A9001E4801 /* DogsStorage */,
-				7C13C1182AE906B300D14041 /* BreedsListFilterViewController */,
+				7C13C1182AE906B300D14041 /* SelectedBreedsListFilterViewController */,
 				7C13C1142AE9031500D14041 /* DogsFilterViewController */,
 				7CB798382AC1BBD8001E4801 /* ShelterViewController */,
 				7CB7983E2AC1C32E001E4801 /* AddNewDogViewController */,

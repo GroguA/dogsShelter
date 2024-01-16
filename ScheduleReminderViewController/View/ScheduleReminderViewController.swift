@@ -9,6 +9,8 @@ import UIKit
 
 class ScheduleReminderViewController: UIViewController {
     
+    var id: String = ""
+    
     private let viewModel = ScheduleReminderViewModel()
     
     private var isDaily: Bool = false
@@ -30,7 +32,6 @@ class ScheduleReminderViewController: UIViewController {
     
     private lazy var dateOfReminderTextField: UITextField = {
         let date = UITextField()
-        date.delegate = self
         date.placeholder = "Select date to remind"
         date.keyboardType = .default
         date.autocapitalizationType = .words
@@ -175,7 +176,7 @@ class ScheduleReminderViewController: UIViewController {
     }
     
     @objc private func scheduleReminderTapped() {
-        viewModel.onScheduleREminderTapped(body: reminderTextTF.text, hour: hour, minute: minute, isDaily: isDaily, day: day, month: month)
+        viewModel.onScheduleREminderTapped(body: reminderTextTF.text, hour: hour, minute: minute, isDaily: isDaily, day: day, month: month, identifier: id)
         navigationController?.popViewController(animated: true)
     }
     
@@ -189,6 +190,3 @@ class ScheduleReminderViewController: UIViewController {
     
 }
 
-extension ScheduleReminderViewController: UITextFieldDelegate {
-    
-}

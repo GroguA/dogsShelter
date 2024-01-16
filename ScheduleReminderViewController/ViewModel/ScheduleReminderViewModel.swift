@@ -11,15 +11,15 @@ class ScheduleReminderViewModel {
     
     var onAction: (ScheduleReminderAction) -> () = { _ in }
     
-    func onScheduleREminderTapped(body: String?, hour: Int?, minute: Int?, isDaily: Bool, day: Int?, month: Int?) {
+    func onScheduleREminderTapped(body: String?, hour: Int?, minute: Int?, isDaily: Bool, day: Int?, month: Int?, identifier: String) {
         if let body, let hour, let minute, let day, let month {
             if !body.isEmpty {
-                NotificationCenter.shared.dispatchNotificationsOneDogVC(body: body, hour: hour, minute: minute, isDaily: isDaily, day: day, month: month)
+                NotificationCenter.shared.dispatchNotificationsOneDogVC(body: body, hour: hour, minute: minute, isDaily: isDaily, day: day, month: month, identifier: identifier)
             } else {
                 onAction(ScheduleReminderAction.editingError)
             }
         } else {
-                onAction(ScheduleReminderAction.editingError)
-            }
+            onAction(ScheduleReminderAction.editingError)
         }
+    }
 }

@@ -38,15 +38,10 @@ class NotificationCenter {
     }
     
     func getAvailability() -> Bool {
-        if isNotificationsAvailable {
-            return true
-        } else {
-            return false
-        }
+        return isNotificationsAvailable
     }
     
-    func dispatchNotificationsOneDogVC(body: String, hour: Int, minute: Int, isDaily: Bool, day: Int, month: Int) {
-        let identifier = "washIdent"
+    func dispatchNotificationsOneDogVC(body: String, hour: Int, minute: Int, isDaily: Bool, day: Int, month: Int, identifier: String) {
         let title = "Don't forget to do"
         
         let notificationCenter = UNUserNotificationCenter.current()

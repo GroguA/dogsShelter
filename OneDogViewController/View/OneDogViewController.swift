@@ -279,9 +279,11 @@ class OneDogViewController: UIViewController {
     }
     
     @objc private func scheduleReminderTapped() {
+        let reminderVC = ScheduleReminderViewController()
         let isNotificationOn = NotificationCenter.shared.getAvailability()
         if isNotificationOn {
-            navigationController?.pushViewController(ScheduleReminderViewController(), animated: true)
+            navigationController?.pushViewController(reminderVC, animated: true)
+            reminderVC.id = self.id
         } else {
             return
         }

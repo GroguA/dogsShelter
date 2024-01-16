@@ -45,7 +45,7 @@ class NotificationCenter {
         }
     }
     
-    func dispatchNotificationsOneDogVC(body: String, hour: Int, minute: Int, isDaily: Bool) {
+    func dispatchNotificationsOneDogVC(body: String, hour: Int, minute: Int, isDaily: Bool, day: Int, month: Int) {
         let identifier = "washIdent"
         let title = "Don't forget to do"
         
@@ -57,6 +57,8 @@ class NotificationCenter {
         content.sound = .default
         
         var dateComponents = DateComponents(calendar: Calendar.current, timeZone: TimeZone.current)
+        dateComponents.day = day
+        dateComponents.month = month
         dateComponents.hour = hour
         dateComponents.minute = minute
         

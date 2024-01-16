@@ -14,6 +14,8 @@ class ScheduleReminderViewController: UIViewController {
     private var isDaily: Bool = false
     private var hour: Int?
     private var minute: Int?
+    private var month: Int?
+    private var day: Int?
     
     private lazy var reminderTextTF: UITextField = {
         let reminder = UITextField()
@@ -26,25 +28,25 @@ class ScheduleReminderViewController: UIViewController {
         return reminder
     }()
     
-    private lazy var timeOfReminderTextField: UITextField = {
+    private lazy var dateOfReminderTextField: UITextField = {
         let date = UITextField()
         date.delegate = self
-        date.placeholder = "Select time to remind"
+        date.placeholder = "Select date to remind"
         date.keyboardType = .default
         date.autocapitalizationType = .words
         date.borderStyle = .roundedRect
         date.autocorrectionType = .no
-        date.inputView = timeOfReminderPicker
+        date.inputView = dateOfReminderPicker
         date.inputAccessoryView = toolBar
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
     }()
     
-    private lazy var timeOfReminderPicker: UIDatePicker = {
+    private lazy var dateOfReminderPicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.timeZone = .current
         picker.backgroundColor = .white
-        picker.datePickerMode = .time
+        picker.datePickerMode = .dateAndTime
         picker.timeZone = .autoupdatingCurrent
         picker.preferredDatePickerStyle = .wheels
         picker.addTarget(self, action: #selector(timePickerValueChanged), for: .valueChanged)
@@ -113,7 +115,7 @@ class ScheduleReminderViewController: UIViewController {
     private func setupViews() {
         view.addSubview(reminderTextTF)
         view.addSubview(scheduleReminderButton)
-        view.addSubview(timeOfReminderTextField)
+        view.addSubview(dateOfReminderTextField)
         view.addSubview(isDailyLabel)
         view.addSubview(isDailySwitcher)
         
@@ -127,14 +129,14 @@ class ScheduleReminderViewController: UIViewController {
             reminderTextTF.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             reminderTextTF.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             
-            timeOfReminderTextField.topAnchor.constraint(equalTo: reminderTextTF.bottomAnchor, constant: 16),
-            timeOfReminderTextField.trailingAnchor.constraint(equalTo: reminderTextTF.trailingAnchor),
-            timeOfReminderTextField.leadingAnchor.constraint(equalTo: reminderTextTF.leadingAnchor),
+            dateOfReminderTextField.topAnchor.constraint(equalTo: reminderTextTF.bottomAnchor, constant: 16),
+            dateOfReminderTextField.trailingAnchor.constraint(equalTo: reminderTextTF.trailingAnchor),
+            dateOfReminderTextField.leadingAnchor.constraint(equalTo: reminderTextTF.leadingAnchor),
             
-            isDailyLabel.topAnchor.constraint(equalTo: timeOfReminderTextField.bottomAnchor, constant: 16),
-            isDailyLabel.leadingAnchor.constraint(equalTo: timeOfReminderTextField.leadingAnchor),
+            isDailyLabel.topAnchor.constraint(equalTo: dateOfReminderTextField.bottomAnchor, constant: 16),
+            isDailyLabel.leadingAnchor.constraint(equalTo: dateOfReminderTextField.leadingAnchor),
             
-            isDailySwitcher.topAnchor.constraint(equalTo: timeOfReminderTextField.bottomAnchor, constant: 16),
+            isDailySwitcher.topAnchor.constraint(equalTo: dateOfReminderTextField.bottomAnchor, constant: 16),
             isDailySwitcher.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             isDailySwitcher.bottomAnchor.constraint(equalTo: isDailyLabel.bottomAnchor),
             
@@ -163,15 +165,17 @@ class ScheduleReminderViewController: UIViewController {
     
     @objc private func timePickerValueChanged(_ sender: UIDatePicker){
         let dateFormatter: DateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = "MMM d, h:mm a"
         let outputTime = dateFormatter.string(from: sender.date)
-        timeOfReminderTextField.text = outputTime
+        dateOfReminderTextField.text = outputTime
         hour = Calendar.current.component(.hour, from: sender.date)
         minute = Calendar.current.component(.minute, from: sender.date)
+        month = Calendar.current.component(.month, from: sender.date)
+        day = Calendar.current.component(.day, from: sender.date)
     }
     
     @objc private func scheduleReminderTapped() {
-        viewModel.onScheduleREminderTapped(body: reminderTextTF.text, hour: hour, minute: minute, isDaily: isDaily)
+        viewModel.onScheduleREminderTapped(body: reminderTextTF.text, hour: hour, minute: minute, isDaily: isDaily, day: day, month: month)
         navigationController?.popViewController(animated: true)
     }
     

@@ -156,6 +156,22 @@ class OneDogViewController: UIViewController {
         return button
     }()
     
+    private lazy var menuItems: [UIAction] = {
+        return [
+            UIAction(title: "Schedule a reminder", image: UIImage(systemName: "calendar.badge.plus"), handler: { _ in
+                self.scheduleReminderTapped()
+            }),
+            UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { _ in
+                self.deleteDogTapped()
+            })
+        ]
+    }()
+    
+    private lazy var menu: UIMenu = {
+        let menu = UIMenu(options: .displayInline, children: menuItems)
+        return menu
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -176,8 +192,8 @@ class OneDogViewController: UIViewController {
             }
         }
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteDogTapped))
-        self.navigationItem.rightBarButtonItem?.tintColor = .red
+        let menuButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: menu)
+        self.navigationItem.rightBarButtonItem = menuButton
         
     }
     
@@ -254,11 +270,21 @@ class OneDogViewController: UIViewController {
         viewModel.deleteDogClicked(id: id)
     }
     
+    
     @objc private func updateDogsWash() {
         viewModel.updateDogWashClicked()
         self.updateWashDateButton.setTitle("Dog washed", for: .normal)
         self.updateWashDateButton.isEnabled = false
         self.updateWashDateButton.backgroundColor = .systemGray
+    }
+    
+    @objc private func scheduleReminderTapped() {
+        let isNotificationOn = NotificationCenter.shared.getAvailability()
+        if isNotificationOn {
+            navigationController?.pushViewController(ScheduleReminderViewController(), animated: true)
+        } else {
+            return
+        }
     }
     
 }

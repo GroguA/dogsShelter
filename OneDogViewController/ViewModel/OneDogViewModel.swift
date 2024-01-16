@@ -69,4 +69,5 @@ class OneDogViewModel {
             currentDog = dogAfterWash
         }
     }
+    
 }

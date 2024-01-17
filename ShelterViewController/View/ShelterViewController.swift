@@ -66,6 +66,7 @@ class ShelterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.shared.checkForPermission()
         setupViews()
         viewModel.viewStateDidChange = { viewState in
             self.renderViewState(state: viewState)

@@ -24,12 +24,9 @@ class CalculateDates {
         }
         let calendar = Calendar.current
         let currentDate = Date()
-        let currentYear = calendar.component(.year, from: currentDate)
         
-        let birthYear = calendar.component(.year, from: dateOfBirth)
-        
-        let age = currentYear - birthYear
-        
+        let ageComponents = calendar.dateComponents([.year], from: dateOfBirth, to: currentDate)
+        guard let age = ageComponents.year else { return "0"}
         return String(age)
         
     }

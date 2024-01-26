@@ -17,6 +17,16 @@ class ShelterViewController: UIViewController {
     
     private let viewModel = ShelterViewModel()
     
+    private lazy var resetFilterButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
+        return button
+    }()
+    
+    private lazy var notificationsListButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Notifications list", style: .plain, target: self, action: #selector(openNotificationsList))
+        return button
+    }()
+    
     private lazy var dogsCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
@@ -84,10 +94,8 @@ class ShelterViewController: UIViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(openFilterView))
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
-        navigationItem.leftBarButtonItem?.isHidden = true
-        
+        navigationItem.leftBarButtonItem = notificationsListButton
+
         let constraint = [
             dogsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dogsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -121,15 +129,15 @@ class ShelterViewController: UIViewController {
             dogsCollectionView.reloadData()
             dogs = savedDogs
             if isFiltering {
-                self.navigationItem.leftBarButtonItem?.isHidden = false
+                self.navigationItem.leftBarButtonItem = resetFilterButton
             } else {
-                self.navigationItem.leftBarButtonItem?.isHidden = true
+                self.navigationItem.leftBarButtonItem = notificationsListButton
             }
         case .empty(let isFiltering):
             if isFiltering {
-                self.navigationItem.leftBarButtonItem?.isHidden = false
+                self.navigationItem.leftBarButtonItem = resetFilterButton
             } else {
-                self.navigationItem.leftBarButtonItem?.isHidden = true
+                self.navigationItem.leftBarButtonItem = notificationsListButton
             }
             dogsCollectionView.isHidden = true
             emptyDogsStorageLabel.isHidden = false
@@ -146,7 +154,11 @@ class ShelterViewController: UIViewController {
     
     @objc private func resetFilter() {
         viewModel.onResetFilterTapped()
-        self.navigationItem.leftBarButtonItem?.isHidden = true
+        self.navigationItem.leftBarButtonItem = notificationsListButton
+    }
+    
+    @objc private func openNotificationsList() {
+        navigationController?.pushViewController(NotificationsListViewController(), animated: true)
     }
 }
 

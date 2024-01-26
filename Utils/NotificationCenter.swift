@@ -13,6 +13,8 @@ class NotificationCenter {
     
     private init() {}
     
+    private let notificationCenter = UNUserNotificationCenter.current()
+    
     private var isNotificationsAvailable = false
     
     func checkForPermission() {
@@ -44,8 +46,6 @@ class NotificationCenter {
     func dispatchNotificationsOneDogVC(body: String, hour: Int, minute: Int, isDaily: Bool, day: Int, month: Int, identifier: String) {
         let title = "Don't forget to do"
         
-        let notificationCenter = UNUserNotificationCenter.current()
-        
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
@@ -65,6 +65,18 @@ class NotificationCenter {
         
         notificationCenter.add(request)
         
+    }
+    
+    func getNotifications(array: @escaping (Array<UNNotificationRequest>) -> Void) {
+        notificationCenter.getPendingNotificationRequests(completionHandler: { requests in
+            DispatchQueue.main.async {
+                array(requests)
+            }
+        })
+    }
+    
+    func deleteNotification(identifier: String) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
     }
     
 }

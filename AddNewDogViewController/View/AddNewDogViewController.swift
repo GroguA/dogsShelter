@@ -29,7 +29,6 @@ class AddNewDogViewController: UIViewController {
         breed.delegate = self
         breed.placeholder = "Select breed"
         breed.keyboardType = .default
-        breed.autocapitalizationType = .words
         breed.borderStyle = .roundedRect
         breed.autocorrectionType = .no
         breed.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +41,6 @@ class AddNewDogViewController: UIViewController {
         date.delegate = self
         date.placeholder = "Select date of birth"
         date.keyboardType = .default
-        date.autocapitalizationType = .words
         date.borderStyle = .roundedRect
         date.autocorrectionType = .no
         date.inputView = dateOfBirthPicker

@@ -85,7 +85,6 @@ class DogsFilterViewController: UIViewController {
         textField.delegate = self
         textField.placeholder = "Fill age"
         textField.keyboardType = .numbersAndPunctuation
-        textField.autocapitalizationType = .words
         textField.borderStyle = .roundedRect
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false

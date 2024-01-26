@@ -23,18 +23,26 @@ class ScheduleReminderViewController: UIViewController {
         let reminder = UITextField()
         reminder.placeholder = "What you want to remind"
         reminder.keyboardType = .default
-        reminder.autocapitalizationType = .allCharacters
+        reminder.autocapitalizationType = .sentences
         reminder.borderStyle = .roundedRect
+        reminder.delegate = self
         reminder.autocorrectionType = .default
         reminder.translatesAutoresizingMaskIntoConstraints = false
         return reminder
+    }()
+    
+    private lazy var countOfCharactersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .lightGray
+        label.text = "15"
+        return label
     }()
     
     private lazy var dateOfReminderTextField: UITextField = {
         let date = UITextField()
         date.placeholder = "Select date to remind"
         date.keyboardType = .default
-        date.autocapitalizationType = .words
         date.borderStyle = .roundedRect
         date.autocorrectionType = .no
         date.inputView = dateOfReminderPicker
@@ -119,6 +127,7 @@ class ScheduleReminderViewController: UIViewController {
         view.addSubview(dateOfReminderTextField)
         view.addSubview(isDailyLabel)
         view.addSubview(isDailySwitcher)
+        view.addSubview(countOfCharactersLabel)
         
         navigationItem.title = "Schedule a reminder"
         
@@ -129,6 +138,9 @@ class ScheduleReminderViewController: UIViewController {
             reminderTextTF.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             reminderTextTF.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             reminderTextTF.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            
+            countOfCharactersLabel.topAnchor.constraint(equalTo: reminderTextTF.topAnchor, constant: 8),
+            countOfCharactersLabel.trailingAnchor.constraint(equalTo: reminderTextTF.trailingAnchor, constant: -8),
             
             dateOfReminderTextField.topAnchor.constraint(equalTo: reminderTextTF.bottomAnchor, constant: 16),
             dateOfReminderTextField.trailingAnchor.constraint(equalTo: reminderTextTF.trailingAnchor),
@@ -190,3 +202,16 @@ class ScheduleReminderViewController: UIViewController {
     
 }
 
+extension ScheduleReminderViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let currentString = textField.text else { return false }
+        let maxLength = 15
+        let currentStringForLength = (textField.text ?? "") as NSString
+        let newString = currentStringForLength.replacingCharacters(in: range, with: string)
+        
+        let newLength = maxLength - currentString.count
+        self.countOfCharactersLabel.text = String(newLength)
+        
+        return newString.count <= maxLength
+    }
+}

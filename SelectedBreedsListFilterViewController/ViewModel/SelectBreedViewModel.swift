@@ -66,8 +66,12 @@ class SelectBreedViewModel {
     func onDoneButtonClicked() {
         if case .success(let breeds) = currentState {
             let selectedBreeds = breeds.filter({$0.isSelected})
-            onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed
-            })))
+            if !selectedBreeds.isEmpty {
+                onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed
+                })))
+            } else {
+                return
+            }
         }
     }
     

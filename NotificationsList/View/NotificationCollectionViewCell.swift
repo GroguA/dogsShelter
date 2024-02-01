@@ -13,7 +13,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         didSet {
             if isSelected {
                 self.layer.borderWidth = 2
-                self.layer.borderColor = UIColor.green.withAlphaComponent(0.7).cgColor
+                self.layer.borderColor = UIColor.green.withAlphaComponent(0.2).cgColor
             } else {
                 self.layer.borderWidth = 0
             }
@@ -26,7 +26,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = .leading
-        view.spacing = 8
+        view.spacing = 16
         view.distribution = .fillProportionally
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -66,14 +66,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         
         self.dogLabel.text = "\(dogName)\n\(dogBreed)"
         self.notificationLabel.text = "\(bodyText)\n\(dateText)"
-        
-        if isSelected {
-            self.layer.borderWidth = 2
-            self.layer.borderColor = UIColor.green.withAlphaComponent(0.7).cgColor
-        } else {
-            self.layer.borderWidth = 0
-        }
-        
+      
         let constraints = [
             notificationStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
             notificationStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),

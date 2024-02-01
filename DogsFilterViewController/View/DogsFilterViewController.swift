@@ -97,7 +97,7 @@ class DogsFilterViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         viewModel.viewStateDidChange = { state in
-            self.rendereViewState(state: state)
+            self.renderViewState(state: state)
         }
         viewModel.onAction = { action in
             self.processAction(action: action)
@@ -116,6 +116,7 @@ class DogsFilterViewController: UIViewController {
         view.addSubview(ageFilterIcon)
         view.addSubview(ageFilterTextField)
         
+        self.selectedBreedsLabel.isHidden = true
         ageFilterTextField.isHidden = true
         
         let constraints = [
@@ -159,13 +160,16 @@ class DogsFilterViewController: UIViewController {
     }
     
     @objc private func breedFilterSelected() {
-        breedFilterIcon.image = UIImage(systemName: "circle.fill")
         let vc = SelectBreedFilterViewController()
         vc.isSingleSelectMode = false
         vc.doOnMultiSelect = { selectedBreeds in
             self.viewModel.onBreedFilterTapped(breeds: selectedBreeds)
+            self.breedFilterIcon.image = UIImage(systemName: "xmark")
+            self.selectedBreedsLabel.isHidden = false
         }
         navigationController?.pushViewController(vc, animated: true)
+        let breedFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(breedFilterDeselected))
+        breedFilterIcon.addGestureRecognizer(breedFilterDeselectTap)
     }
     
     private func processAction(action: FilterDogAction) {
@@ -186,22 +190,40 @@ class DogsFilterViewController: UIViewController {
         }
     }
     
-    private func rendereViewState(state: FilterDogState) {
+    private func renderViewState(state: FilterDogState) {
         switch state {
         case .success(let filter):
             if let breeds = filter.breeds {
                 self.selectedBreedsLabel.text = breeds.joined(separator: ", ")
+            } else {
+                self.selectedBreedsLabel.isHidden = true
             }
         }
     }
     
     @objc private func ageFilterSelected() {
-        ageFilterIcon.image = UIImage(systemName: "circle.fill")
+        ageFilterIcon.image = UIImage(systemName: "xmark")
         ageFilterTextField.isHidden = false
+        let ageFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(ageFilterDeselected))
+        ageFilterIcon.addGestureRecognizer(ageFilterDeselectTap)
     }
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func ageFilterDeselected() {
+        ageFilterTextField.isHidden = true
+        ageFilterTextField.text = nil
+        ageFilterIcon.image = UIImage(systemName: "circle")
+        viewModel.deselectAgeFilterTapped()
+    }
+    
+    @objc private func breedFilterDeselected() {
+        selectedBreedsLabel.isHidden = true
+        selectedBreedsLabel.text = nil
+        breedFilterIcon.image = UIImage(systemName: "circle")
+        viewModel.deselectBreedFilterTapped()
     }
 }
 

@@ -18,7 +18,7 @@ class CalculateDates {
         return dateFormatter
     }()
     
-    func getDogAge(dateOfBirth: String) -> String {
+    func getDogAgeInYears(dateOfBirth: String) -> String {
         guard let dateOfBirth = dateFormatter.date(from: dateOfBirth) else {
             return "0"
         }
@@ -28,7 +28,6 @@ class CalculateDates {
         let ageComponents = calendar.dateComponents([.year], from: dateOfBirth, to: currentDate)
         guard let age = ageComponents.year else { return "0"}
         return String(age)
-        
     }
     
     func getCurrentDate()  -> String {

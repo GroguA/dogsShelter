@@ -76,7 +76,14 @@ class NotificationsListViewController: UIViewController {
         case .success(let notifications):
             self.notificationsCollectionView.reloadData()
             self.notifications = notifications
+            if notifications.isEmpty {
+                navigationItem.rightBarButtonItem = .none
+            }
         }
+    }
+    
+    @objc private func onDeleteNotificationClicked() {
+        viewModel.onDeleteNotificationTapped()
     }
 }
 
@@ -84,9 +91,20 @@ extension NotificationsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let notificationIndex = indexPath.row
         viewModel.onNotificationClicked(index: notificationIndex)
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
+        
     }
     
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let notificationIndex = indexPath.row
+        viewModel.onNotificationClicked(index: notificationIndex)
+        if !notifications.contains(where: { $0.isSelected} ) {
+            navigationItem.rightBarButtonItem = .none
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
+        }
+        
+    }
 }
 
 extension NotificationsListViewController: UICollectionViewDataSource {

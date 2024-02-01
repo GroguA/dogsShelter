@@ -127,6 +127,10 @@ class SelectBreedFilterViewController: UIViewController {
     @objc private func doneButtonTapped() {
         viewModel.onDoneButtonClicked()
     }
+    
+//    @objc private func backToFilters() {
+//        viewModel.backToFilterButtonTapped()
+//    }
 }
 
 extension SelectBreedFilterViewController: UICollectionViewDelegate {
@@ -134,6 +138,11 @@ extension SelectBreedFilterViewController: UICollectionViewDelegate {
         let dogIndex = indexPath.row
         viewModel.onDogClicked(dogIndex: dogIndex)
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let dogIndex = indexPath.row
+        viewModel.onDogClicked(dogIndex: dogIndex)
     }
 }
 

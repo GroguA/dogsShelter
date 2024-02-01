@@ -31,7 +31,11 @@ class DogsFilterViewModel {
     func onApplyButtonTapped() {
         switch currentState {
         case .success(let filter):
-            onAction(FilterDogAction.applyFilter(filter: filter))
+            if filter.breeds == nil && filter.age == nil {
+                return
+            } else {
+                onAction(FilterDogAction.applyFilter(filter: filter))
+            }
         case nil:
             return
         }
@@ -53,6 +57,26 @@ class DogsFilterViewModel {
         case nil:
             currentState = .success(filter: FilterForDogs(breeds: breeds, age: nil))
         }
+    }
+    
+    func deselectAgeFilterTapped() {
+        switch currentState {
+        case .success(let filter):
+            currentState = .success(filter: FilterForDogs(breeds: filter.breeds, age: nil))
+        case nil:
+            return
+        }
+        
+    }
+    
+    func deselectBreedFilterTapped() {
+        switch currentState {
+        case .success(let filter):
+            currentState = .success(filter: FilterForDogs(breeds: nil, age: filter.age))
+        case nil:
+            return
+        }
+        
     }
     
 }

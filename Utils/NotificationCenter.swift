@@ -75,8 +75,8 @@ class NotificationCenter {
         })
     }
     
-    func deleteNotification(identifier: String) {
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+    func deleteNotification(identifier: [String]) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifier)
     }
     
 }

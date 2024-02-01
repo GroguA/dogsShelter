@@ -12,7 +12,7 @@ class ShelterViewController: UIViewController {
     private var dogs = [ShelterDogModel]()
     
     private let itemsPerRow: CGFloat = 1
-    private let itemsPerView: CGFloat = 7
+    private let itemsPerView: CGFloat = 6
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private let viewModel = ShelterViewModel()

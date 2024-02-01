@@ -10,4 +10,5 @@ import Foundation
 enum SelectBreedAction {
     case closeWithBreed(breed: String)
     case closeWithBreeds(breeds: [String])
+//    case close
 }

@@ -40,12 +40,6 @@ class BreedsCollectionViewCell: UICollectionViewCell {
         
         breedLabel.text = breed.breed
         
-        if breed.isSelected {
-            selectBreedImage.image = UIImage(systemName: "circle.fill")
-        } else {
-            selectBreedImage.image = UIImage(systemName: "circle")
-        }
-        
         let constraints = [
             selectBreedImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             selectBreedImage.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),

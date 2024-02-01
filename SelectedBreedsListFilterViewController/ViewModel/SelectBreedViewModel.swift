@@ -86,4 +86,8 @@ class SelectBreedViewModel {
         currentState = .success(breeds: breedsBeforeSearch)
     }
     
+//    func backToFilterButtonTapped() {
+//        onAction(SelectBreedAction.close)
+//    }
+    
 }

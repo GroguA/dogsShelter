@@ -62,6 +62,20 @@ class NotificationsViewModel {
                 }
             }
         }
-
+    }
+    
+    func onDeleteNotificationTapped() {
+        let selectedNotifications = notifications.filter({ notifications in
+            notifications.isSelected
+        })
+        let ids = selectedNotifications.map { $0.dogID }
+        
+        NotificationCenter.shared.deleteNotification(identifier: ids)
+        
+            for id in ids {
+                notifications.removeAll(where: { $0.dogID == id })
+            }
+        
+        currentState = .success(notifications: notifications)
     }
 }

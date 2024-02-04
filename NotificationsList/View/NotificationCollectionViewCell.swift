@@ -55,7 +55,7 @@ class NotificationCollectionViewCell: UICollectionViewCell {
     }()
     
     
-    func setupViews(bodyText: String, dateText: String, dogName: String, dogBreed: String, isSelected: Bool) {
+    func setupViews(notification: NotificationModel) {
         notificationStackView.addArrangedSubview(dogLabel)
         notificationStackView.addArrangedSubview(notificationLabel)
         
@@ -64,8 +64,8 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .white
         contentView.addSubview(notificationStackView)
         
-        self.dogLabel.text = "\(dogName)\n\(dogBreed)"
-        self.notificationLabel.text = "\(bodyText)\n\(dateText)"
+        self.dogLabel.text = "\(notification.dogName)\n\(notification.dogBreed)"
+        self.notificationLabel.text = "\(notification.body)\n\(notification.date)"
       
         let constraints = [
             notificationStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),

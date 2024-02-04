@@ -117,7 +117,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
             breedLabel.widthAnchor.constraint(equalToConstant: 134),
             
             age.topAnchor.constraint(equalTo: name.topAnchor),
-            age.leadingAnchor.constraint(equalTo: breedLabel.trailingAnchor, constant: 16),
+            age.leadingAnchor.constraint(lessThanOrEqualTo: breedLabel.trailingAnchor, constant: 16),
             age.trailingAnchor.constraint(equalTo: ageLabel.leadingAnchor),
             
             ageLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),

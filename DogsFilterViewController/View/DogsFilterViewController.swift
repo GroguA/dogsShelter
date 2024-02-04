@@ -157,6 +157,12 @@ class DogsFilterViewController: UIViewController {
         
         let dismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(dismissKeyboard)
+        
+        let breedFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(breedFilterDeselected))
+        breedFilterIcon.addGestureRecognizer(breedFilterDeselectTap)
+        
+        let ageFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(ageFilterDeselected))
+        ageFilterIcon.addGestureRecognizer(ageFilterDeselectTap)
     }
     
     @objc private func breedFilterSelected() {
@@ -164,12 +170,8 @@ class DogsFilterViewController: UIViewController {
         vc.isSingleSelectMode = false
         vc.doOnMultiSelect = { selectedBreeds in
             self.viewModel.onBreedFilterTapped(breeds: selectedBreeds)
-            self.breedFilterIcon.image = UIImage(systemName: "xmark")
-            self.selectedBreedsLabel.isHidden = false
         }
         navigationController?.pushViewController(vc, animated: true)
-        let breedFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(breedFilterDeselected))
-        breedFilterIcon.addGestureRecognizer(breedFilterDeselectTap)
     }
     
     private func processAction(action: FilterDogAction) {
@@ -195,6 +197,8 @@ class DogsFilterViewController: UIViewController {
         case .success(let filter):
             if let breeds = filter.breeds {
                 self.selectedBreedsLabel.text = breeds.joined(separator: ", ")
+                self.breedFilterIcon.image = UIImage(systemName: "xmark")
+                self.selectedBreedsLabel.isHidden = false
             } else {
                 self.selectedBreedsLabel.isHidden = true
             }
@@ -204,8 +208,6 @@ class DogsFilterViewController: UIViewController {
     @objc private func ageFilterSelected() {
         ageFilterIcon.image = UIImage(systemName: "xmark")
         ageFilterTextField.isHidden = false
-        let ageFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(ageFilterDeselected))
-        ageFilterIcon.addGestureRecognizer(ageFilterDeselectTap)
     }
     
     @objc private func dismissKeyboard() {

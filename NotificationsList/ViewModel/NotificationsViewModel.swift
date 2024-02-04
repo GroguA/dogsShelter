@@ -30,18 +30,18 @@ class NotificationsViewModel {
     }
     
     private let dateFormatter = DateFormatter()
-        
+    
     func getNotifications() {
         NotificationCenter.shared.getNotifications(array: { requests in
             requests.forEach({ request in
                 var notification: NotificationModel
-                    if let dog = DogStorageService.shared.getOneDogById(id: request.identifier) {
-                        let trigger = request.trigger as? UNCalendarNotificationTrigger
-                        if let date = trigger?.nextTriggerDate() {
-                            let dateString = date.formatted(date: .numeric, time: .shortened)
-                            notification = NotificationModel(body: request.content.body, date: dateString , dogName: dog.name, dogBreed: dog.breed, dogID: request.identifier, isSelected: false)
-                            self.notifications.append(notification)
-                        }
+                if let dog = DogStorageService.shared.getOneDogById(id: request.identifier) {
+                    let trigger = request.trigger as? UNCalendarNotificationTrigger
+                    if let date = trigger?.nextTriggerDate() {
+                        let dateString = date.formatted(date: .numeric, time: .shortened)
+                        notification = NotificationModel(body: request.content.body, date: dateString , dogName: dog.name, dogBreed: dog.breed, dogID: request.identifier, isSelected: false)
+                        self.notifications.append(notification)
+                    }
                 }
             })
             self.currentState = .success(notifications: self.notifications)
@@ -50,31 +50,21 @@ class NotificationsViewModel {
     
     func onNotificationClicked(index: Int) {
         if case .success(let notifications) = currentState {
-            let currentNotification = notifications[index].dogID
-            let index = notifications.firstIndex(where: { selectableNotification in
-                selectableNotification.dogID == currentNotification
-            })
-            if let index {
-                if !notifications[index].isSelected == true {
-                    notifications[index].isSelected = true
-                } else {
-                    notifications[index].isSelected = false
-                }
-            }
+            notifications[index].isSelected = !notifications[index].isSelected
         }
     }
     
+    
     func onDeleteNotificationTapped() {
-        let selectedNotifications = notifications.filter({ notifications in
+        let selectedNotificationsIds = notifications.filter({ notifications in
             notifications.isSelected
-        })
-        let ids = selectedNotifications.map { $0.dogID }
+        }).map { $0.dogID }
         
-        NotificationCenter.shared.deleteNotification(identifier: ids)
+        NotificationCenter.shared.deleteNotification(identifier: selectedNotificationsIds)
         
-            for id in ids {
-                notifications.removeAll(where: { $0.dogID == id })
-            }
+        for id in selectedNotificationsIds {
+            notifications.removeAll(where: { $0.dogID == id })
+        }
         
         currentState = .success(notifications: notifications)
     }

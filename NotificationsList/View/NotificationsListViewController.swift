@@ -74,8 +74,8 @@ class NotificationsListViewController: UIViewController {
     private func renderViewState(state: NotificationsState) {
         switch state {
         case .success(let notifications):
-            self.notificationsCollectionView.reloadData()
             self.notifications = notifications
+            self.notificationsCollectionView.reloadData()
             if notifications.isEmpty {
                 navigationItem.rightBarButtonItem = .none
             }
@@ -115,7 +115,7 @@ extension NotificationsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCollectionViewCell.identifier, for: indexPath) as! NotificationCollectionViewCell
         let notification = notifications[indexPath.row]
-        cell.setupViews(bodyText: notification.body, dateText: notification.date, dogName: notification.dogName, dogBreed: notification.dogBreed, isSelected: notification.isSelected)
+        cell.setupViews(notification: notification)
         return cell
     }
 }

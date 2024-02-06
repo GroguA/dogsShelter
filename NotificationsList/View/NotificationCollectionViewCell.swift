@@ -9,17 +9,6 @@ import UIKit
 
 class NotificationCollectionViewCell: UICollectionViewCell {
     
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                self.layer.borderWidth = 2
-                self.layer.borderColor = UIColor.green.withAlphaComponent(0.2).cgColor
-            } else {
-                self.layer.borderWidth = 0
-            }
-        }
-    }
-    
     static let identifier = "notifications"
     
     private lazy var notificationStackView: UIStackView = {
@@ -32,10 +21,10 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private lazy var dogLabel: UILabel = {
+    private lazy var dogNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(ofSize: 18, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
@@ -43,10 +32,10 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var notificationLabel: UILabel = {
+    private lazy var notificationTextMessage: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
@@ -56,22 +45,28 @@ class NotificationCollectionViewCell: UICollectionViewCell {
     
     
     func setupViews(notification: NotificationModel) {
-        notificationStackView.addArrangedSubview(dogLabel)
-        notificationStackView.addArrangedSubview(notificationLabel)
+        notificationStackView.addArrangedSubview(dogNameLabel)
+        notificationStackView.addArrangedSubview(notificationTextMessage)
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
         self.backgroundColor = .white
         contentView.addSubview(notificationStackView)
         
-        self.dogLabel.text = "\(notification.dogName)\n\(notification.dogBreed)"
-        self.notificationLabel.text = "\(notification.body)\n\(notification.date)"
+        if notification.isSelected {
+            self.layer.borderWidth = 2
+            self.layer.borderColor = UIColor.green.withAlphaComponent(0.2).cgColor
+        } else {
+            self.layer.borderWidth = 0
+        }
+        
+        self.dogNameLabel.text = "\(notification.dogName)\n\(notification.dogBreed)"
+        self.notificationTextMessage.text = "\(notification.body)\n\(notification.date)"
       
         let constraints = [
-            notificationStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
             notificationStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             notificationStackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            notificationStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+            notificationStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)

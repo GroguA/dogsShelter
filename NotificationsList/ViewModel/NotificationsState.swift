@@ -8,5 +8,6 @@
 import Foundation
 
 enum NotificationsState {
-    case success(notifications: [NotificationModel])
+    case success(notifications: [NotificationModel], isAtLeastOneNotificationSelected: Bool)
+    case empty
 }

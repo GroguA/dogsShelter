@@ -14,7 +14,7 @@ class NotificationsListViewController: UIViewController {
     private var notifications = [NotificationModel]()
     
     private let itemsPerRow: CGFloat = 1
-    private let itemsPerView: CGFloat = 10
+    private let itemsPerView: CGFloat = 9.5
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private lazy var notificationsCollectionView: UICollectionView = {
@@ -36,6 +36,16 @@ class NotificationsListViewController: UIViewController {
         return background
     }()
     
+    private lazy var emptyNotificationsLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = .systemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.textColor = .black
+        label.text = "No one notification"
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +62,9 @@ class NotificationsListViewController: UIViewController {
         view.addSubview(bottomBackground)
         view.backgroundColor = .white
         navigationItem.title = "Notifications"
+        view.addSubview(emptyNotificationsLabel)
+        
+        emptyNotificationsLabel.isHidden = true
         
         viewModel.getNotifications()
         
@@ -64,7 +77,10 @@ class NotificationsListViewController: UIViewController {
             bottomBackground.topAnchor.constraint(equalTo: notificationsCollectionView.bottomAnchor),
             bottomBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            bottomBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            emptyNotificationsLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyNotificationsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             
         ]
         NSLayoutConstraint.activate(constraints)
@@ -73,12 +89,17 @@ class NotificationsListViewController: UIViewController {
     
     private func renderViewState(state: NotificationsState) {
         switch state {
-        case .success(let notifications):
+        case .success(let notifications, let selected):
             self.notifications = notifications
             self.notificationsCollectionView.reloadData()
-            if notifications.isEmpty {
+            if selected {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
+            } else {
                 navigationItem.rightBarButtonItem = .none
             }
+        case .empty:
+            notificationsCollectionView.isHidden = true
+            emptyNotificationsLabel.isHidden = false
         }
     }
     
@@ -91,18 +112,12 @@ extension NotificationsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let notificationIndex = indexPath.row
         viewModel.onNotificationClicked(index: notificationIndex)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let notificationIndex = indexPath.row
         viewModel.onNotificationClicked(index: notificationIndex)
-        if !notifications.contains(where: { $0.isSelected} ) {
-            navigationItem.rightBarButtonItem = .none
-        } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
-        }
         
     }
 }

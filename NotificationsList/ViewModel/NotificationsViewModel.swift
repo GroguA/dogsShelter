@@ -32,7 +32,7 @@ class NotificationsViewModel {
     private let dateFormatter = DateFormatter()
     
     func getNotifications() {
-        NotificationCenter.shared.getNotifications(array: { requests in
+        DogsNotificationsManager.shared.getNotifications(array: { requests in
             requests.forEach({ request in
                 var notification: NotificationModel
                 if let dog = DogStorageService.shared.getOneDogById(id: request.identifier) {
@@ -44,13 +44,18 @@ class NotificationsViewModel {
                     }
                 }
             })
-            self.currentState = .success(notifications: self.notifications)
+            if !self.notifications.isEmpty {
+                self.currentState = .success(notifications: self.notifications, isAtLeastOneNotificationSelected: false)
+            } else {
+                self.currentState = .empty
+            }
         })
     }
     
     func onNotificationClicked(index: Int) {
-        if case .success(let notifications) = currentState {
+        if case .success(let notifications, _) = currentState {
             notifications[index].isSelected = !notifications[index].isSelected
+            currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: notifications[index].isSelected)
         }
     }
     
@@ -60,12 +65,16 @@ class NotificationsViewModel {
             notifications.isSelected
         }).map { $0.dogID }
         
-        NotificationCenter.shared.deleteNotification(identifier: selectedNotificationsIds)
+        DogsNotificationsManager.shared.deleteNotification(identifier: selectedNotificationsIds)
         
         for id in selectedNotificationsIds {
             notifications.removeAll(where: { $0.dogID == id })
         }
         
-        currentState = .success(notifications: notifications)
+        if notifications.isEmpty {
+            currentState = .empty
+        } else {
+            currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: false)
+        }
     }
 }

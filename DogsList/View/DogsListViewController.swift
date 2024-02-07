@@ -70,6 +70,11 @@ class DogsListViewController: UIViewController {
         return searchController
     }()
     
+    private lazy var addFilterButton: UIBarButtonItem = {
+       let button = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(onFilterButtonClicked))
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         viewModel.loadSavedDogs()
@@ -95,7 +100,7 @@ class DogsListViewController: UIViewController {
         navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(onFilterButtonClicked))
+        navigationItem.rightBarButtonItem = addFilterButton
         navigationItem.leftBarButtonItem = notificationsListButton
 
         let constraint = [

@@ -1,5 +1,5 @@
 //
-//  CalculateDogAge.swift
+//  DateUtils.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 18.10.2023.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-class CalculateDates {
-    static let shared = CalculateDates()
+class DateUtils {
+    static let shared = DateUtils()
     
     private init() {}
     

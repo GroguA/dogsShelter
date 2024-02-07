@@ -9,7 +9,7 @@ import UIKit
 
 class DogsFilterViewController: UIViewController {
     
-    var filterDogs: ((_ filter: FilterForDogs) -> Void)? = nil
+    var filterDogs: ((_ filter: DogFiltersModel) -> Void)? = nil
         
     private var viewModel = DogFiltersViewModel()
     

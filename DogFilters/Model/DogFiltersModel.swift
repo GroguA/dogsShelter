@@ -1,5 +1,5 @@
 //
-//  FilterForDogs.swift
+//  DogFiltersModel.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 31.10.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FilterForDogs {
+class DogFiltersModel {
     let breeds: [String]?
     let age: String?
     

@@ -9,13 +9,13 @@ import UIKit
 
 class DogsListViewController: UIViewController {
     
-    private var dogs = [DogsListModel]()
+    private var dogs = [DogsListDogModel]()
     
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 6
     private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
-    private let viewModel = DogListViewModel()
+    private let viewModel = DogsListViewModel()
     
     private lazy var resetFilterButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
@@ -121,7 +121,7 @@ class DogsListViewController: UIViewController {
         navigationController?.pushViewController(AddNewDogViewController(), animated: true)
     }
     
-    private func renderViewState(state: DogListState) {
+    private func renderViewState(state: DogsListState) {
         switch state {
         case .success(let savedDogs, let isFiltering):
             dogsCollectionView.isHidden = false

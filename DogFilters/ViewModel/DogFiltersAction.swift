@@ -8,5 +8,5 @@
 import Foundation
 
 enum DogFiltersAction {
-    case applyFilter(filter: FilterForDogs)
+    case applyFilter(filter: DogFiltersModel)
 }

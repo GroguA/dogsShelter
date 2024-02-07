@@ -82,7 +82,7 @@ class DogsListCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    func setupViews(dog: DogsListModel) {
+    func setupViews(dog: DogsListDogModel) {
         contentView.addSubview(name)
         contentView.addSubview(breed)
         contentView.addSubview(age)

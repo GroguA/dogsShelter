@@ -8,5 +8,5 @@
 import Foundation
 
 enum DogFiltersState {
-    case success(filter: FilterForDogs)
+    case success(filter: DogFiltersModel)
 }

@@ -1,5 +1,5 @@
 //
-//  ShelterViewModel.swift
+//  DogsListViewModel.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 27.09.2023.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-class DogListViewModel {
+class DogsListViewModel {
     
-    var viewStateDidChange: (DogListState) -> () = { _ in } {
+    var viewStateDidChange: (DogsListState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
                 return
@@ -18,7 +18,7 @@ class DogListViewModel {
         }
     }
     
-    private var currentState: DogListState? = nil  {
+    private var currentState: DogsListState? = nil  {
         didSet {
             if let currentState = currentState {
                 viewStateDidChange(currentState)
@@ -26,7 +26,7 @@ class DogListViewModel {
         }
     }
     
-    private var dogsBeforeSearch: [DogsListModel] = []
+    private var dogsBeforeSearch: [DogsListDogModel] = []
     
     func loadSavedDogs() {
         if case .empty(let isFiltering) = currentState {
@@ -42,8 +42,8 @@ class DogListViewModel {
         let savedDogs = DogStorageService.shared.fetchSavedDogs()
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
-                let dogAge = CalculateDates.shared.getDogAgeInYears(dateOfBirth: dogCoreData.dateOfBirth)
-                let dog = DogsListModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
+                let dogAge = DateUtils.shared.getDogAgeInYears(dateOfBirth: dogCoreData.dateOfBirth)
+                let dog = DogsListDogModel(name: dogCoreData.name, breed: dogCoreData.breed, age: dogAge, image: dogCoreData.image, id: dogCoreData.id)
                 return dog
             })
             dogsBeforeSearch = displayedDogs
@@ -57,7 +57,7 @@ class DogListViewModel {
         if searchText.isEmpty {
             currentState = .empty(isFiltering: false)
         } else {
-            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogsListModel) -> Bool in
+            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogsListDogModel) -> Bool in
                 return dog.name.lowercased().contains(searchText.lowercased())
             })
             currentState = .success(dogs: filteredDogs, isFiltering: false)
@@ -72,7 +72,7 @@ class DogListViewModel {
         }
     }
     
-    func onFilterSelected(filter: FilterForDogs) {
+    func onFilterSelected(filter: DogFiltersModel) {
         let filteredDogs = dogsBeforeSearch.filter { dog in
             if let age = filter.age, let breeds = filter.breeds {
                 return Int(age) == Int(dog.age) && breeds.contains(where: { breed in

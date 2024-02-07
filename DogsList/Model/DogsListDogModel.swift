@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DogsListModel {
+class DogsListDogModel {
     let name: String
     let breed: String
     let age: String

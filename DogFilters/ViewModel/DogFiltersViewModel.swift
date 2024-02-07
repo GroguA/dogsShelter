@@ -44,25 +44,25 @@ class DogFiltersViewModel {
     func onAgeFilterTapped(age: String) {
         switch currentState {
         case .success(let filter):
-            currentState = .success(filter: FilterForDogs(breeds: filter.breeds, age: age))
+            currentState = .success(filter: DogFiltersModel(breeds: filter.breeds, age: age))
         case nil:
-            currentState = .success(filter: FilterForDogs(breeds: nil, age: age))
+            currentState = .success(filter: DogFiltersModel(breeds: nil, age: age))
         }
     }
     
     func onBreedFilterTapped(breeds: [String]) {
         switch currentState {
         case .success(let filter):
-            currentState = .success(filter: FilterForDogs(breeds: breeds, age: filter.age))
+            currentState = .success(filter: DogFiltersModel(breeds: breeds, age: filter.age))
         case nil:
-            currentState = .success(filter: FilterForDogs(breeds: breeds, age: nil))
+            currentState = .success(filter: DogFiltersModel(breeds: breeds, age: nil))
         }
     }
     
     func deselectAgeFilterTapped() {
         switch currentState {
         case .success(let filter):
-            currentState = .success(filter: FilterForDogs(breeds: filter.breeds, age: nil))
+            currentState = .success(filter: DogFiltersModel(breeds: filter.breeds, age: nil))
         case nil:
             return
         }
@@ -72,7 +72,7 @@ class DogFiltersViewModel {
     func deselectBreedFilterTapped() {
         switch currentState {
         case .success(let filter):
-            currentState = .success(filter: FilterForDogs(breeds: nil, age: filter.age))
+            currentState = .success(filter: DogFiltersModel(breeds: nil, age: filter.age))
         case nil:
             return
         }

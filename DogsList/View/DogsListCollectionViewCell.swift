@@ -8,7 +8,7 @@
 import UIKit
 
 class DogsListCollectionViewCell: UICollectionViewCell {
-    static let identifier = "dogs"
+    static let identifier = "dogListViewCell"
     
     private lazy var name: UILabel = {
         let label = UILabel()

@@ -8,5 +8,6 @@
 import Foundation
 
 enum ScheduleReminderAction: String {
-    case editingError = "Please make sure all fields are filled in."
+    case showError = "Please make sure all fields are filled in."
+    case closeScreen
 }

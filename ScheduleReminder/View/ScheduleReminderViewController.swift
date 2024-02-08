@@ -9,16 +9,10 @@ import UIKit
 
 class ScheduleReminderViewController: UIViewController {
     
-    var id: String = ""
+    var dogId: String = ""
     
     private let viewModel = ScheduleReminderViewModel()
-    
-    private var isDaily: Bool = false
-    private var hour: Int?
-    private var minute: Int?
-    private var month: Int?
-    private var day: Int?
-    
+        
     private lazy var reminderTextTF: UITextField = {
         let reminder = UITextField()
         reminder.placeholder = "What you want to remind"
@@ -115,8 +109,10 @@ class ScheduleReminderViewController: UIViewController {
         
         viewModel.onAction = { action in
             switch action {
-            case .editingError:
+            case .showError:
                 self.showAlertMessage(message: action.rawValue)
+            case .closeScreen:
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
@@ -181,23 +177,14 @@ class ScheduleReminderViewController: UIViewController {
         dateFormatter.dateFormat = "MMM d, h:mm a"
         let outputTime = dateFormatter.string(from: sender.date)
         dateOfReminderTextField.text = outputTime
-        hour = Calendar.current.component(.hour, from: sender.date)
-        minute = Calendar.current.component(.minute, from: sender.date)
-        month = Calendar.current.component(.month, from: sender.date)
-        day = Calendar.current.component(.day, from: sender.date)
     }
     
     @objc private func scheduleReminderTapped() {
-        viewModel.onScheduleREminderTapped(body: reminderTextTF.text, hour: hour, minute: minute, isDaily: isDaily, day: day, month: month, identifier: id)
-        navigationController?.popViewController(animated: true)
+        viewModel.onScheduleReminderTapped(body: reminderTextTF.text, date: dateOfReminderPicker.date, isDaily: isDailySwitcher.isOn, identifier: dogId)
     }
     
     @objc private func isDailyTapped(_ sender: UISwitch) {
-        if sender.isOn {
-            isDaily = true
-        } else {
-            isDaily = false
-        }
+        
     }
     
 }

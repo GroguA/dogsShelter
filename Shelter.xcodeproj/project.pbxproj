@@ -36,7 +36,6 @@
 		7CC0B4FD2ADFE712007B80BD /* DogDetailsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC0B4FC2ADFE712007B80BD /* DogDetailsAction.swift */; };
 		7CDB88972B34507D0081886F /* SelectBreedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB88962B34507D0081886F /* SelectBreedModel.swift */; };
 		7CDB889A2B4E94EE0081886F /* DogDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDB88992B4E94EE0081886F /* DogDetailsModel.swift */; };
-		7CE648602AC6B79300FD5DB1 /* AddNewDogState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */; };
 		7CE648622AC6B7D800FD5DB1 /* AddNewDogAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */; };
 		7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */; };
 		7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648932ACC6A1800FD5DB1 /* DogStorageService.swift */; };
@@ -88,7 +87,6 @@
 		7CC0B4FC2ADFE712007B80BD /* DogDetailsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailsAction.swift; sourceTree = "<group>"; };
 		7CDB88962B34507D0081886F /* SelectBreedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBreedModel.swift; sourceTree = "<group>"; };
 		7CDB88992B4E94EE0081886F /* DogDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailsModel.swift; sourceTree = "<group>"; };
-		7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogState.swift; sourceTree = "<group>"; };
 		7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogAction.swift; sourceTree = "<group>"; };
 		7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogViewModel.swift; sourceTree = "<group>"; };
 		7CE648932ACC6A1800FD5DB1 /* DogStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogStorageService.swift; sourceTree = "<group>"; };
@@ -336,7 +334,6 @@
 		7CE6485D2AC6B76F00FD5DB1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				7CE6485F2AC6B79300FD5DB1 /* AddNewDogState.swift */,
 				7CE648612AC6B7D800FD5DB1 /* AddNewDogAction.swift */,
 				7CE648642AC6B80700FD5DB1 /* AddNewDogViewModel.swift */,
 			);
@@ -507,7 +504,6 @@
 				7CDB88972B34507D0081886F /* SelectBreedModel.swift in Sources */,
 				7C13C11A2AE906D100D14041 /* SelectBreedFilterViewController.swift in Sources */,
 				7C429FD22AC4228600D43549 /* DogsListViewModel.swift in Sources */,
-				7CE648602AC6B79300FD5DB1 /* AddNewDogState.swift in Sources */,
 				7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */,
 				7CED29B92B5AB8DB00EDF509 /* NotificationsState.swift in Sources */,
 				7C13C1202AEA5BB400D14041 /* SelectBreedViewModel.swift in Sources */,

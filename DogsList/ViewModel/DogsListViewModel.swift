@@ -30,13 +30,14 @@ class DogsListViewModel {
     
     private var isFiltering: Bool = false
     
-    private let savedDogs = DogStorageService.shared.fetchSavedDogs()
+    private let dogStorageService = DogStorageService.shared
     
     func loadSavedDogs() {
-        isFiltering = false
         if isFiltering {
             return
         }
+        
+        let savedDogs = dogStorageService.fetchSavedDogs()
         
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
@@ -51,7 +52,7 @@ class DogsListViewModel {
         }
     }
     
-    func dogSearchByName(searchText: String) {
+    func searchDogByName(searchText: String) {
         isFiltering = false
         if searchText.isEmpty {
             currentState = .empty(isFiltering: isFiltering)

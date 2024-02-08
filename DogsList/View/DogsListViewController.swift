@@ -221,7 +221,7 @@ extension DogsListViewController: UISearchResultsUpdating {
         let searchBar = searchController.searchBar
         guard let text = searchBar.text else { return }
         if !text.isEmpty {
-            viewModel.dogSearchByName(searchText: text)
+            viewModel.searchDogByName(searchText: text)
         }
     }
 }

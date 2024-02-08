@@ -13,17 +13,17 @@ class DogsListViewController: UIViewController {
     
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 6
-    private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private let viewModel = DogsListViewModel()
     
     private lazy var resetFilterButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(resetFilter))
+        let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(onResetFilterClicked))
         return button
     }()
     
     private lazy var notificationsListButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Notifications list", style: .plain, target: self, action: #selector(openNotificationsList))
+        let button = UIBarButtonItem(title: "Notifications list", style: .plain, target: self, action: #selector(onNotificationsButtonClicked))
         return button
     }()
     
@@ -43,6 +43,8 @@ class DogsListViewController: UIViewController {
         button.image = UIImage(systemName: "plus.circle.fill")
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onAddNewDogClicked))
+        button.addGestureRecognizer(tap)
         return button
     }()
     
@@ -53,7 +55,7 @@ class DogsListViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "No one dog added"
+        label.text = "No dogs added yet"
         return label
     }()
     
@@ -66,6 +68,11 @@ class DogsListViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.obscuresBackgroundDuringPresentation = false
         return searchController
+    }()
+    
+    private lazy var addFilterButton: UIBarButtonItem = {
+       let button = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(onFilterButtonClicked))
+        return button
     }()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,7 +100,7 @@ class DogsListViewController: UIViewController {
         navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(openFilterView))
+        navigationItem.rightBarButtonItem = addFilterButton
         navigationItem.leftBarButtonItem = notificationsListButton
 
         let constraint = [
@@ -113,11 +120,9 @@ class DogsListViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraint)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(addNewDogVC))
-        addDogButton.addGestureRecognizer(tap)
     }
     
-    @objc private func addNewDogVC(tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc private func onAddNewDogClicked(tapGestureRecognizer: UITapGestureRecognizer) {
         navigationController?.pushViewController(AddNewDogViewController(), animated: true)
     }
     
@@ -144,7 +149,7 @@ class DogsListViewController: UIViewController {
         }
     }
     
-    @objc private func openFilterView() {
+    @objc private func onFilterButtonClicked() {
         let vc = DogsFilterViewController()
         vc.filterDogs = { filter in
             self.viewModel.onFilterSelected(filter: filter)
@@ -152,12 +157,12 @@ class DogsListViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc private func resetFilter() {
+    @objc private func onResetFilterClicked() {
         viewModel.onResetFilterTapped()
         self.navigationItem.leftBarButtonItem = notificationsListButton
     }
     
-    @objc private func openNotificationsList() {
+    @objc private func onNotificationsButtonClicked() {
         navigationController?.pushViewController(NotificationsListViewController(), animated: true)
     }
 }
@@ -165,10 +170,10 @@ class DogsListViewController: UIViewController {
 
 extension DogsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let oneDog = dogs[indexPath.row]
-        let oneDogViewController = DogDetailsViewController()
-        oneDogViewController.id = oneDog.id
-        navigationController?.pushViewController(oneDogViewController, animated: true)
+        let clickedDog = dogs[indexPath.row]
+        let dogDetailsViewController = DogDetailsViewController()
+        dogDetailsViewController.id = clickedDog.id
+        navigationController?.pushViewController(dogDetailsViewController, animated: true)
     }
 }
 
@@ -216,7 +221,7 @@ extension DogsListViewController: UISearchResultsUpdating {
         let searchBar = searchController.searchBar
         guard let text = searchBar.text else { return }
         if !text.isEmpty {
-            viewModel.dogSearchByName(searchText: text)
+            viewModel.searchDogByName(searchText: text)
         }
     }
 }

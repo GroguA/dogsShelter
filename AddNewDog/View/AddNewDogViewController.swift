@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddNewDogViewController: UIViewController {
+class AddNewDogViewController: UIViewController, UINavigationControllerDelegate {
             
     private let viewModel = AddNewDogViewModel()
     
@@ -207,6 +207,7 @@ class AddNewDogViewController: UIViewController {
     private func onAddDogPhotoFromGalleryClicked() {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
+        picker.delegate = self
         present(picker, animated: true)
     }
     
@@ -214,6 +215,7 @@ class AddNewDogViewController: UIViewController {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.sourceType = .camera
+        picker.delegate = self
         present(picker, animated: true)
     }
 }

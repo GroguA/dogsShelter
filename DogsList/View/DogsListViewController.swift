@@ -167,7 +167,7 @@ extension DogsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let oneDog = dogs[indexPath.row]
         let oneDogViewController = DogDetailsViewController()
-        oneDogViewController.id = oneDog.id
+        oneDogViewController.dogId = oneDog.id
         navigationController?.pushViewController(oneDogViewController, animated: true)
     }
 }

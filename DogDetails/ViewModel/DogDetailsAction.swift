@@ -8,7 +8,7 @@
 import Foundation
 
 enum DogDetailsAction {
-    case error
-    case deleteDog
+    case showError
+    case closeScreen
 }
 

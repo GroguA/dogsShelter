@@ -33,23 +33,19 @@ class DogDetailsViewModel {
     func getOneDogByID(id: String) {
         if let dog = DogStorageService.shared.getOneDogById(id: id) {
             let dogModel = DogDetailsModel(name: dog.name, breed: dog.breed, age: DateUtils.shared.getDogAgeInYears(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id, dateOfWash: dog.dateOfWash)
-            if  dogModel.dateOfWash == nil {
-                currentState = .success(dog: dogModel, isDogWashClicked: false)
-            } else {
-                currentState = .success(dog: dogModel, isDogWashClicked: true)
-            }
+            currentState = .success(dog: dogModel)
             currentDog = dogModel
         } else {
-            onAction(DogDetailsAction.error)
+            onAction(DogDetailsAction.showError)
         }
         
     }
     
     func deleteDogClicked(id: String) {
         if !DogStorageService.shared.deleteDog(id: id) {
-            onAction(DogDetailsAction.error)
+            onAction(DogDetailsAction.showError)
         } else {
-            onAction(DogDetailsAction.deleteDog)
+            onAction(DogDetailsAction.closeScreen)
         }
     }
     
@@ -57,15 +53,15 @@ class DogDetailsViewModel {
         let date = DateUtils.shared.getCurrentDate()
         guard let dogBeforeWash = currentDog else { return }
         if !DogStorageService.shared.saveDogsDateOfWash(id: dogBeforeWash.id, date: date) {
-            onAction(DogDetailsAction.error)
+            onAction(DogDetailsAction.showError)
         } else {
             let dogAfterWash = DogDetailsModel(name: dogBeforeWash.name,
-                                           breed: dogBeforeWash.breed,
-                                           age: dogBeforeWash.age,
-                                           image: dogBeforeWash.image,
-                                           id: dogBeforeWash.id,
-                                           dateOfWash: date)
-            currentState = .success(dog: dogAfterWash, isDogWashClicked: true)
+                                               breed: dogBeforeWash.breed,
+                                               age: dogBeforeWash.age,
+                                               image: dogBeforeWash.image,
+                                               id: dogBeforeWash.id,
+                                               dateOfWash: date)
+            currentState = .success(dog: dogAfterWash)
             currentDog = dogAfterWash
         }
     }

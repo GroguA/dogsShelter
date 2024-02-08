@@ -20,6 +20,8 @@ class DogFiltersViewModel {
     
     var onAction: (DogFiltersAction) -> ()  = { _ in }
     
+    private var dogFilters: DogFiltersModel = DogFiltersModel(breeds: nil, age: nil)
+    
     private var currentState: DogFiltersState? = nil  {
         didSet {
             if let currentState = currentState {
@@ -29,54 +31,40 @@ class DogFiltersViewModel {
     }
     
     func onApplyButtonTapped() {
-        switch currentState {
-        case .success(let filter):
-            if filter.breeds != nil || filter.age != nil {
-                onAction(DogFiltersAction.applyFilter(filter: filter))
-            } else {
-                return
-            }
-        case nil:
+        if dogFilters.breeds != nil || dogFilters.age != nil {
+            onAction(DogFiltersAction.applyFilter(filter: dogFilters))
+        } else {
             return
         }
     }
     
+    
     func onAgeFilterTapped(age: String) {
-        switch currentState {
-        case .success(let filter):
-            currentState = .success(filter: DogFiltersModel(breeds: filter.breeds, age: age))
-        case nil:
-            currentState = .success(filter: DogFiltersModel(breeds: nil, age: age))
+        dogFilters.age = age
+        if let breeds = dogFilters.breeds {
+            currentState = .success(filter: dogFilters)
+        } else {
+            currentState = .success(filter: dogFilters)
         }
     }
     
     func onBreedFilterTapped(breeds: [String]) {
-        switch currentState {
-        case .success(let filter):
-            currentState = .success(filter: DogFiltersModel(breeds: breeds, age: filter.age))
-        case nil:
-            currentState = .success(filter: DogFiltersModel(breeds: breeds, age: nil))
+        dogFilters.breeds = breeds
+        if let age = dogFilters.age {
+            currentState = .success(filter: dogFilters)
+        } else {
+            currentState = .success(filter: dogFilters)
         }
     }
     
     func deselectAgeFilterTapped() {
-        switch currentState {
-        case .success(let filter):
-            currentState = .success(filter: DogFiltersModel(breeds: filter.breeds, age: nil))
-        case nil:
-            return
-        }
-        
+        dogFilters.age = nil
+        currentState = .success(filter: dogFilters)
     }
     
     func deselectBreedFilterTapped() {
-        switch currentState {
-        case .success(let filter):
-            currentState = .success(filter: DogFiltersModel(breeds: nil, age: filter.age))
-        case nil:
-            return
-        }
-        
+        dogFilters.breeds = nil
+        currentState = .success(filter: dogFilters)
     }
     
 }

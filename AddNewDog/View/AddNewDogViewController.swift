@@ -7,10 +7,8 @@
 
 import UIKit
 
-class AddNewDogViewController: UIViewController {
-    
-    private let breeds = BreedsDataSource.shared.getBreeds()
-        
+class AddNewDogViewController: UIViewController, UINavigationControllerDelegate {
+            
     private let viewModel = AddNewDogViewModel()
     
     private lazy var nameTextField: UITextField = {
@@ -77,7 +75,7 @@ class AddNewDogViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(saveDogToStorage), for: .touchUpInside)
+        button.addTarget(self, action: #selector(onSaveDogClicked), for: .touchUpInside)
         return button
     }()
     
@@ -102,10 +100,10 @@ class AddNewDogViewController: UIViewController {
     
     private lazy var menuItems: [UIAction] = {
         return [
-            UIAction(title: "Gallery", image: UIImage(systemName: "photo"), handler: { photo in self.addDogPhotoFromGallery()
+            UIAction(title: "Gallery", image: UIImage(systemName: "photo"), handler: { photo in self.onAddDogPhotoFromGalleryClicked()
             }),
             UIAction(title: "Camera", image: UIImage(systemName: "camera"), handler: { photo in
-                self.addDogPhotoFromCamera()
+                self.onAddDogPhotoFromCameraClicked()
             })
         ]
     }()
@@ -114,23 +112,22 @@ class AddNewDogViewController: UIViewController {
         return UIMenu(title: "Choose", image: nil, identifier: nil, options: [], children: menuItems)
     }()
 
+    private lazy var addDogImageButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Add dog image", menu: addDogPhotoMenu)
+       return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         
-        viewModel.viewStateDidChange = { viewState in
-            if viewState == .success {
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-        
         viewModel.onAction = { action in
             switch action {
-            case .editingError:
-                self.showAlertMessage(message: action.rawValue)
-            case .saveError:
-                self.showAlertMessage(message: action.rawValue)
+            case .showError(let text):
+                self.showAlertMessage(message: text)
+            case .closeScreen:
+                self.navigationController?.popViewController(animated: true)
             }
         }
 
@@ -144,7 +141,7 @@ class AddNewDogViewController: UIViewController {
         view.addSubview(dogImage)
         
         navigationItem.title = "Add new dog"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add dog image", menu: addDogPhotoMenu)
+        navigationItem.rightBarButtonItem = addDogImageButton
         
         view.backgroundColor = .white
         
@@ -177,7 +174,7 @@ class AddNewDogViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc private func saveDogToStorage(sender: UIButton) {
+    @objc private func onSaveDogClicked(sender: UIButton) {
         viewModel.onAddDogBtnClicked(name: nameTextField.text, breed: breedTextField.text, dateOfBirth: dateOfBirthTextField.text, image: dogImage.image?.pngData())
     }
     
@@ -207,43 +204,20 @@ class AddNewDogViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func addDogPhotoFromGallery() {
+    private func onAddDogPhotoFromGalleryClicked() {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
     }
     
-    private func addDogPhotoFromCamera() {
+    private func onAddDogPhotoFromCameraClicked() {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
-        picker.delegate = self
         picker.sourceType = .camera
+        picker.delegate = self
         present(picker, animated: true)
     }
-}
-
-extension AddNewDogViewController: UIPickerViewDelegate {
-    
-}
-
-extension AddNewDogViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return breeds.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return breeds[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        breedTextField.text = breeds[row]
-    }
-    
 }
 
 extension AddNewDogViewController: UITextFieldDelegate {
@@ -260,6 +234,3 @@ extension AddNewDogViewController: UIImagePickerControllerDelegate {
     }
 }
  
-extension AddNewDogViewController: UINavigationControllerDelegate {
-    
-}

@@ -32,9 +32,15 @@ class DogDetailsViewModel {
     
     func getOneDogByID(id: String) {
         if let dog = DogStorageService.shared.getOneDogById(id: id) {
-            let dogModel = DogDetailsModel(name: dog.name, breed: dog.breed, age: DateUtils.shared.getDogAgeInYears(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id, dateOfWash: dog.dateOfWash)
-            currentState = .success(dog: dogModel)
-            currentDog = dogModel
+            if let dateOfWash = dog.dateOfWash {
+                let dogModel = DogDetailsModel(name: dog.name, breed: dog.breed, age: DateUtils.shared.getDogAgeInYears(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id, dateOfWash: dateOfWash)
+                currentState = .success(dog: dogModel)
+                currentDog = dogModel
+            } else {
+                let dogModel = DogDetailsModel(name: dog.name, breed: dog.breed, age: DateUtils.shared.getDogAgeInYears(dateOfBirth: dog.dateOfBirth), image: dog.image, id: dog.id, dateOfWash: "None")
+                currentState = .success(dog: dogModel)
+                currentDog = dogModel
+            }
         } else {
             onAction(DogDetailsAction.showError)
         }

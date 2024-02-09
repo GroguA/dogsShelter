@@ -246,12 +246,6 @@ class DogDetailsViewController: UIViewController {
             dogAge.text = dog.age
             dogImage.image = UIImage(data: dog.image)
             lastDogsWash.text = dog.dateOfWash
-            if dog.dateOfWash != nil {
-                self.lastDogsWash.text = dog.dateOfWash
-            } else {
-                self.lastDogsWash.text = "None"
-                
-            }
         }
     }
     

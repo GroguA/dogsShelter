@@ -172,7 +172,7 @@ extension DogsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clickedDog = dogs[indexPath.row]
         let dogDetailsViewController = DogDetailsViewController()
-        dogDetailsViewController.id = clickedDog.id
+        dogDetailsViewController.dogId = clickedDog.id
         navigationController?.pushViewController(dogDetailsViewController, animated: true)
     }
 }

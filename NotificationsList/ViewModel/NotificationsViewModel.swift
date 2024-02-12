@@ -53,10 +53,8 @@ class NotificationsViewModel {
     }
     
     func onNotificationClicked(index: Int) {
-        if case .success(let notifications, _) = currentState {
-            notifications[index].isSelected = !notifications[index].isSelected
-            currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: notifications[index].isSelected)
-        }
+        notifications[index].isSelected = !notifications[index].isSelected
+        currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: notifications.contains(where: { $0.isSelected }))
     }
     
     

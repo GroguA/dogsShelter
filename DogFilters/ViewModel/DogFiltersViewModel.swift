@@ -39,22 +39,14 @@ class DogFiltersViewModel {
     }
     
     
-    func onAgeFilterTapped(age: String) {
+    func onAgeFilterChanged(age: String) {
         dogFilters.age = age
-        if let breeds = dogFilters.breeds {
-            currentState = .success(filter: dogFilters)
-        } else {
-            currentState = .success(filter: dogFilters)
-        }
+        currentState = .success(filter: dogFilters)
     }
     
-    func onBreedFilterTapped(breeds: [String]) {
+    func onBreedFilterChanged(breeds: [String]) {
         dogFilters.breeds = breeds
-        if let age = dogFilters.age {
-            currentState = .success(filter: dogFilters)
-        } else {
-            currentState = .success(filter: dogFilters)
-        }
+        currentState = .success(filter: dogFilters)
     }
     
     func deselectAgeFilterTapped() {

@@ -10,7 +10,7 @@ import UIKit
 class DogsFilterViewController: UIViewController {
     
     var onDogFiltersSelected: ((_ filter: DogFiltersModel) -> Void)? = nil
-        
+    
     private var viewModel = DogFiltersViewModel()
     
     private lazy var breedFilterIcon: UIImageView = {
@@ -19,7 +19,7 @@ class DogsFilterViewController: UIViewController {
         view.image = image
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
-        let breedFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(onSelectedBreedFilterClicked))
+        let breedFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(onBreedFilterEnableClicked))
         view.addGestureRecognizer(breedFilterDeselectTap)
         return view
     }()
@@ -31,7 +31,7 @@ class DogsFilterViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.isUserInteractionEnabled = true
-        let breedFilterSelectTap = UITapGestureRecognizer(target: self, action: #selector(onNotSelectedBreedFilterClicked))
+        let breedFilterSelectTap = UITapGestureRecognizer(target: self, action: #selector(onBreedFilterDisableClicked))
         label.addGestureRecognizer(breedFilterSelectTap)
         return label
     }()
@@ -71,7 +71,7 @@ class DogsFilterViewController: UIViewController {
         view.image = image
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
-        let ageFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(onSelectedAgeFilterClicked))
+        let ageFilterDeselectTap = UITapGestureRecognizer(target: self, action: #selector(onAgeFilterDisableClicked))
         view.addGestureRecognizer(ageFilterDeselectTap)
         return view
     }()
@@ -83,7 +83,7 @@ class DogsFilterViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.isUserInteractionEnabled = true
-        let ageFilterSelectTap = UITapGestureRecognizer(target: self, action: #selector(onNotSelectedAgeFilterClicked))
+        let ageFilterSelectTap = UITapGestureRecognizer(target: self, action: #selector(onAgeFilterEnableClicked))
         label.addGestureRecognizer(ageFilterSelectTap)
         return label
     }()
@@ -97,7 +97,7 @@ class DogsFilterViewController: UIViewController {
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.returnKeyType = .done
-        textField.addTarget(self, action: #selector(onAgeFilterClicked), for: .editingChanged)
+        textField.addTarget(self, action: #selector(ageTextFieldEditingChanged), for: .editingChanged)
         return textField
     }()
     
@@ -159,14 +159,14 @@ class DogsFilterViewController: UIViewController {
         
         let dismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(dismissKeyboard)
-
+        
     }
     
-    @objc private func onNotSelectedBreedFilterClicked() {
+    @objc private func onBreedFilterDisableClicked() {
         let vc = SelectBreedViewController()
         vc.isSingleSelectMode = false
         vc.doOnMultiSelect = { selectedBreeds in
-            self.viewModel.onBreedFilterTapped(breeds: selectedBreeds)
+            self.viewModel.onBreedFilterChanged(breeds: selectedBreeds)
         }
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -183,9 +183,9 @@ class DogsFilterViewController: UIViewController {
         viewModel.onApplyButtonTapped()
     }
     
-    @objc private func onAgeFilterClicked() {
+    @objc private func ageTextFieldEditingChanged() {
         if let age = ageFilterTextField.text {
-            viewModel.onAgeFilterTapped(age: age)
+            viewModel.onAgeFilterChanged(age: age)
         }
     }
     
@@ -202,7 +202,7 @@ class DogsFilterViewController: UIViewController {
         }
     }
     
-    @objc private func onNotSelectedAgeFilterClicked() {
+    @objc private func onAgeFilterEnableClicked() {
         ageFilterIcon.image = UIImage(systemName: "xmark")
         ageFilterTextField.isHidden = false
     }
@@ -211,14 +211,14 @@ class DogsFilterViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @objc private func onSelectedAgeFilterClicked() {
+    @objc private func onAgeFilterDisableClicked() {
         ageFilterTextField.isHidden = true
         ageFilterTextField.text = nil
         ageFilterIcon.image = UIImage(systemName: "circle")
         viewModel.deselectAgeFilterTapped()
     }
     
-    @objc private func onSelectedBreedFilterClicked() {
+    @objc private func onBreedFilterEnableClicked() {
         selectedBreedsLabel.isHidden = true
         selectedBreedsLabel.text = nil
         breedFilterIcon.image = UIImage(systemName: "circle")

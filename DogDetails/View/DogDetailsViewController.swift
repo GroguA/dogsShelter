@@ -9,7 +9,7 @@ import UIKit
 
 class DogDetailsViewController: UIViewController {
     
-    var id = ""
+    var dogId = ""
     
     private let viewModel = DogDetailsViewModel()
     
@@ -103,16 +103,6 @@ class DogDetailsViewController: UIViewController {
         return label
     }()
     
-    private lazy var errorLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .white
-        label.textColor = .black
-        return label
-    }()
-    
     private lazy var dateOfWashTitle: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .medium)
@@ -152,7 +142,7 @@ class DogDetailsViewController: UIViewController {
         button.isEnabled = true
         button.setTitleColor(.black, for: .disabled)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(updateDogsWash), for: .touchUpInside)
+        button.addTarget(self, action: #selector(washDogClicked), for: .touchUpInside)
         return button
     }()
     
@@ -172,11 +162,16 @@ class DogDetailsViewController: UIViewController {
         return menu
     }()
     
+    private lazy var menuButton: UIBarButtonItem = {
+        let menuButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: menu)
+        return menuButton
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         
-        viewModel.getOneDogByID(id: id)
+        viewModel.getOneDogByID(id: dogId)
         
         viewModel.viewStateDidChange = { viewState in
             self.renderViewState(state: viewState)
@@ -184,15 +179,13 @@ class DogDetailsViewController: UIViewController {
         
         viewModel.onAction = { action in
             switch action {
-            case .error:
-                self.errorLabel.text = "Error"
-                self.errorLabel.isHidden = false
-            case .deleteDog:
+            case .showError:
+                self.showAlert()
+            case .closeScreen:
                 self.navigationController?.popViewController(animated: true)
             }
         }
         
-        let menuButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), menu: menu)
         self.navigationItem.rightBarButtonItem = menuButton
         
     }
@@ -208,10 +201,8 @@ class DogDetailsViewController: UIViewController {
         titlesStackView.addArrangedSubview(breed)
         titlesStackView.addArrangedSubview(age)
         view.addSubview(titlesStackView)
-        view.addSubview(errorLabel)
         view.addSubview(dateOfWashTitle)
         view.addSubview(lastDogsWash)
-        errorLabel.isHidden = true
         view.addSubview(updateWashDateButton)
         
         navigationItem.title = "Dog info"
@@ -229,8 +220,6 @@ class DogDetailsViewController: UIViewController {
             infoStackView.topAnchor.constraint(equalTo: dogImage.bottomAnchor, constant: 16),
             infoStackView.leadingAnchor.constraint(lessThanOrEqualTo: titlesStackView.trailingAnchor, constant: 1),
             infoStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             dateOfWashTitle.topAnchor.constraint(equalTo: titlesStackView.bottomAnchor, constant: 16),
             dateOfWashTitle.trailingAnchor.constraint(equalTo: lastDogsWash.leadingAnchor, constant: -1),
@@ -251,27 +240,21 @@ class DogDetailsViewController: UIViewController {
     
     private func renderViewState(state: DogDetailsState) {
         switch state {
-        case .success(let dog, let isDogWashed):
-            errorLabel.isHidden = true
+        case .success(let dog):
             dogName.text = dog.name
             dogBreed.text = dog.breed
             dogAge.text = dog.age
             dogImage.image = UIImage(data: dog.image)
             lastDogsWash.text = dog.dateOfWash
-            if isDogWashed {
-                self.lastDogsWash.text = dog.dateOfWash
-            } else {
-                self.lastDogsWash.text = "None"
-            }
         }
     }
     
     @objc private func deleteDogTapped() {
-        viewModel.deleteDogClicked(id: id)
+        viewModel.deleteDogClicked(id: dogId)
     }
     
     
-    @objc private func updateDogsWash() {
+    @objc private func washDogClicked() {
         viewModel.updateDogWashClicked()
         self.updateWashDateButton.setTitle("Dog washed", for: .normal)
         self.updateWashDateButton.isEnabled = false
@@ -283,10 +266,19 @@ class DogDetailsViewController: UIViewController {
         let isNotificationOn = DogsNotificationsManager.shared.getAvailability()
         if isNotificationOn {
             navigationController?.pushViewController(reminderVC, animated: true)
-            reminderVC.dogId = self.id
+            reminderVC.dogId = self.dogId
         } else {
             return
         }
     }
     
+    private func showAlert() {
+        let alert = UIAlertController(title: "Error", message: "Error", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+            if action.style == .default {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }))
+        present(alert, animated: true)
+    }
 }

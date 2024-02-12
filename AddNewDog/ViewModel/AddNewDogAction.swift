@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AddNewDogAction: String {
-    case editingError = "Please make sure all fields are filled in."
-    case saveError = "Can't save such dog. Try againt later."
+enum AddNewDogAction {
+    case showError(text: String)
+    case closeScreen
 }

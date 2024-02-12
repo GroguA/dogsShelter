@@ -28,18 +28,17 @@ class DogsListViewModel {
     
     private var dogsBeforeSearch: [DogsListDogModel] = []
     
+    private var isFiltering: Bool = false
+    
+    private let dogStorageService = DogStorageService.shared
+    
     func loadSavedDogs() {
-        if case .empty(let isFiltering) = currentState {
-            if isFiltering {
-                return
-            }
+        if isFiltering {
+            return
         }
-        if case .success(_, let isFiltering) = currentState {
-            if isFiltering {
-                return
-            }
-        }
-        let savedDogs = DogStorageService.shared.fetchSavedDogs()
+        
+        let savedDogs = dogStorageService.fetchSavedDogs()
+        
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
                 let dogAge = DateUtils.shared.getDogAgeInYears(dateOfBirth: dogCoreData.dateOfBirth)
@@ -47,32 +46,36 @@ class DogsListViewModel {
                 return dog
             })
             dogsBeforeSearch = displayedDogs
-            currentState = .success(dogs: displayedDogs, isFiltering: false)
+            currentState = .success(dogs: displayedDogs, isFiltering: isFiltering)
         } else {
-            currentState = .empty(isFiltering: false)
+            currentState = .empty(isFiltering: isFiltering)
         }
     }
     
-    func dogSearchByName(searchText: String) {
+    func searchDogByName(searchText: String) {
+        isFiltering = false
         if searchText.isEmpty {
-            currentState = .empty(isFiltering: false)
+            currentState = .empty(isFiltering: isFiltering)
         } else {
+            isFiltering = true
             let filteredDogs = dogsBeforeSearch.filter({ (dog: DogsListDogModel) -> Bool in
                 return dog.name.lowercased().contains(searchText.lowercased())
             })
-            currentState = .success(dogs: filteredDogs, isFiltering: false)
+            currentState = .success(dogs: filteredDogs, isFiltering: isFiltering)
         }
     }
     
     func disableSearch() {
+        isFiltering = false
         if !dogsBeforeSearch.isEmpty {
-            currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
+            currentState = .success(dogs: dogsBeforeSearch, isFiltering: isFiltering)
         } else {
-            currentState = .empty(isFiltering: false)
+            currentState = .empty(isFiltering: isFiltering)
         }
     }
     
     func onFilterSelected(filter: DogFiltersModel) {
+        isFiltering = true
         let filteredDogs = dogsBeforeSearch.filter { dog in
             if let age = filter.age, let breeds = filter.breeds {
                 return Int(age) == Int(dog.age) && breeds.contains(where: { breed in
@@ -88,14 +91,15 @@ class DogsListViewModel {
             return false
         }
         if !filteredDogs.isEmpty {
-            currentState = .success(dogs: filteredDogs, isFiltering: true)
+            currentState = .success(dogs: filteredDogs, isFiltering: isFiltering)
         } else {
-            currentState = .empty(isFiltering: true)
+            currentState = .empty(isFiltering: isFiltering)
         }
     }
     
     
     func onResetFilterTapped() {
-        currentState = .success(dogs: dogsBeforeSearch, isFiltering: false)
+        isFiltering = false
+        currentState = .success(dogs: dogsBeforeSearch, isFiltering: isFiltering)
     }
 }

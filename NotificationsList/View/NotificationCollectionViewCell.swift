@@ -9,7 +9,7 @@ import UIKit
 
 class NotificationCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "notifications"
+    static let identifier = "dogNotificationViewCell"
     
     private lazy var notificationStackView: UIStackView = {
         let view = UIStackView()

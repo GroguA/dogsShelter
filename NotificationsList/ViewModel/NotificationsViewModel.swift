@@ -32,7 +32,7 @@ class NotificationsViewModel {
     private let dateFormatter = DateFormatter()
     
     func getNotifications() {
-        DogsNotificationsManager.shared.getNotifications(array: { requests in
+        DogsNotificationsManager.shared.getNotificationRequests(onSuccess: { requests in
             requests.forEach({ request in
                 var notification: NotificationModel
                 if let dog = DogStorageService.shared.getOneDogById(id: request.identifier) {
@@ -53,10 +53,8 @@ class NotificationsViewModel {
     }
     
     func onNotificationClicked(index: Int) {
-        if case .success(let notifications, _) = currentState {
-            notifications[index].isSelected = !notifications[index].isSelected
-            currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: notifications[index].isSelected)
-        }
+        notifications[index].isSelected = !notifications[index].isSelected
+        currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: notifications.contains(where: { $0.isSelected }))
     }
     
     
@@ -65,7 +63,7 @@ class NotificationsViewModel {
             notifications.isSelected
         }).map { $0.dogID }
         
-        DogsNotificationsManager.shared.deleteNotification(identifier: selectedNotificationsIds)
+        DogsNotificationsManager.shared.deleteNotifications(identifier: selectedNotificationsIds)
         
         for id in selectedNotificationsIds {
             notifications.removeAll(where: { $0.dogID == id })

@@ -67,15 +67,15 @@ class DogsNotificationsManager {
         
     }
     
-    func getNotifications(array: @escaping (Array<UNNotificationRequest>) -> Void) {
+    func getNotificationRequests(onSuccess: @escaping (Array<UNNotificationRequest>) -> Void) {
         notificationCenter.getPendingNotificationRequests(completionHandler: { requests in
             DispatchQueue.main.async {
-                array(requests)
+                onSuccess(requests)
             }
         })
     }
     
-    func deleteNotification(identifier: [String]) {
+    func deleteNotifications(identifier: [String]) {
         notificationCenter.removePendingNotificationRequests(withIdentifiers: identifier)
     }
     

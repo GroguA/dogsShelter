@@ -56,9 +56,9 @@ Then if click on the "Filter by age" appear text field in which you can fill age
 ![Filter screen](Screenshots/age.png)
 
 The last one screen which can be opened from main screen is screen with list of all scheduled reminders. For open this one screen you should click on button "Notifications" at the top right of the screen. 
-All notifications can be selected and deleted
 
 ![Notifications list screen](Screenshots/notifications.png, Screenshots/selectedNotif.png)
 
+All notifications can be selected and deleted.
 
 

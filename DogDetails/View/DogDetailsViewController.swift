@@ -266,7 +266,7 @@ class DogDetailsViewController: UIViewController {
         let isNotificationOn = DogsNotificationsManager.shared.getAvailability()
         if isNotificationOn {
             navigationController?.pushViewController(reminderVC, animated: true)
-            reminderVC.id = self.dogId
+            reminderVC.dogId = self.dogId
         } else {
             return
         }

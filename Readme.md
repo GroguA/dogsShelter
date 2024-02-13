@@ -16,6 +16,10 @@ This main screen you can see when use app for first time.
 
 <img src="https://github.com/GroguA/dogsShelter/blob/main/Screenshots/mainView.png?raw=true" height="400" />
 
+This is how the screen will look after adding a dog.
+
+<img src="https://github.com/GroguA/dogsShelter/blob/main/Screenshots/mainView2.png?raw=true" height="400" />
+
 To get started you have to click on the plus icon at the bottom right of the main screen.
 
 When adding a dog to the app you must fill following fields:

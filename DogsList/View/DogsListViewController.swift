@@ -151,7 +151,7 @@ class DogsListViewController: UIViewController {
     
     @objc private func onFilterButtonClicked() {
         let vc = DogsFilterViewController()
-        vc.filterDogs = { filter in
+        vc.onDogFiltersSelected = { filter in
             self.viewModel.onFilterSelected(filter: filter)
         }
         navigationController?.pushViewController(vc, animated: true)

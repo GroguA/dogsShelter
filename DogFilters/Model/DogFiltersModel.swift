@@ -8,8 +8,8 @@
 import Foundation
 
 class DogFiltersModel {
-    let breeds: [String]?
-    let age: String?
+    var breeds: [String]?
+    var age: String?
     
     init(breeds: [String]?, age: String?) {
         self.breeds = breeds

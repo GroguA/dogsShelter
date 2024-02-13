@@ -28,7 +28,8 @@ When adding a dog to the app you must fill following fields:
 
 Also you can click on the dog on main screen and open screen with detailed information about clicked dog
 
-![Detailed information screen](Screenshots/details.png, Screenshots/changeDog.png)
+![Detailed information screen](Screenshots/details.png)
+![](Screenshots/changeDog.png)
 
 On this screen you can do some changes like:
 1. Delete dog
@@ -60,4 +61,5 @@ The last one screen which can be opened from main screen is screen with list of 
 
 All notifications can be selected and deleted.
 
-![Notifications list screen](Screenshots/notifications.png, Screenshots/selectedNotif.png)
+![Notifications list screen](Screenshots/notifications.png)
+![](Screenshots/selectedNotif.png)

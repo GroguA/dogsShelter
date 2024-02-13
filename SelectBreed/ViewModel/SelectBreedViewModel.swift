@@ -22,9 +22,7 @@ class SelectBreedViewModel {
     
     private var isSingleSelectMode = true
     
-    private var breedsBeforeSearch: [SelectBreedModel] = BreedsDataSource.shared.getBreeds().map({ breed in
-        return SelectBreedModel(breed: breed, isSelected: false)
-    })
+    private var breedsBeforeSearch = [SelectBreedModel]()
     
     private var currentState: SelectBreedState? = nil  {
         didSet {
@@ -34,59 +32,53 @@ class SelectBreedViewModel {
         }
     }
     
+    private var currentBreeds = [SelectBreedModel]()
+    
     func loadBreeds(isSingleSelect: Bool) {
         isSingleSelectMode = isSingleSelect
+        breedsBeforeSearch = BreedsDataSource.shared.getBreeds().map({ breed in
+            return SelectBreedModel(breed: breed, isSelected: false)
+        })
+        currentBreeds = breedsBeforeSearch
         currentState = .success(breeds: breedsBeforeSearch)
     }
     
-    func onDogClicked(dogIndex: Int) {
+    func onBreedClicked(breedIndex: Int) {
         if isSingleSelectMode {
-            if case .success(let breeds) = currentState {
-                let breed = breeds[dogIndex].breed
-                onAction(SelectBreedAction.closeWithBreed(breed: breed))
-            }
+            let breed = currentBreeds[breedIndex].breed
+            onAction(SelectBreedAction.closeWithBreed(breed: breed))
         } else {
-            if case .success(let breeds) = currentState {
-                let currentBreedName = breeds[dogIndex].breed
-                let breedIndex = breedsBeforeSearch.firstIndex(where: { selectBreed in
-                    selectBreed.breed == currentBreedName
-                })
-                if let breedIndex = breedIndex {
-                    if !breedsBeforeSearch[breedIndex].isSelected == true {
-                        breedsBeforeSearch[breedIndex].isSelected = true
-                    } else {
-                        breedsBeforeSearch[breedIndex].isSelected = false
-                    }
-                }
+            let currentBreedName = currentBreeds[breedIndex].breed
+            let breedIndex = breedsBeforeSearch.firstIndex(where: { selectBreed in
+                selectBreed.breed == currentBreedName
+            })
+            if let breedIndex = breedIndex {
+                breedsBeforeSearch[breedIndex].isSelected = !breedsBeforeSearch[breedIndex].isSelected
             }
         }
     }
-    
     
     func onDoneButtonClicked() {
-        if case .success(let breeds) = currentState {
-            let selectedBreeds = breeds.filter({$0.isSelected})
-            if !selectedBreeds.isEmpty {
-                onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed
-                })))
-            } else {
-                return
-            }
+        let selectedBreeds = currentBreeds.filter({ $0.isSelected })
+        if !selectedBreeds.isEmpty {
+            onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed })))
         }
     }
     
-    func onSearchBarTapped(searchText: String) {
+    func onSearchTextChanged(searchText: String) {
         if searchText.isEmpty {
             currentState = .success(breeds: breedsBeforeSearch)
         } else {
             let filteredBreeds = breedsBeforeSearch.filter({ breed in
                 return breed.breed.lowercased().contains(searchText.lowercased())
             })
+            currentBreeds = filteredBreeds
             currentState = .success(breeds: filteredBreeds)
         }
     }
     
     func disableSearch() {
+        currentBreeds = breedsBeforeSearch
         currentState = .success(breeds: breedsBeforeSearch)
     }
     

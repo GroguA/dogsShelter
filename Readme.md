@@ -10,6 +10,7 @@ This app use:
 3. Imported JSON file 
 
 ## Map
+
 This main screen you can see when use app for first time.
 
 ![Main screen](Screenshots/mainView.png)
@@ -57,8 +58,6 @@ Then if click on the "Filter by age" appear text field in which you can fill age
 
 The last one screen which can be opened from main screen is screen with list of all scheduled reminders. For open this one screen you should click on button "Notifications" at the top right of the screen. 
 
-![Notifications list screen](Screenshots/notifications.png, Screenshots/selectedNotif.png)
-
 All notifications can be selected and deleted.
 
-
+![Notifications list screen](Screenshots/notifications.png, Screenshots/selectedNotif.png)

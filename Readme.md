@@ -10,9 +10,10 @@ This app use:
 3. Imported JSON file 
 
 ## Map
+
 This main screen you can see when use app for first time.
 
-[Main screen](mainView.png)
+![Main screen](Screenshots/mainView.png)
 
 To get started you have to click on the plus icon at the bottom right of the main screen
 When adding a dog to the app you must fill following fields:
@@ -23,11 +24,12 @@ When adding a dog to the app you must fill following fields:
 
 *if no photo is added, the default image will be used
 
-[Add dog screen](Screenshots/fillDogView.png)
+![Add dog screen](Screenshots/fillDogView.png)
 
 Also you can click on the dog on main screen and open screen with detailed information about clicked dog
 
-[Detailed information screen](Screenshots/details.png, Screenshots/changeDog.png)
+![Detailed information screen](Screenshots/details.png)
+![](Screenshots/changeDog.png)
 
 On this screen you can do some changes like:
 1. Delete dog
@@ -35,7 +37,7 @@ On this screen you can do some changes like:
 
 If you choose to schedule a reminder, such screen would be opened 
 
-[Schedule a reminder screen](Screenshots/reminder.png)
+![Schedule a reminder screen](Screenshots/reminder.png)
 
 Where you can fill few text fields and choose whould be this reminder daily repeated
 
@@ -45,20 +47,19 @@ filter screen includes such filters:
 1. Breed filter
 2. Age filter
 
-[Filter screen](Screenshots/filter.png)
+![Filter screen](Screenshots/filter.png)
 
 If click on the "Filter by breed" you will see such screen with the list of breeds:
 
-[Breeds list screen](Screenshots/breeds.png)
+![Breeds list screen](Screenshots/breeds.png)
 
 Then if click on the "Filter by age" appear text field in which you can fill age:
 
-[Filter screen](Screenshots/age.png)
+![Filter screen](Screenshots/age.png)
 
 The last one screen which can be opened from main screen is screen with list of all scheduled reminders. For open this one screen you should click on button "Notifications" at the top right of the screen. 
-All notifications can be selected and deleted
 
-[Notifications list screen](Screenshots/notifications.png, Screenshots/selectedNotif.png)
+All notifications can be selected and deleted.
 
-
-
+![Notifications list screen](Screenshots/notifications.png)
+![](Screenshots/selectedNotif.png)

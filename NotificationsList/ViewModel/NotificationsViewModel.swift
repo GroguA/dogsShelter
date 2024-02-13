@@ -63,7 +63,7 @@ class NotificationsViewModel {
             notifications.isSelected
         }).map { $0.dogID }
         
-        DogsNotificationsManager.shared.deleteNotifications(identifier: selectedNotificationsIds)
+        DogsNotificationsManager.shared.deleteNotifications(identifiers: selectedNotificationsIds)
         
         for id in selectedNotificationsIds {
             notifications.removeAll(where: { $0.dogID == id })

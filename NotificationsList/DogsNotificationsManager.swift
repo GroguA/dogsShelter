@@ -75,8 +75,8 @@ class DogsNotificationsManager {
         })
     }
     
-    func deleteNotifications(identifier: [String]) {
-        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifier)
+    func deleteNotifications(identifiers: [String]) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
     }
     
 }

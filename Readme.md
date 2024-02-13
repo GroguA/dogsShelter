@@ -13,7 +13,7 @@ This app use:
 
 This main screen you can see when use app for first time.
 
-![Main screen](Screenshots/mainView.png | height=250)
+<img src="https://github.com/GroguA/dogsShelter/blob/main/Screenshots/mainView.png?raw=true" height="200" />
 
 To get started you have to click on the plus icon at the bottom right of the main screen.
 

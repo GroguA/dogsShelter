@@ -15,7 +15,7 @@ class NotificationsListViewController: UIViewController {
     
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 9.5
-    private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private lazy var notificationsCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -43,8 +43,13 @@ class NotificationsListViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = "No one notification"
+        label.text = " No notifications added yet"
         return label
+    }()
+    
+    private lazy var trashButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
+        return button
     }()
     
     override func viewDidLoad() {
@@ -55,6 +60,8 @@ class NotificationsListViewController: UIViewController {
         }
         
         setupViews()
+        viewModel.getNotifications()
+
     }
     
     private func setupViews() {
@@ -65,9 +72,7 @@ class NotificationsListViewController: UIViewController {
         view.addSubview(emptyNotificationsLabel)
         
         emptyNotificationsLabel.isHidden = true
-        
-        viewModel.getNotifications()
-        
+                
         let constraints = [
             notificationsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             notificationsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -89,11 +94,11 @@ class NotificationsListViewController: UIViewController {
     
     private func renderViewState(state: NotificationsState) {
         switch state {
-        case .success(let notifications, let selected):
+        case .success(let notifications, let isAtLeastOneNotificationSelected):
             self.notifications = notifications
             self.notificationsCollectionView.reloadData()
-            if selected {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .done, target: self, action: #selector(onDeleteNotificationClicked))
+            if isAtLeastOneNotificationSelected {
+                navigationItem.rightBarButtonItem = trashButton
             } else {
                 navigationItem.rightBarButtonItem = .none
             }

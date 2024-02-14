@@ -34,9 +34,11 @@ class SelectBreedViewModel {
     
     private var currentBreeds = [SelectBreedModel]()
     
+    private let breedsDataSource = BreedsDataSource.shared
+    
     func loadBreeds(isSingleSelect: Bool) {
         isSingleSelectMode = isSingleSelect
-        breedsBeforeSearch = BreedsDataSource.shared.getBreeds().map({ breed in
+        breedsBeforeSearch = breedsDataSource.getBreeds().map({ breed in
             return SelectBreedModel(breed: breed, isSelected: false)
         })
         currentBreeds = breedsBeforeSearch
@@ -49,8 +51,8 @@ class SelectBreedViewModel {
             onAction(SelectBreedAction.closeWithBreed(breed: breed))
         } else {
             let currentBreedName = currentBreeds[breedIndex].breed
-            let breedIndex = breedsBeforeSearch.firstIndex(where: { selectBreed in
-                selectBreed.breed == currentBreedName
+            let breedIndex = breedsBeforeSearch.firstIndex(where: { breedBeforeSearch in
+                breedBeforeSearch.breed == currentBreedName
             })
             if let breedIndex = breedIndex {
                 breedsBeforeSearch[breedIndex].isSelected = !breedsBeforeSearch[breedIndex].isSelected

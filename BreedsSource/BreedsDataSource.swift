@@ -10,6 +10,8 @@ import Foundation
 class BreedsDataSource {
     static let shared = BreedsDataSource()
     
+    private var breeds: [String]? = nil
+    
     private init() {}
     
     private func loadJson(fileName: String) -> BreedDataModel? {
@@ -27,7 +29,12 @@ class BreedsDataSource {
     }
         
     func getBreeds() -> [String] {
-        guard let dogs = loadJson(fileName: "breeds") else { return [] }
-        return dogs.breeds.map { String($0) }
+        guard let breeds else {
+            guard let dogs = loadJson(fileName: "breeds") else { return [] }
+            let nonOptBreeds = dogs.breeds.map { String($0) }
+            self.breeds = nonOptBreeds
+            return nonOptBreeds
+        }
+        return breeds
     }
 }

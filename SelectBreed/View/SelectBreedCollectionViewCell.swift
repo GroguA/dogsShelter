@@ -8,7 +8,7 @@
 import UIKit
 
 class SelectBreedCollectionViewCell: UICollectionViewCell {
-    static let identifier = "breeds"
+    static let identifier = "selectBreedViewCell"
     
     override var isSelected: Bool {
         didSet {

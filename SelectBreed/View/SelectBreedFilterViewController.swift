@@ -19,7 +19,7 @@ class SelectBreedViewController: UIViewController {
     
     private let itemsPerRow: CGFloat = 1
     private let itemsPerView: CGFloat = 10
-    private var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    private let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     
     private lazy var breedsCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -57,7 +57,6 @@ class SelectBreedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(searchController.searchBar)
         setupViews()
         viewModel.loadBreeds(isSingleSelect: isSingleSelectMode)
         
@@ -72,6 +71,7 @@ class SelectBreedViewController: UIViewController {
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(breedsCollectionView)
+        view.addSubview(searchController.searchBar)
         navigationItem.title = "Breeds"
         navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
@@ -127,22 +127,19 @@ class SelectBreedViewController: UIViewController {
     @objc private func doneButtonTapped() {
         viewModel.onDoneButtonClicked()
     }
-    
-//    @objc private func backToFilters() {
-//        viewModel.backToFilterButtonTapped()
-//    }
+
 }
 
 extension SelectBreedViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let dogIndex = indexPath.row
-        viewModel.onDogClicked(dogIndex: dogIndex)
+        viewModel.onBreedClicked(breedIndex: dogIndex)
 
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let dogIndex = indexPath.row
-        viewModel.onDogClicked(dogIndex: dogIndex)
+        viewModel.onBreedClicked(breedIndex: dogIndex)
     }
 }
 
@@ -188,7 +185,7 @@ extension SelectBreedViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         guard let text = searchBar.text else { return }
-        viewModel.onSearchBarTapped(searchText: text)
+        viewModel.onSearchTextChanged(searchText: text)
     }
 }
 

@@ -7,7 +7,7 @@ This app use:
 
 1. CoreData
 2. Local Notifications
-3. Imported JSON file 
+3. Imported JSON file as dog breeds source
 4. AutoLayout 
 
 ## Map

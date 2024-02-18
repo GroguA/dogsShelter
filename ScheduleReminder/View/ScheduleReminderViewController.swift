@@ -39,6 +39,7 @@ class ScheduleReminderViewController: UIViewController {
         date.keyboardType = .default
         date.borderStyle = .roundedRect
         date.autocorrectionType = .no
+        date.delegate = self
         date.inputView = dateOfReminderPicker
         date.inputAccessoryView = toolBar
         date.translatesAutoresizingMaskIntoConstraints = false
@@ -191,14 +192,18 @@ class ScheduleReminderViewController: UIViewController {
 
 extension ScheduleReminderViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let currentString = textField.text else { return false }
-        let maxLength = 15
-        let currentStringForLength = (textField.text ?? "") as NSString
-        let newString = currentStringForLength.replacingCharacters(in: range, with: string)
-        
-        let newLength = maxLength - currentString.count
-        self.countOfCharactersLabel.text = String(newLength)
-        
-        return newString.count <= maxLength
+        if textField == reminderTextTF {
+            guard let currentString = textField.text else { return false }
+            let maxLength = 15
+            let currentStringForLength = (textField.text ?? "") as NSString
+            let newString = currentStringForLength.replacingCharacters(in: range, with: string)
+            
+            let newLength = maxLength - currentString.count
+            self.countOfCharactersLabel.text = String(newLength)
+            
+            return newString.count <= maxLength
+        } else {
+            return false
+        }
     }
 }

@@ -43,8 +43,12 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
     
-    func setupViews(notification: NotificationModel) {
+    func setupViews() {
         notificationStackView.addArrangedSubview(dogNameLabel)
         notificationStackView.addArrangedSubview(notificationTextMessage)
         
@@ -52,16 +56,6 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 10
         self.backgroundColor = .white
         contentView.addSubview(notificationStackView)
-        
-        if notification.isSelected {
-            self.layer.borderWidth = 2
-            self.layer.borderColor = UIColor.green.withAlphaComponent(0.2).cgColor
-        } else {
-            self.layer.borderWidth = 0
-        }
-        
-        self.dogNameLabel.text = "\(notification.dogName)\n\(notification.dogBreed)"
-        self.notificationTextMessage.text = "\(notification.body)\n\(notification.date)"
       
         let constraints = [
             notificationStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -70,6 +64,22 @@ class NotificationCollectionViewCell: UICollectionViewCell {
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func fillCell(notification: NotificationModel) {
+        self.dogNameLabel.text = "\(notification.dogName)\n\(notification.dogBreed)"
+        self.notificationTextMessage.text = "\(notification.body)\n\(notification.date)"
+        
+        if notification.isSelected {
+            self.layer.borderWidth = 2
+            self.layer.borderColor = UIColor.green.withAlphaComponent(0.2).cgColor
+        } else {
+            self.layer.borderWidth = 0
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

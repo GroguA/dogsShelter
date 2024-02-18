@@ -34,12 +34,15 @@ class SelectBreedCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setupViews(breed: SelectBreedModel) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    func setupViews() {
         contentView.addSubview(selectBreedImage)
         contentView.addSubview(breedLabel)
-        
-        breedLabel.text = breed.breed
-        
+                
         let constraints = [
             selectBreedImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             selectBreedImage.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
@@ -51,6 +54,14 @@ class SelectBreedCollectionViewCell: UICollectionViewCell {
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func fillCell(breed: SelectBreedModel) {
+        breedLabel.text = breed.breed
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

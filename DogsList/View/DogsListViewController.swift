@@ -185,7 +185,7 @@ extension DogsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DogsListCollectionViewCell.identifier, for: indexPath) as! DogsListCollectionViewCell
         let dog = dogs[indexPath.row]
-        cell.setupViews(dog: dog)
+        cell.fillCell(dog: dog)
         return cell
     }
 }

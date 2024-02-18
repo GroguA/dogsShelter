@@ -82,7 +82,13 @@ class DogsListCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    func setupViews(dog: DogsListDogModel) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+    
+    
+    func setupViews() {
         contentView.addSubview(name)
         contentView.addSubview(breed)
         contentView.addSubview(age)
@@ -90,11 +96,6 @@ class DogsListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(breedLabel)
         contentView.addSubview(ageLabel)
         contentView.addSubview(dogImage)
-        
-        nameLabel.text = dog.name
-        breedLabel.text = dog.breed
-        ageLabel.text = dog.age
-        dogImage.image = UIImage(data: dog.image)
         
         let constraints = [
             dogImage.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -126,5 +127,16 @@ class DogsListCollectionViewCell: UICollectionViewCell {
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func fillCell(dog: DogsListDogModel) {
+        nameLabel.text = dog.name
+        breedLabel.text = dog.breed
+        ageLabel.text = dog.age
+        dogImage.image = UIImage(data: dog.image)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

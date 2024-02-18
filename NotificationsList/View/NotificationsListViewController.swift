@@ -135,7 +135,7 @@ extension NotificationsListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NotificationCollectionViewCell.identifier, for: indexPath) as! NotificationCollectionViewCell
         let notification = notifications[indexPath.row]
-        cell.setupViews(notification: notification)
+        cell.fillCell(notification: notification)
         return cell
     }
 }

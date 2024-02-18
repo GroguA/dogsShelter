@@ -151,7 +151,7 @@ extension SelectBreedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectBreedCollectionViewCell.identifier, for: indexPath) as! SelectBreedCollectionViewCell
         let breed = breeds[indexPath.row]
-        cell.setupViews(breed: breed)
+        cell.fillCell(breed: breed)
         return cell
     }
 }

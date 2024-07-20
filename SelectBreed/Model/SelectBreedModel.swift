@@ -7,12 +7,7 @@
 
 import Foundation
 
-class SelectBreedModel {
+struct SelectBreedModel {
     let breed: String
     var isSelected: Bool
-    
-    init(breed: String, isSelected: Bool) {
-        self.breed = breed
-        self.isSelected = isSelected
-    }
 }

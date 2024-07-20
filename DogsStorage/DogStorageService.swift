@@ -10,13 +10,11 @@ import CoreData
 
 
 class DogStorageService  {
-    
     static let shared = DogStorageService()
     
     private init() {}
     
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
     
     func saveDog(dog: SaveDogCoreDataModel) -> Bool {
         

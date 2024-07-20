@@ -7,12 +7,7 @@
 
 import Foundation
 
-class DogFiltersModel {
+struct DogFiltersModel {
     var breeds: [String]?
     var age: String?
-    
-    init(breeds: [String]?, age: String?) {
-        self.breeds = breeds
-        self.age = age
-    }
 }

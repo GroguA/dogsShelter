@@ -11,7 +11,7 @@ class DogsListViewController: UIViewController {
     
     private lazy var contentView = DogsListContainerView(delegate: self, searchResultsUpdater: self, searchBarDelegate: self)
     
-    private var viewModel: IDogsListViewModel
+    private var viewModel: IDogsListViewModel & IDogsListNavigation
     
     private lazy var resetFilterButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(onResetFilterClicked))
@@ -28,7 +28,7 @@ class DogsListViewController: UIViewController {
         return button
     }()
     
-    init(viewModel: IDogsListViewModel) {
+    init(viewModel: IDogsListViewModel & IDogsListNavigation) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,7 +71,7 @@ class DogsListViewController: UIViewController {
     }
     
     @objc private func onAddNewDogClicked(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        navigationController?.pushViewController(AddNewDogViewController(), animated: true)
+        viewModel.navigateToAddNewDogScreen()
     }
     
     private func renderViewState(state: DogsListState) {

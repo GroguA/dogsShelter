@@ -7,8 +7,21 @@
 
 import Foundation
 
+protocol ISelectBreedViewModel {
+    var viewStateDidChange: (SelectBreedState) -> () { get set }
+    var onAction: (SelectBreedAction) -> () { get set }
+    func loadBreeds(isSingleSelect: Bool)
+    func onBreedClicked(breedIndex: Int)
+    func onDoneButtonClicked()
+    func onSearchTextChanged(searchText: String)
+    func disableSearch()
+}
+
+protocol ISelectBreedNavigation {
+    func popSelectBreedScreen()
+}
+
 class SelectBreedViewModel {
-    
     var viewStateDidChange: (SelectBreedState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
@@ -20,8 +33,9 @@ class SelectBreedViewModel {
     
     var onAction: (SelectBreedAction) -> ()  = { _ in }
     
-    private var isSingleSelectMode = true
+    let router: ISelectBreedRouter
     
+    private var isSingleSelectMode = true
     private var breedsBeforeSearch = [SelectBreedModel]()
     
     private var currentState: SelectBreedState? = nil  {
@@ -36,6 +50,13 @@ class SelectBreedViewModel {
     
     private let breedsDataSource = BreedsDataSource.shared
     
+    init(router: ISelectBreedRouter) {
+        self.router = router
+    }
+    
+}
+
+extension SelectBreedViewModel: ISelectBreedViewModel {
     func loadBreeds(isSingleSelect: Bool) {
         isSingleSelectMode = isSingleSelect
         breedsBeforeSearch = breedsDataSource.getBreeds().map({ breed in
@@ -84,4 +105,10 @@ class SelectBreedViewModel {
         currentState = .success(breeds: breedsBeforeSearch)
     }
     
+}
+
+extension SelectBreedViewModel: ISelectBreedNavigation {
+    func popSelectBreedScreen() {
+        router.popViewController()
+    }
 }

@@ -9,8 +9,9 @@ import UIKit
 
 enum SelectBreedAssembly {
     static func createSelectBreedModule(with navigationController: UINavigationController) -> SelectBreedViewController {
-//        let viewModel = SelectBreedViewModel()
-        let view = SelectBreedViewController()
+        let router = SelectBreedRouter(navigationController: navigationController)
+        let viewModel = SelectBreedViewModel(router: router)
+        let view = SelectBreedViewController(viewModel: viewModel)
         return view
     }
 }

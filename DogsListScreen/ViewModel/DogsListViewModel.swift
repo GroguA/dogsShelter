@@ -16,6 +16,10 @@ protocol IDogsListViewModel {
     func onResetFilterTapped()
 }
 
+protocol IDogsListNavigation {
+    func navigateToAddNewDogScreen()
+}
+
 class DogsListViewModel {
     var viewStateDidChange: (DogsListState) -> () = { _ in } {
         didSet {
@@ -34,10 +38,15 @@ class DogsListViewModel {
         }
     }
     
+    private let router: DogsListRouter
+    
     private var dogsBeforeSearch: [DogsListDogModel] = []
     private var isFiltering: Bool = false
     private let dogStorageService = DogStorageService.shared
-        
+    
+    init(router: DogsListRouter) {
+        self.router = router
+    }
 }
 
 extension DogsListViewModel: IDogsListViewModel {
@@ -115,5 +124,11 @@ extension DogsListViewModel: IDogsListViewModel {
     func onResetFilterTapped() {
         isFiltering = false
         currentState = .success(dogs: dogsBeforeSearch, isFiltering: isFiltering)
+    }
+}
+
+extension DogsListViewModel: IDogsListNavigation {
+    func navigateToAddNewDogScreen() {
+        router.showAddNewDogScreen()
     }
 }

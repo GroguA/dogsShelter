@@ -9,7 +9,8 @@ import UIKit
 
 enum DogsListScreenAssembly {
     static func createDogListModule(with navigationController: UINavigationController) -> UIViewController {
-        let viewModel = DogsListViewModel()
+        let router = DogsListRouter(navigationController: navigationController)
+        let viewModel = DogsListViewModel(router: router)
         let view = DogsListViewController(viewModel: viewModel)
         return view
     }

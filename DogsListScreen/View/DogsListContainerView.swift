@@ -102,7 +102,7 @@ private extension DogsListContainerView {
         let layout = UICollectionViewCompositionalLayout() { section, layoutEnvironment in
             let layoutSection =  NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             
-            layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: -8, bottom: 8, trailing: 8)
+            layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: -8, bottom: 0, trailing: 8)
             
             return layoutSection
         }

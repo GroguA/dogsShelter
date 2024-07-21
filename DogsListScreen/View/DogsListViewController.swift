@@ -53,8 +53,8 @@ class DogsListViewController: UIViewController {
         
         setupViews()
         
-        viewModel.viewStateDidChange = { viewState in
-            self.renderViewState(state: viewState)
+        viewModel.viewStateDidChange = { [weak self] viewState in
+            self?.renderViewState(state: viewState)
         }
     }
     

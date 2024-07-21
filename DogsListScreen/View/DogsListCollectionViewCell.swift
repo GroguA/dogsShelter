@@ -53,10 +53,10 @@ class DogsListCollectionViewCell: UICollectionViewCell {
     
     func setupConstraints() {
         let constraints = [
-            dogImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-            dogImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            dogImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: offsetForConstraints),
             dogImage.widthAnchor.constraint(equalTo: dogImage.heightAnchor),
-            dogImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: offsetForConstraints),
+            dogImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            dogImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -offsetForConstraints),
             
             name.topAnchor.constraint(equalTo: dogImage.topAnchor),
             name.leadingAnchor.constraint(equalTo: dogImage.trailingAnchor, constant: offsetForConstraints),
@@ -74,10 +74,10 @@ class DogsListCollectionViewCell: UICollectionViewCell {
             
             age.topAnchor.constraint(equalTo: name.topAnchor),
             age.leadingAnchor.constraint(lessThanOrEqualTo: breedLabel.trailingAnchor, constant: offsetForConstraints),
-            age.trailingAnchor.constraint(equalTo: ageLabel.leadingAnchor),
+            age.trailingAnchor.constraint(greaterThanOrEqualTo: ageLabel.leadingAnchor),
             
-            ageLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            ageLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor)
+            ageLabel.topAnchor.constraint(equalTo: age.topAnchor),
+            ageLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -offsetForConstraints)
             
         ]
         

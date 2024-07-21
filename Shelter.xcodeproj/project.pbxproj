@@ -52,6 +52,9 @@
 		7CE854412C4CDA1E007B3FC0 /* AddNewDogAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854402C4CDA1E007B3FC0 /* AddNewDogAssembly.swift */; };
 		7CE854432C4CE4F0007B3FC0 /* SelectBreedAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854422C4CE4F0007B3FC0 /* SelectBreedAssembly.swift */; };
 		7CE854472C4CE556007B3FC0 /* AddNewDogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854462C4CE556007B3FC0 /* AddNewDogRouter.swift */; };
+		7CE854492C4CF59B007B3FC0 /* SelectBreedContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854482C4CF59B007B3FC0 /* SelectBreedContainerView.swift */; };
+		7CE8544C2C4CF883007B3FC0 /* SelectBreedCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8544B2C4CF883007B3FC0 /* SelectBreedCollectionViewDataSource.swift */; };
+		7CE8544F2C4CFD3E007B3FC0 /* SelectBreedRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8544E2C4CFD3E007B3FC0 /* SelectBreedRouter.swift */; };
 		7CED29A42B51570300EDF509 /* ScheduleReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */; };
 		7CED29A62B554C2B00EDF509 /* DogsNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */; };
 		7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */; };
@@ -113,6 +116,9 @@
 		7CE854402C4CDA1E007B3FC0 /* AddNewDogAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogAssembly.swift; sourceTree = "<group>"; };
 		7CE854422C4CE4F0007B3FC0 /* SelectBreedAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBreedAssembly.swift; sourceTree = "<group>"; };
 		7CE854462C4CE556007B3FC0 /* AddNewDogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDogRouter.swift; sourceTree = "<group>"; };
+		7CE854482C4CF59B007B3FC0 /* SelectBreedContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBreedContainerView.swift; sourceTree = "<group>"; };
+		7CE8544B2C4CF883007B3FC0 /* SelectBreedCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBreedCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		7CE8544E2C4CFD3E007B3FC0 /* SelectBreedRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBreedRouter.swift; sourceTree = "<group>"; };
 		7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewController.swift; sourceTree = "<group>"; };
 		7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsNotificationsManager.swift; sourceTree = "<group>"; };
 		7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewModel.swift; sourceTree = "<group>"; };
@@ -158,6 +164,8 @@
 		7C13C1182AE906B300D14041 /* SelectBreedScreen */ = {
 			isa = PBXGroup;
 			children = (
+				7CE8544D2C4CFD30007B3FC0 /* Router */,
+				7CE8544A2C4CF86D007B3FC0 /* CollectionViewDataSource */,
 				7CDB88952B3450570081886F /* Model */,
 				7C13C11E2AEA5B6200D14041 /* ViewModel */,
 				7C13C11B2AE9080100D14041 /* View */,
@@ -171,6 +179,7 @@
 			children = (
 				7C13C1192AE906D100D14041 /* SelectBreedFilterViewController.swift */,
 				7C13C11C2AE9082D00D14041 /* SelectBreedCollectionViewCell.swift */,
+				7CE854482C4CF59B007B3FC0 /* SelectBreedContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -442,6 +451,22 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		7CE8544A2C4CF86D007B3FC0 /* CollectionViewDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				7CE8544B2C4CF883007B3FC0 /* SelectBreedCollectionViewDataSource.swift */,
+			);
+			path = CollectionViewDataSource;
+			sourceTree = "<group>";
+		};
+		7CE8544D2C4CFD30007B3FC0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7CE8544E2C4CFD3E007B3FC0 /* SelectBreedRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		7CED29A12B5156C900EDF509 /* ScheduleReminder */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,6 +612,7 @@
 			files = (
 				7CED29B72B594F2E00EDF509 /* NotificationModel.swift in Sources */,
 				7CE648622AC6B7D800FD5DB1 /* AddNewDogAction.swift in Sources */,
+				7CE8544C2C4CF883007B3FC0 /* SelectBreedCollectionViewDataSource.swift in Sources */,
 				7CDB88972B34507D0081886F /* SelectBreedModel.swift in Sources */,
 				7C13C11A2AE906D100D14041 /* SelectBreedFilterViewController.swift in Sources */,
 				7C429FD22AC4228600D43549 /* DogsListViewModel.swift in Sources */,
@@ -614,10 +640,12 @@
 				7C13C1382AFA4EB500D14041 /* BreedsDataModel.swift in Sources */,
 				7CE854282C4B9BE1007B3FC0 /* DogsListContainerView.swift in Sources */,
 				7CED29B12B5948C000EDF509 /* NotificationCollectionViewCell.swift in Sources */,
+				7CE8544F2C4CFD3E007B3FC0 /* SelectBreedRouter.swift in Sources */,
 				7CE8542B2C4BA858007B3FC0 /* DogsListCollectionViewDataSource.swift in Sources */,
 				7C13C12F2AEBDC9D00D14041 /* DogFiltersAction.swift in Sources */,
 				7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */,
 				7C13C1132AE9025900D14041 /* BreedsDataSource.swift in Sources */,
+				7CE854492C4CF59B007B3FC0 /* SelectBreedContainerView.swift in Sources */,
 				7CED29AE2B57F03C00EDF509 /* NotificationsListViewController.swift in Sources */,
 				7CB798252AC1BA83001E4801 /* AppDelegate.swift in Sources */,
 				7C13C1312AF12DBA00D14041 /* DogFiltersModel.swift in Sources */,

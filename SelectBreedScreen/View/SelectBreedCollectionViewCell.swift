@@ -8,7 +8,7 @@
 import UIKit
 
 class SelectBreedCollectionViewCell: UICollectionViewCell {
-    static let identifier = "selectBreedViewCell"
+    static let identifier = String(describing: SelectBreedCollectionViewCell.self)
     
     override var isSelected: Bool {
         didSet {
@@ -26,17 +26,18 @@ class SelectBreedCollectionViewCell: UICollectionViewCell {
         return view
     }()
         
-    private lazy var breedLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var breedLabel = LabelsFactory.createLabel()
+    
+    private let offsetForConstraints: CGFloat = 16
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupViews() {
@@ -44,24 +45,23 @@ class SelectBreedCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(breedLabel)
                 
         let constraints = [
-            selectBreedImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            selectBreedImage.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
+            selectBreedImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: offsetForConstraints),
+            selectBreedImage.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             selectBreedImage.heightAnchor.constraint(equalTo: breedLabel.heightAnchor),
             selectBreedImage.widthAnchor.constraint(equalTo: selectBreedImage.heightAnchor),
+            selectBreedImage.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -offsetForConstraints),
             
-            breedLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            breedLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor)
+            breedLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: offsetForConstraints),
+            breedLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            breedLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -offsetForConstraints),
+
         ]
         
         NSLayoutConstraint.activate(constraints)
     }
     
-    func fillCell(breed: SelectBreedModel) {
+    func fillCell(with breed: SelectBreedModel) {
         breedLabel.text = breed.breed
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }

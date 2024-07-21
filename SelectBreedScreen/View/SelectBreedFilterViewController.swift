@@ -13,8 +13,8 @@ class SelectBreedViewController: UIViewController {
     
     private let viewModel = SelectBreedViewModel()
     
-    var doOnSingleSelect: ((_ selectedBreed: String) -> Void)? = nil
-    var doOnMultiSelect: ((_ selectedBreeds: [String]) -> Void)? = nil
+    var doOnSingleSelect: ((String) -> Void)?
+    var doOnMultiSelect: (([String]) -> Void)?
     var isSingleSelectMode = true
     
     private let itemsPerRow: CGFloat = 1

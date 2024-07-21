@@ -42,6 +42,10 @@
 		7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7CE648952ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld */; };
 		7CE6489B2ACD814B00FD5DB1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7CE6489A2ACD814B00FD5DB1 /* .gitignore */; };
 		7CE6489F2ACFF69400FD5DB1 /* DogsListDogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6489E2ACFF69400FD5DB1 /* DogsListDogModel.swift */; };
+		7CE854282C4B9BE1007B3FC0 /* DogsListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854272C4B9BE1007B3FC0 /* DogsListContainerView.swift */; };
+		7CE8542B2C4BA858007B3FC0 /* DogsListCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8542A2C4BA858007B3FC0 /* DogsListCollectionViewDataSource.swift */; };
+		7CE854312C4BACEC007B3FC0 /* DogsListScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854302C4BACEC007B3FC0 /* DogsListScreenAssembly.swift */; };
+		7CE854372C4CCFC1007B3FC0 /* LabelsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854362C4CCFC1007B3FC0 /* LabelsFactory.swift */; };
 		7CED29A42B51570300EDF509 /* ScheduleReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */; };
 		7CED29A62B554C2B00EDF509 /* DogsNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */; };
 		7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */; };
@@ -93,6 +97,10 @@
 		7CE648962ACD63B400FD5DB1 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		7CE6489A2ACD814B00FD5DB1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7CE6489E2ACFF69400FD5DB1 /* DogsListDogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsListDogModel.swift; sourceTree = "<group>"; };
+		7CE854272C4B9BE1007B3FC0 /* DogsListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsListContainerView.swift; sourceTree = "<group>"; };
+		7CE8542A2C4BA858007B3FC0 /* DogsListCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsListCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		7CE854302C4BACEC007B3FC0 /* DogsListScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsListScreenAssembly.swift; sourceTree = "<group>"; };
+		7CE854362C4CCFC1007B3FC0 /* LabelsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelsFactory.swift; sourceTree = "<group>"; };
 		7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewController.swift; sourceTree = "<group>"; };
 		7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsNotificationsManager.swift; sourceTree = "<group>"; };
 		7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewModel.swift; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 		7CB798182AC1BA83001E4801 = {
 			isa = PBXGroup;
 			children = (
+				7CE854352C4CCFA9007B3FC0 /* Factories */,
 				7CED29BC2B6F1AB200EDF509 /* Readme.md */,
 				7C13C1362AFA4EA500D14041 /* BreedsSource */,
 				7CE6488F2ACC68C200FD5DB1 /* CoreData */,
@@ -196,7 +205,7 @@
 				7C13C1182AE906B300D14041 /* SelectBreed */,
 				7CED29AC2B57F01B00EDF509 /* NotificationsList */,
 				7C13C1142AE9031500D14041 /* DogFilters */,
-				7CB798382AC1BBD8001E4801 /* DogsList */,
+				7CB798382AC1BBD8001E4801 /* DogsListScreen */,
 				7CB7983E2AC1C32E001E4801 /* AddNewDog */,
 				7CED29A12B5156C900EDF509 /* ScheduleReminder */,
 				7CC0B4EE2ADE753A007B80BD /* DogDetails */,
@@ -224,14 +233,16 @@
 			path = Shelter;
 			sourceTree = "<group>";
 		};
-		7CB798382AC1BBD8001E4801 /* DogsList */ = {
+		7CB798382AC1BBD8001E4801 /* DogsListScreen */ = {
 			isa = PBXGroup;
 			children = (
+				7CE8542F2C4BACDD007B3FC0 /* Assembly */,
+				7CE854292C4BA831007B3FC0 /* CollectionViewDataSource */,
 				7CE6489C2ACFF67B00FD5DB1 /* Model */,
 				7CB7983B2AC1BC14001E4801 /* View */,
 				7CB798392AC1BBFD001E4801 /* ViewModel */,
 			);
-			path = DogsList;
+			path = DogsListScreen;
 			sourceTree = "<group>";
 		};
 		7CB798392AC1BBFD001E4801 /* ViewModel */ = {
@@ -248,6 +259,7 @@
 			children = (
 				7CB7983C2AC1BC3D001E4801 /* DogsListViewController.swift */,
 				7CB798472AC1D138001E4801 /* DogsListCollectionViewCell.swift */,
+				7CE854272C4B9BE1007B3FC0 /* DogsListContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -354,6 +366,30 @@
 				7CE6489E2ACFF69400FD5DB1 /* DogsListDogModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7CE854292C4BA831007B3FC0 /* CollectionViewDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				7CE8542A2C4BA858007B3FC0 /* DogsListCollectionViewDataSource.swift */,
+			);
+			path = CollectionViewDataSource;
+			sourceTree = "<group>";
+		};
+		7CE8542F2C4BACDD007B3FC0 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				7CE854302C4BACEC007B3FC0 /* DogsListScreenAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		7CE854352C4CCFA9007B3FC0 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				7CE854362C4CCFC1007B3FC0 /* LabelsFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		7CED29A12B5156C900EDF509 /* ScheduleReminder */ = {
@@ -507,6 +543,7 @@
 				7CE648972ACD63B400FD5DB1 /* CoreDataModel.xcdatamodeld in Sources */,
 				7CED29B92B5AB8DB00EDF509 /* NotificationsState.swift in Sources */,
 				7C13C1202AEA5BB400D14041 /* SelectBreedViewModel.swift in Sources */,
+				7CE854312C4BACEC007B3FC0 /* DogsListScreenAssembly.swift in Sources */,
 				7CED29A62B554C2B00EDF509 /* DogsNotificationsManager.swift in Sources */,
 				7CB7983D2AC1BC3D001E4801 /* DogsListViewController.swift in Sources */,
 				7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */,
@@ -521,7 +558,9 @@
 				7CED29AB2B56AAA800EDF509 /* ScheduleReminderAction.swift in Sources */,
 				7CC0B4F42ADE8070007B80BD /* DogDetailsViewModel.swift in Sources */,
 				7C13C1382AFA4EB500D14041 /* BreedsDataModel.swift in Sources */,
+				7CE854282C4B9BE1007B3FC0 /* DogsListContainerView.swift in Sources */,
 				7CED29B12B5948C000EDF509 /* NotificationCollectionViewCell.swift in Sources */,
+				7CE8542B2C4BA858007B3FC0 /* DogsListCollectionViewDataSource.swift in Sources */,
 				7C13C12F2AEBDC9D00D14041 /* DogFiltersAction.swift in Sources */,
 				7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */,
 				7C13C1132AE9025900D14041 /* BreedsDataSource.swift in Sources */,
@@ -531,6 +570,7 @@
 				7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */,
 				7CC0B4F92ADFD499007B80BD /* SaveDogCoreDataModel.swift in Sources */,
 				7CED29B52B594EA900EDF509 /* NotificationsViewModel.swift in Sources */,
+				7CE854372C4CCFC1007B3FC0 /* LabelsFactory.swift in Sources */,
 				7C13C1162AE9033400D14041 /* DogsFilterViewController.swift in Sources */,
 				7CDB889A2B4E94EE0081886F /* DogDetailsModel.swift in Sources */,
 				7CB7984A2AC41FE7001E4801 /* DogsListState.swift in Sources */,

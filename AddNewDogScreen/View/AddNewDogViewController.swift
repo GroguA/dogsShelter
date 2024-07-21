@@ -54,7 +54,7 @@ class AddNewDogViewController: UIViewController, UINavigationControllerDelegate 
             case .showError(let text):
                 self.showAlertMessage(message: text)
             case .closeScreen:
-                self.navigationController?.popViewController(animated: true)
+                self.viewModel.popSelectBreedScreen()
             }
         }
         

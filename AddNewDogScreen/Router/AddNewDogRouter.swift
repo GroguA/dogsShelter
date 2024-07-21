@@ -9,6 +9,7 @@ import UIKit
 
 protocol IAddNewDogRouter {
     func showSelectBreedScreen()
+    func popViewController()
 }
 
 final class AddNewDogRouter {
@@ -23,5 +24,9 @@ final class AddNewDogRouter {
         viewController.isSingleSelectMode = true
         viewController.doOnSingleSelect = doOnSingleSelect
         navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func popViewController() {
+        navigationController.popViewController(animated: true)
     }
 }

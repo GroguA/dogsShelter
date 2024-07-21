@@ -14,6 +14,7 @@ protocol IAddNewDogViewModel {
 
 protocol IAddNewDogNavigation {
     func navigateToSelectBreedScreen(doOnSingleSelect: @escaping (String) -> Void)
+    func popSelectBreedScreen()
 }
 
 class AddNewDogViewModel: IAddNewDogViewModel {
@@ -60,5 +61,9 @@ class AddNewDogViewModel: IAddNewDogViewModel {
 extension AddNewDogViewModel: IAddNewDogNavigation {
     func navigateToSelectBreedScreen(doOnSingleSelect: @escaping (String) -> Void) {
         router.showSelectBreedScreen(doOnSingleSelect: doOnSingleSelect)
+    }
+    
+    func popSelectBreedScreen() {
+        router.popViewController()
     }
 }

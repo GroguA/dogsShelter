@@ -1,5 +1,5 @@
 //
-//  DogsListContainerView.swift
+//  DogListContainerView.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 20.07.2024.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-class DogsListContainerView: UIView {
+final class DogListContainerView: UIView {
     lazy var dogsCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.dataSource = dataSource
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
-        collectionView.register(DogsListCollectionViewCell.self, forCellWithReuseIdentifier: DogsListCollectionViewCell.identifier)
+        collectionView.register(DogListCollectionViewCell.self, forCellWithReuseIdentifier: DogListCollectionViewCell.identifier)
         return collectionView
     }()
 
@@ -36,7 +36,7 @@ class DogsListContainerView: UIView {
         return button
     }()
     
-    let dataSource = DogsListCollectionViewDataSource()
+    let dataSource = DogListCollectionViewDataSource()
         
     init(delegate: UICollectionViewDelegate, searchResultsUpdater: UISearchResultsUpdating, searchBarDelegate: UISearchBarDelegate) {
         super.init(frame: .zero)
@@ -52,7 +52,7 @@ class DogsListContainerView: UIView {
     }
 }
 
-private extension DogsListContainerView {
+private extension DogListContainerView {
     func setupViews() {
         backgroundColor = .white
         addSubview(dogsCollectionView)

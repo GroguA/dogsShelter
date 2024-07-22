@@ -1,5 +1,5 @@
 //
-//  DogsListViewModel.swift
+//  DogListViewModel.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 27.09.2023.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol IDogsListViewModel {
-    var viewStateDidChange: (DogsListState) -> () { get set }
+protocol IDogListViewModel {
+    var viewStateDidChange: (DogListState) -> () { get set }
     func loadSavedDogs()
     func searchDogByName(_ name: String)
     func disableSearch()
@@ -16,12 +16,13 @@ protocol IDogsListViewModel {
     func onResetFilterTapped()
 }
 
-protocol IDogsListNavigation {
+protocol IDogListNavigation {
     func navigateToAddNewDogScreen()
+    func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
 }
 
-class DogsListViewModel {
-    var viewStateDidChange: (DogsListState) -> () = { _ in } {
+final class DogListViewModel {
+    var viewStateDidChange: (DogListState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
                 return
@@ -30,7 +31,7 @@ class DogsListViewModel {
         }
     }
     
-    private var currentState: DogsListState? = nil  {
+    private var currentState: DogListState? = nil  {
         didSet {
             if let currentState = currentState {
                 viewStateDidChange(currentState)
@@ -38,18 +39,18 @@ class DogsListViewModel {
         }
     }
     
-    private let router: DogsListRouter
+    private let router: DogListRouter
     
-    private var dogsBeforeSearch: [DogsListDogModel] = []
+    private var dogsBeforeSearch: [DogListDogModel] = []
     private var isFiltering: Bool = false
     private let dogStorageService = DogStorageService.shared
     
-    init(router: DogsListRouter) {
+    init(router: DogListRouter) {
         self.router = router
     }
 }
 
-extension DogsListViewModel: IDogsListViewModel {
+extension DogListViewModel: IDogListViewModel {
     func loadSavedDogs() {
         if isFiltering {
             return
@@ -60,7 +61,7 @@ extension DogsListViewModel: IDogsListViewModel {
         if !savedDogs.isEmpty {
             let displayedDogs = savedDogs.map({ dogCoreData in
                 let dogAge = DateUtils.shared.getDogAgeInYears(dateOfBirth: dogCoreData.dateOfBirth)
-                let dog = DogsListDogModel(
+                let dog = DogListDogModel(
                     name: dogCoreData.name,
                     breed: dogCoreData.breed,
                     age: dogAge,
@@ -82,7 +83,7 @@ extension DogsListViewModel: IDogsListViewModel {
             currentState = .empty(isFiltering: isFiltering)
         } else {
             isFiltering = true
-            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogsListDogModel) -> Bool in
+            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogListDogModel) -> Bool in
                 return dog.name.lowercased().contains(name.lowercased())
             })
             currentState = .success(dogs: filteredDogs, isFiltering: isFiltering)
@@ -127,8 +128,12 @@ extension DogsListViewModel: IDogsListViewModel {
     }
 }
 
-extension DogsListViewModel: IDogsListNavigation {
+extension DogListViewModel: IDogListNavigation {
     func navigateToAddNewDogScreen() {
         router.showAddNewDogScreen()
+    }
+    
+    func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void)) {
+        router.showDogFiltersScreen(onDogFiltersSelected: onDogFiltersSelected)
     }
 }

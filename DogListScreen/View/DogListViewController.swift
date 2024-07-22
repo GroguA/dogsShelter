@@ -1,5 +1,5 @@
 //
-//  DogsListViewController.swift
+//  DogListViewController.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 25.09.2023.
@@ -7,11 +7,10 @@
 
 import UIKit
 
-class DogsListViewController: UIViewController {
+final class DogListViewController: UIViewController {
+    private lazy var contentView = DogListContainerView(delegate: self, searchResultsUpdater: self, searchBarDelegate: self)
     
-    private lazy var contentView = DogsListContainerView(delegate: self, searchResultsUpdater: self, searchBarDelegate: self)
-    
-    private var viewModel: IDogsListViewModel & IDogsListNavigation
+    private var viewModel: IDogListViewModel & IDogListNavigation
     
     private lazy var resetFilterButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(onResetFilterClicked))
@@ -28,7 +27,7 @@ class DogsListViewController: UIViewController {
         return button
     }()
     
-    init(viewModel: IDogsListViewModel & IDogsListNavigation) {
+    init(viewModel: IDogListViewModel & IDogListNavigation) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -61,7 +60,7 @@ class DogsListViewController: UIViewController {
     func setupViews() {
         navigationItem.title = "Dogs"
         navigationItem.searchController = contentView.searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         navigationItem.rightBarButtonItem = addFilterButton
         navigationItem.leftBarButtonItem = notificationsListButton
@@ -74,7 +73,7 @@ class DogsListViewController: UIViewController {
         viewModel.navigateToAddNewDogScreen()
     }
     
-    private func renderViewState(state: DogsListState) {
+    private func renderViewState(state: DogListState) {
         switch state {
         case .success(let savedDogs, let isFiltering):
             contentView.dataSource.setDogs(savedDogs)
@@ -82,15 +81,15 @@ class DogsListViewController: UIViewController {
             contentView.emptyDogsStorageLabel.isHidden = true
             contentView.dogsCollectionView.reloadData()
             if isFiltering {
-                self.navigationItem.leftBarButtonItem = resetFilterButton
+                navigationItem.leftBarButtonItem = resetFilterButton
             } else {
-                self.navigationItem.leftBarButtonItem = notificationsListButton
+                navigationItem.leftBarButtonItem = notificationsListButton
             }
         case .empty(let isFiltering):
             if isFiltering {
-                self.navigationItem.leftBarButtonItem = resetFilterButton
+                navigationItem.leftBarButtonItem = resetFilterButton
             } else {
-                self.navigationItem.leftBarButtonItem = notificationsListButton
+                navigationItem.leftBarButtonItem = notificationsListButton
             }
             contentView.dogsCollectionView.isHidden = true
             contentView.emptyDogsStorageLabel.isHidden = false
@@ -98,16 +97,14 @@ class DogsListViewController: UIViewController {
     }
     
     @objc private func onFilterButtonClicked() {
-        let vc = DogsFilterViewController()
-        vc.onDogFiltersSelected = { filter in
-            self.viewModel.onFilterSelected(filter)
+        viewModel.navigateToDogFiltersScreen { [weak self] filter in
+            self?.viewModel.onFilterSelected(filter)
         }
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func onResetFilterClicked() {
         viewModel.onResetFilterTapped()
-        self.navigationItem.leftBarButtonItem = notificationsListButton
+        navigationItem.leftBarButtonItem = notificationsListButton
     }
     
     @objc private func onNotificationsButtonClicked() {
@@ -116,7 +113,7 @@ class DogsListViewController: UIViewController {
 }
 
 
-extension DogsListViewController: UICollectionViewDelegate {
+extension DogListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clickedDog = contentView.dataSource.dogs[indexPath.row]
         let dogDetailsViewController = DogDetailsViewController()
@@ -125,7 +122,7 @@ extension DogsListViewController: UICollectionViewDelegate {
     }
 }
 
-extension DogsListViewController: UISearchResultsUpdating {
+extension DogListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         guard let name = searchBar.text else { return }
@@ -135,7 +132,7 @@ extension DogsListViewController: UISearchResultsUpdating {
     }
 }
 
-extension DogsListViewController: UISearchBarDelegate {
+extension DogListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel.disableSearch()
     }

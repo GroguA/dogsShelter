@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DogsListDogModel {
+struct DogListDogModel {
     let name: String
     let breed: String
     let age: String

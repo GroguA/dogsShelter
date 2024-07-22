@@ -1,5 +1,5 @@
 //
-//  DogsListCollectionViewDataSource.swift
+//  DogListCollectionViewDataSource.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 20.07.2024.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class DogsListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    var dogs: [DogsListDogModel] = []
+final class DogListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    var dogs: [DogListDogModel] = []
     
-    func setDogs(_ dogs: [DogsListDogModel]) {
+    func setDogs(_ dogs: [DogListDogModel]) {
         self.dogs = dogs
     }
     
@@ -20,8 +20,8 @@ final class DogsListCollectionViewDataSource: NSObject, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DogsListCollectionViewCell.identifier,
-            for: indexPath) as? DogsListCollectionViewCell
+            withReuseIdentifier: DogListCollectionViewCell.identifier,
+            for: indexPath) as? DogListCollectionViewCell
         else {
             return UICollectionViewCell()
         }

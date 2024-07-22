@@ -1,5 +1,5 @@
 //
-//  DogsListCollectionViewCell.swift
+//  DogListCollectionViewCell.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 25.09.2023.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class DogsListCollectionViewCell: UICollectionViewCell {
-    static let identifier = String(describing: DogsListCollectionViewCell.self)
+class DogListCollectionViewCell: UICollectionViewCell {
+    static let identifier = String(describing: DogListCollectionViewCell.self)
     
     private lazy var name = LabelsFactory.createLabel(with: "name: ", isTextBold: true)
     private lazy var breed = LabelsFactory.createLabel(with: "breed: ", isTextBold: true)
@@ -84,7 +84,7 @@ class DogsListCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func fillCell(with dog: DogsListDogModel) {
+    func fillCell(with dog: DogListDogModel) {
         nameLabel.text = dog.name
         breedLabel.text = dog.breed
         ageLabel.text = dog.age

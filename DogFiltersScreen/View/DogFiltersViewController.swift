@@ -7,11 +7,11 @@
 
 import UIKit
 
-class DogsFilterViewController: UIViewController {
+class DogFiltersViewController: UIViewController {
     
-    var onDogFiltersSelected: ((_ filter: DogFiltersModel) -> Void)? = nil
+    var onDogFiltersSelected: ((_ filter: DogFiltersModel) -> Void)?
     
-    private var viewModel = DogFiltersViewModel()
+    private var viewModel: IDogFiltersViewModel & IDogFiltersNavigation
     
     private lazy var breedFilterIcon: UIImageView = {
         let view = UIImageView()
@@ -101,14 +101,24 @@ class DogsFilterViewController: UIViewController {
         return textField
     }()
     
+    init(viewModel: IDogFiltersViewModel & IDogFiltersNavigation) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        viewModel.viewStateDidChange = { state in
-            self.renderViewState(state: state)
+        viewModel.viewStateDidChange = { [weak self] state in
+            self?.renderViewState(state: state)
         }
-        viewModel.onAction = { action in
-            self.processAction(action: action)
+        viewModel.onAction = { [weak self] action in
+            self?.processAction(action: action)
         }
     }
     
@@ -163,19 +173,16 @@ class DogsFilterViewController: UIViewController {
     }
     
     @objc private func onBreedFilterDisableClicked() {
-        let vc = SelectBreedViewController()
-        vc.isSingleSelectMode = false
-        vc.doOnMultiSelect = { selectedBreeds in
-            self.viewModel.onBreedFilterChanged(breeds: selectedBreeds)
+        viewModel.showSelectBreedScreen { [weak self] selectedBreeds in
+            self?.viewModel.onBreedFilterChanged(breeds: selectedBreeds)
         }
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func processAction(action: DogFiltersAction) {
         switch action {
         case .applyFilter(let filter):
-            self.onDogFiltersSelected?(filter)
-            navigationController?.popViewController(animated: true)
+            onDogFiltersSelected?(filter)
+            viewModel.popDogFiltersScreen()
         }
     }
     
@@ -226,7 +233,7 @@ class DogsFilterViewController: UIViewController {
     }
 }
 
-extension DogsFilterViewController: UITextFieldDelegate {
+extension DogFiltersViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

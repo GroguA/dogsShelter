@@ -7,8 +7,22 @@
 
 import Foundation
 
-class DogFiltersViewModel {
-    
+protocol IDogFiltersViewModel {
+    var viewStateDidChange: (DogFiltersState) -> () { get set }
+    var onAction: (DogFiltersAction) -> () { get set }
+    func onApplyButtonTapped()
+    func onAgeFilterChanged(age: String)
+    func onBreedFilterChanged(breeds: [String])
+    func deselectAgeFilterTapped()
+    func deselectBreedFilterTapped()
+}
+
+protocol IDogFiltersNavigation {
+    func showSelectBreedScreen(doOnMultiSelect: @escaping ([String]) -> Void)
+    func popDogFiltersScreen()
+}
+
+final class DogFiltersViewModel {
     var viewStateDidChange: (DogFiltersState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {
@@ -30,6 +44,14 @@ class DogFiltersViewModel {
         }
     }
     
+    private let router: IDogFilterRouters
+    
+    init(router: IDogFilterRouters) {
+        self.router = router
+    }
+}
+
+extension DogFiltersViewModel: IDogFiltersViewModel {
     func onApplyButtonTapped() {
         if dogFilters.breeds != nil || dogFilters.age != nil {
             onAction(DogFiltersAction.applyFilter(filter: dogFilters))
@@ -37,7 +59,6 @@ class DogFiltersViewModel {
             return
         }
     }
-    
     
     func onAgeFilterChanged(age: String) {
         dogFilters.age = age
@@ -59,4 +80,14 @@ class DogFiltersViewModel {
         currentState = .success(filter: dogFilters)
     }
     
+}
+
+extension DogFiltersViewModel: IDogFiltersNavigation {
+    func showSelectBreedScreen(doOnMultiSelect: @escaping ([String]) -> Void) {
+        router.showSelectBreedScreen(doOnMultiSelect: doOnMultiSelect)
+    }
+    
+    func popDogFiltersScreen() {
+        router.popViewController()
+    }
 }

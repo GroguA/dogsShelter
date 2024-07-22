@@ -7,25 +7,15 @@
 
 import UIKit
 
-class SelectBreedCollectionViewCell: UICollectionViewCell {
+final class SelectBreedCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: SelectBreedCollectionViewCell.self)
     
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                selectBreedImage.image = UIImage(systemName: "circle.fill")
-            } else {
-                selectBreedImage.image = UIImage(systemName: "circle")
-            }
-        }
-    }
-        
     private lazy var selectBreedImage: UIImageView = {
-       let view = UIImageView(image: UIImage(systemName: "circle"))
+        let view = UIImageView(image: UIImage(systemName: "circle"))
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-        
+    
     private lazy var breedLabel = LabelsFactory.createLabel()
     
     private let offsetForConstraints: CGFloat = 16
@@ -40,10 +30,22 @@ class SelectBreedCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func fillCell(with breed: SelectBreedModel) {
+        breedLabel.text = breed.breed
+        selectBreedImage.image = breed.isSelected ? UIImage(systemName: "circle.fill") : UIImage(systemName: "circle")
+    }
+    
+}
+
+private extension SelectBreedCollectionViewCell {
     func setupViews() {
         contentView.addSubview(selectBreedImage)
         contentView.addSubview(breedLabel)
-                
+        
+        setupConstraints()
+    }
+    
+    func setupConstraints() {
         let constraints = [
             selectBreedImage.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: offsetForConstraints),
             selectBreedImage.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
@@ -54,14 +56,9 @@ class SelectBreedCollectionViewCell: UICollectionViewCell {
             breedLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: offsetForConstraints),
             breedLabel.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 24),
             breedLabel.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -offsetForConstraints),
-
+            
         ]
         
         NSLayoutConstraint.activate(constraints)
     }
-    
-    func fillCell(with breed: SelectBreedModel) {
-        breedLabel.text = breed.breed
-    }
-    
 }

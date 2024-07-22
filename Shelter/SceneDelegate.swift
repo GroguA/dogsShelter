@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let navigationController = UINavigationController()
-        let dogsListViewController = DogsListScreenAssembly.createDogListModule(with: navigationController)
+        let dogsListViewController = DogListScreenAssembly.createDogListModule(with: navigationController)
         navigationController.viewControllers = [dogsListViewController]
         
         window = UIWindow(windowScene: windowScene)

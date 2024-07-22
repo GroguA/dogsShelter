@@ -22,9 +22,10 @@ final class SelectBreedContainerView: UIView {
     }()
     
     lazy var doneButtomMultiMode: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("Done", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 19)
+        button.tintColor = .white
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemBlue

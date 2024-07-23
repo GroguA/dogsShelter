@@ -8,7 +8,7 @@
 import UIKit
 
 enum AddNewDogScreenAssembly {
-    static func createAddNewDogModule(with navigationController: UINavigationController) -> UIViewController {
+    static func createAddNewDogModule(with navigationController: UINavigationController) -> AddNewDogViewController {
         let router = AddNewDogRouter(navigationController: navigationController)
         let viewModel = AddNewDogViewModel(router: router)
         let view = AddNewDogViewController(viewModel: viewModel)

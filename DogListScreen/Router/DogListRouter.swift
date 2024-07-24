@@ -10,6 +10,7 @@ import UIKit
 protocol IDogListRouter: AnyObject {
     func showAddNewDogScreen()
     func showDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
+    func showDogDetailsScreen(with dogId: String)
 }
 
 final class DogListRouter: IDogListRouter {
@@ -27,6 +28,11 @@ final class DogListRouter: IDogListRouter {
     func showDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void)) {
         let viewController = DogFiltersScreenAssembly.createDogFiltersModule(with: navigationController)
         viewController.onDogFiltersSelected = onDogFiltersSelected
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showDogDetailsScreen(with dogId: String) {
+        let viewController = DogDetailsScreenAssembly.createDogDetailsModule(with: navigationController, dogId: dogId)
         navigationController.pushViewController(viewController, animated: true)
     }
 }

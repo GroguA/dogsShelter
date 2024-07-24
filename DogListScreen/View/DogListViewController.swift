@@ -116,9 +116,7 @@ final class DogListViewController: UIViewController {
 extension DogListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clickedDog = contentView.dataSource.dogs[indexPath.row]
-        let dogDetailsViewController = DogDetailsViewController()
-        dogDetailsViewController.dogId = clickedDog.id
-        navigationController?.pushViewController(dogDetailsViewController, animated: true)
+        viewModel.navigateToDogDetailsScreen(with: clickedDog.id)
     }
 }
 

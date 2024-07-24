@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TextFieldsFactory {
+struct TextFieldsFactory {
     static func createTextField(with placeholder: String?) -> UITextField {
         let textField = UITextField()
         textField.placeholder = placeholder

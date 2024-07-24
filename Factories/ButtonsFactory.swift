@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ButtonsFactory {
+struct ButtonsFactory {
     static func createButton(with text: String?, isTitleBold: Bool = true) -> UIButton {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -8,9 +8,9 @@
 import UIKit
 
 final class DogDetailsContainerView: UIView {
-    lazy var infoStackView = StackViewsFactory.createStackView()
+    lazy var infoStackView = StackViewsFactory.createStackView(axis: .vertical)
     
-    lazy var titlesStackView = StackViewsFactory.createStackView()
+    lazy var titlesStackView = StackViewsFactory.createStackView(axis: .vertical)
 
     lazy var dogImage: UIImageView = {
         let image = UIImageView(frame: .zero)

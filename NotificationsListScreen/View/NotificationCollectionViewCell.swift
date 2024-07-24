@@ -10,14 +10,7 @@ import UIKit
 final class NotificationCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: NotificationCollectionViewCell.self)
     
-    private lazy var notificationStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.alignment = .leading
-        view.distribution = .fillProportionally
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private lazy var notificationStackView = StackViewsFactory.createStackView(axis: .horizontal)
     
     private lazy var dogNameLabel: UILabel = {
         let label = LabelsFactory.createLabel()

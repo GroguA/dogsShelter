@@ -7,13 +7,25 @@
 
 import UIKit
 
-final class StackViewsFactory {
-    static func createStackView() -> UIStackView {
+enum StackViewAxis {
+    case vertical
+    case horizontal
+}
+
+struct StackViewsFactory {
+    static func createStackView(axis: StackViewAxis) -> UIStackView {
         let view = UIStackView()
-        view.axis = .vertical
-        view.spacing = 16
-        view.distribution = .equalSpacing
         view.translatesAutoresizingMaskIntoConstraints = false
+        switch axis {
+        case .vertical:
+            view.axis = .vertical
+            view.spacing = 16
+            view.distribution = .equalSpacing
+        case .horizontal:
+            view.axis = .horizontal
+            view.alignment = .leading
+            view.distribution = .fillProportionally
+        }
         return view
     }
 }

@@ -10,8 +10,7 @@ import UIKit
 final class DogFiltersContainerView: UIView {
     lazy var breedFilterIcon: UIImageView = {
         let view = UIImageView()
-        let image = UIImage(systemName: "circle")
-        view.image = image
+        view.image = UIImage(systemName: "circle")
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
@@ -25,14 +24,13 @@ final class DogFiltersContainerView: UIView {
     
     lazy var selectedBreedsLabel = LabelsFactory.createLabel()
 
-    lazy var breedsStackView = StackViewsFactory.createStackView()
+    lazy var breedsStackView = StackViewsFactory.createStackView(axis: .vertical)
     
     lazy var applyFilterButton = ButtonsFactory.createButton(with: "Apply")
     
     lazy var ageFilterIcon: UIImageView = {
         let view = UIImageView()
-        let image = UIImage(systemName: "circle")
-        view.image = image
+        view.image = UIImage(systemName: "circle")
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view

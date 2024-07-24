@@ -107,6 +107,6 @@ extension DogDetailsViewModel: IDogDetailsNavigation {
     }
     
     func navigateToScheduleReminderScreen() {
-        router.navigateToScheduleReminderScreen()
+        router.navigateToScheduleReminderScreen(dogId)
     }
 }

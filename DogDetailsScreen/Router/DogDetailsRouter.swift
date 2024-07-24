@@ -9,7 +9,7 @@ import UIKit
 
 protocol IDogDetailsRouter {
     func popViewController()
-    func navigateToScheduleReminderScreen()
+    func navigateToScheduleReminderScreen(_ dogId: String)
 }
 
 final class DogDetailsRouter: IDogDetailsRouter {
@@ -23,12 +23,11 @@ final class DogDetailsRouter: IDogDetailsRouter {
         navigationController.popViewController(animated: true)
     }
     
-    func navigateToScheduleReminderScreen() {
-        let reminderVC = ScheduleReminderViewController()
+    func navigateToScheduleReminderScreen(_ dogId: String) {
+        let viewController = ScheduleReminderScreenAssembly.createScheduleReminderScreen(with: navigationController, id: dogId)
         let isNotificationOn = DogsNotificationsManager.shared.getAvailability()
         if isNotificationOn {
-            navigationController.pushViewController(reminderVC, animated: true)
-//            reminderVC.dogId = self.dogId
+            navigationController.pushViewController(viewController, animated: true)
         } else {
             return
         }

@@ -27,15 +27,7 @@ final class DogFiltersContainerView: UIView {
 
     lazy var breedsStackView = StackViewsFactory.createStackView()
     
-    lazy var applyFilterButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Apply", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 19, weight: .semibold)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemBlue
-        return button
-    }()
+    lazy var applyFilterButton = ButtonsFactory.createButton(with: "Apply")
     
     lazy var ageFilterIcon: UIImageView = {
         let view = UIImageView()

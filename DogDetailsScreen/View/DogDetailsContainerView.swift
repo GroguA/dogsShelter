@@ -31,17 +31,7 @@ final class DogDetailsContainerView: UIView {
     lazy var ageTitleLabel = LabelsFactory.createLabel(with: "Age: ", isTextBold: true)
     lazy var dateOfWashTitleLabel = LabelsFactory.createLabel(with: "Last wash: ", isTextBold: true)
     
-    lazy var updateWashDateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemBlue
-        button.setTitle("Wash dog", for: .normal)
-        button.tintColor = .white
-        button.layer.cornerRadius = 8
-        button.setTitleColor(.black, for: .disabled)
-        button.titleLabel?.font = .systemFont(ofSize: 19, weight: .regular)
-        return button
-    }()
+    lazy var updateWashDateButton = ButtonsFactory.createButton(with: "Wash dog")
     
     private let offsetForConstraints: CGFloat = 16
     

@@ -118,7 +118,7 @@ private extension AddNewDogContainerView {
             dogImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,constant: -offsetForConstraints),
             dogImage.bottomAnchor.constraint(lessThanOrEqualTo: saveDogButton.topAnchor, constant: -offsetForConstraints),
             
-            saveDogButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -48),
+            saveDogButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
             saveDogButton.widthAnchor.constraint(equalToConstant: 140),
             saveDogButton.heightAnchor.constraint(equalToConstant: 50),
             saveDogButton.centerXAnchor.constraint(equalTo: centerXAnchor)

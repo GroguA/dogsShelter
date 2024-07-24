@@ -21,16 +21,7 @@ final class SelectBreedContainerView: UIView {
         return collectionView
     }()
     
-    lazy var doneButtomMultiMode: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Done", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 19)
-        button.tintColor = .white
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemBlue
-        return button
-    }()
+    lazy var doneButtomMultiMode = ButtonsFactory.createButton(with: "Done")
     
     lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)

@@ -58,6 +58,10 @@
 		7CE854532C4E0A52007B3FC0 /* DogFiltersScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854522C4E0A52007B3FC0 /* DogFiltersScreenAssembly.swift */; };
 		7CE854552C4E0AD7007B3FC0 /* DogFiltersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854542C4E0AD7007B3FC0 /* DogFiltersRouter.swift */; };
 		7CE854572C4E0D0F007B3FC0 /* DogFiltersContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854562C4E0D0F007B3FC0 /* DogFiltersContainerView.swift */; };
+		7CE854592C4F82CC007B3FC0 /* DogDetailsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854582C4F82CC007B3FC0 /* DogDetailsContainerView.swift */; };
+		7CE8545C2C4F83AC007B3FC0 /* DogDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8545B2C4F83AC007B3FC0 /* DogDetailsRouter.swift */; };
+		7CE8545F2C4F84EF007B3FC0 /* StackViewsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8545E2C4F84EF007B3FC0 /* StackViewsFactory.swift */; };
+		7CE854612C4FC566007B3FC0 /* DogDetailsScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854602C4FC566007B3FC0 /* DogDetailsScreenAssembly.swift */; };
 		7CED29A42B51570300EDF509 /* ScheduleReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */; };
 		7CED29A62B554C2B00EDF509 /* DogsNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */; };
 		7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */; };
@@ -125,6 +129,10 @@
 		7CE854522C4E0A52007B3FC0 /* DogFiltersScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFiltersScreenAssembly.swift; sourceTree = "<group>"; };
 		7CE854542C4E0AD7007B3FC0 /* DogFiltersRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFiltersRouter.swift; sourceTree = "<group>"; };
 		7CE854562C4E0D0F007B3FC0 /* DogFiltersContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogFiltersContainerView.swift; sourceTree = "<group>"; };
+		7CE854582C4F82CC007B3FC0 /* DogDetailsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailsContainerView.swift; sourceTree = "<group>"; };
+		7CE8545B2C4F83AC007B3FC0 /* DogDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailsRouter.swift; sourceTree = "<group>"; };
+		7CE8545E2C4F84EF007B3FC0 /* StackViewsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewsFactory.swift; sourceTree = "<group>"; };
+		7CE854602C4FC566007B3FC0 /* DogDetailsScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDetailsScreenAssembly.swift; sourceTree = "<group>"; };
 		7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewController.swift; sourceTree = "<group>"; };
 		7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsNotificationsManager.swift; sourceTree = "<group>"; };
 		7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewModel.swift; sourceTree = "<group>"; };
@@ -239,7 +247,7 @@
 				7CB798382AC1BBD8001E4801 /* DogListScreen */,
 				7CB7983E2AC1C32E001E4801 /* AddNewDogScreen */,
 				7CED29A12B5156C900EDF509 /* ScheduleReminder */,
-				7CC0B4EE2ADE753A007B80BD /* DogDetails */,
+				7CC0B4EE2ADE753A007B80BD /* DogDetailsScreen */,
 				7CB798222AC1BA83001E4801 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -326,20 +334,23 @@
 			path = DogsStorage;
 			sourceTree = "<group>";
 		};
-		7CC0B4EE2ADE753A007B80BD /* DogDetails */ = {
+		7CC0B4EE2ADE753A007B80BD /* DogDetailsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				7CE8545D2C4F8400007B3FC0 /* Assembly */,
+				7CE8545A2C4F83A0007B3FC0 /* Router */,
 				7CDB88982B4E94DF0081886F /* Model */,
 				7CC0B4EF2ADE759C007B80BD /* View */,
 				7CC0B4F02ADE75A7007B80BD /* ViewModel */,
 			);
-			path = DogDetails;
+			path = DogDetailsScreen;
 			sourceTree = "<group>";
 		};
 		7CC0B4EF2ADE759C007B80BD /* View */ = {
 			isa = PBXGroup;
 			children = (
 				7CC0B4F12ADE75E3007B80BD /* DogDetailsViewController.swift */,
+				7CE854582C4F82CC007B3FC0 /* DogDetailsContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -424,6 +435,7 @@
 			children = (
 				7CE854362C4CCFC1007B3FC0 /* LabelsFactory.swift */,
 				7CE8543A2C4CD3C3007B3FC0 /* TextFieldsFactory.swift */,
+				7CE8545E2C4F84EF007B3FC0 /* StackViewsFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -488,6 +500,22 @@
 			isa = PBXGroup;
 			children = (
 				7CE854522C4E0A52007B3FC0 /* DogFiltersScreenAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		7CE8545A2C4F83A0007B3FC0 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				7CE8545B2C4F83AC007B3FC0 /* DogDetailsRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		7CE8545D2C4F8400007B3FC0 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				7CE854602C4FC566007B3FC0 /* DogDetailsScreenAssembly.swift */,
 			);
 			path = Assembly;
 			sourceTree = "<group>";
@@ -653,9 +681,12 @@
 				7CE854432C4CE4F0007B3FC0 /* SelectBreedAssembly.swift in Sources */,
 				7CE854472C4CE556007B3FC0 /* AddNewDogRouter.swift in Sources */,
 				7C13C1222AEA5BC100D14041 /* SelectBreedState.swift in Sources */,
+				7CE8545C2C4F83AC007B3FC0 /* DogDetailsRouter.swift in Sources */,
+				7CE854612C4FC566007B3FC0 /* DogDetailsScreenAssembly.swift in Sources */,
 				7CE6489F2ACFF69400FD5DB1 /* DogListDogModel.swift in Sources */,
 				7CC0B4FD2ADFE712007B80BD /* DogDetailsAction.swift in Sources */,
 				7CED29A42B51570300EDF509 /* ScheduleReminderViewController.swift in Sources */,
+				7CE8545F2C4F84EF007B3FC0 /* StackViewsFactory.swift in Sources */,
 				7CC0B4F72ADFCDBB007B80BD /* DateUtils.swift in Sources */,
 				7CE8543E2C4CD9C5007B3FC0 /* DogListRouter.swift in Sources */,
 				7CB798482AC1D138001E4801 /* DogListCollectionViewCell.swift in Sources */,
@@ -688,6 +719,7 @@
 				7CB798462AC1CCCF001E4801 /* FetchDogCoreDataModel.swift in Sources */,
 				7C13C11D2AE9082D00D14041 /* SelectBreedCollectionViewCell.swift in Sources */,
 				7C13C12A2AEBDC1100D14041 /* DogFiltersViewModel.swift in Sources */,
+				7CE854592C4F82CC007B3FC0 /* DogDetailsContainerView.swift in Sources */,
 				7CE854392C4CD28F007B3FC0 /* AddNewDogContainerView.swift in Sources */,
 				7CC0B4FB2ADFE5BC007B80BD /* DogDetailsState.swift in Sources */,
 				7CB798272AC1BA83001E4801 /* SceneDelegate.swift in Sources */,

@@ -25,14 +25,7 @@ final class DogFiltersContainerView: UIView {
     
     lazy var selectedBreedsLabel = LabelsFactory.createLabel()
 
-    lazy var breedsStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.spacing = 16
-        view.distribution = .equalSpacing
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    lazy var breedsStackView = StackViewsFactory.createStackView()
     
     lazy var applyFilterButton: UIButton = {
         let button = UIButton()

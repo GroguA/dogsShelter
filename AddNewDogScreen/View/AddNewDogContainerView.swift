@@ -63,7 +63,7 @@ class AddNewDogContainerView: UIView {
         button.setTitle("Save this dog", for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
+        button.titleLabel?.font = .systemFont(ofSize: 19, weight: .regular)
         return button
     }()
     

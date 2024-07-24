@@ -1,5 +1,5 @@
 //
-//  NotificationsListViewController.swift
+//  NotificationListViewController.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 17.01.2024.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class NotificationsListViewController: UIViewController {
+class NotificationListViewController: UIViewController {
     
-    private let viewModel = NotificationsViewModel()
+    private var viewModel: INotificationsViewModel
     
     private var notifications = [NotificationModel]()
     
@@ -43,7 +43,7 @@ class NotificationsListViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.textColor = .black
-        label.text = " No notifications added yet"
+        label.text = "No notifications added yet"
         return label
     }()
     
@@ -52,11 +52,21 @@ class NotificationsListViewController: UIViewController {
         return button
     }()
     
+    init(viewModel: INotificationsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.viewStateDidChange = { viewState in
-            self.renderViewState(state: viewState)
+        viewModel.viewStateDidChange = { [weak self] viewState in
+            self?.renderViewState(state: viewState)
         }
         
         setupViews()
@@ -113,7 +123,7 @@ class NotificationsListViewController: UIViewController {
     }
 }
 
-extension NotificationsListViewController: UICollectionViewDelegate {
+extension NotificationListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let notificationIndex = indexPath.row
         viewModel.onNotificationClicked(index: notificationIndex)
@@ -127,7 +137,7 @@ extension NotificationsListViewController: UICollectionViewDelegate {
     }
 }
 
-extension NotificationsListViewController: UICollectionViewDataSource {
+extension NotificationListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notifications.count
     }
@@ -141,7 +151,7 @@ extension NotificationsListViewController: UICollectionViewDataSource {
 }
 
 
-extension NotificationsListViewController: UICollectionViewDelegateFlowLayout {
+extension NotificationListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingWidht = sectionInsets.left * (itemsPerRow + 1)
         let paddingHeight = sectionInsets.top * itemsPerView

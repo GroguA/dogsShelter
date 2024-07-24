@@ -22,7 +22,9 @@ class DogsNotificationsManager {
         notificationCenter.getNotificationSettings(completionHandler: { settings in
             switch settings.authorizationStatus {
             case .notDetermined:
-                notificationCenter.requestAuthorization(options: [.alert, .sound], completionHandler: { didAllow, error in
+                notificationCenter.requestAuthorization(
+                    options: [.alert, .sound],
+                    completionHandler: { didAllow, error in
                     if didAllow {
                         self.isNotificationsAvailable = true
                     } else {
@@ -43,7 +45,15 @@ class DogsNotificationsManager {
         return isNotificationsAvailable
     }
     
-    func dispatchNotificationsDogDetailsVC(body: String, hour: Int, minute: Int, isDaily: Bool, day: Int, month: Int, identifier: String) {
+    func dispatchNotificationsDogDetailsVC(
+        body: String,
+        hour: Int,
+        minute: Int,
+        isDaily: Bool,
+        day: Int,
+        month: Int,
+        identifier: String
+    ) {
         let title = "Don't forget to do"
         
         let content = UNMutableNotificationContent()
@@ -58,11 +68,9 @@ class DogsNotificationsManager {
         dateComponents.minute = minute
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: isDaily)
-        
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
-        
         notificationCenter.add(request)
         
     }

@@ -8,7 +8,14 @@
 import Foundation
 import UserNotifications
 
-class NotificationsViewModel {
+protocol INotificationsViewModel {
+    var viewStateDidChange: (NotificationsState) -> () { get set }
+    func getNotifications()
+    func onNotificationClicked(index: Int)
+    func onDeleteNotificationTapped()
+}
+
+final class NotificationListViewModel {
     
     var viewStateDidChange: (NotificationsState) -> () = { _ in } {
         didSet {
@@ -19,7 +26,11 @@ class NotificationsViewModel {
         }
     }
     
-    private var notifications = [NotificationModel]()
+    private var notifications = [NotificationModel]() {
+        didSet {
+            self.getNotifications()
+        }
+    }
     
     private var currentState: NotificationsState? = nil  {
         didSet {
@@ -31,6 +42,12 @@ class NotificationsViewModel {
     
     private let dateFormatter = DateFormatter()
     
+    init(notifications: [NotificationModel]) {
+        self.notifications = notifications
+    }
+}
+
+extension NotificationListViewModel: INotificationsViewModel {
     func getNotifications() {
         DogsNotificationsManager.shared.getNotificationRequests(onSuccess: { requests in
             requests.forEach({ request in

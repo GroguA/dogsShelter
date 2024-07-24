@@ -108,7 +108,7 @@ final class DogListViewController: UIViewController {
     }
     
     @objc private func onNotificationsButtonClicked() {
-        navigationController?.pushViewController(NotificationsListViewController(), animated: true)
+        viewModel.navigateToNotificationListScreen()
     }
 }
 

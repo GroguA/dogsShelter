@@ -20,6 +20,7 @@ protocol IDogListNavigation {
     func navigateToAddNewDogScreen()
     func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
     func navigateToDogDetailsScreen(with dogId: String)
+    func navigateToNotificationListScreen()
 }
 
 final class DogListViewModel {
@@ -140,5 +141,9 @@ extension DogListViewModel: IDogListNavigation {
     
     func navigateToDogDetailsScreen(with dogId: String) {
         router.showDogDetailsScreen(with: dogId)
+    }
+    
+    func navigateToNotificationListScreen() {
+        router.showNotificationListScreen()
     }
 }

@@ -48,7 +48,7 @@ extension NotificationListViewModel: INotificationListViewModel {
         DogsNotificationsManager.shared.getNotificationRequests(onSuccess: { requests in
             requests.forEach({ request in
                 var notification: NotificationModel
-                if let dog = DogStorageService.shared.getOneDogById(id: request.identifier) {
+                if let dog = DogStorageService.shared.getOneDogBy(id: request.identifier) {
                     let trigger = request.trigger as? UNCalendarNotificationTrigger
                     if let date = trigger?.nextTriggerDate() {
                         let dateString = date.formatted(date: .numeric, time: .shortened)

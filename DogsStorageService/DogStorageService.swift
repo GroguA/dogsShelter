@@ -8,16 +8,14 @@
 import UIKit
 import CoreData
 
-
-class DogStorageService  {
+final class DogStorageService  {
     static let shared = DogStorageService()
     
     private init() {}
     
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
-    func saveDog(dog: SaveDogCoreDataModel) -> Bool {
-        
+    func saveDog(_ dog: SaveDogCoreDataModel) -> Bool {
         guard let appDelegate = appDelegate else { return false }
         
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -42,7 +40,6 @@ class DogStorageService  {
     }
     
     func fetchSavedDogs() -> Array<FetchDogCoreDataModel> {
-        
         var dogsArr = [FetchDogCoreDataModel]()
         
         guard let appDelegate = appDelegate else {
@@ -50,7 +47,6 @@ class DogStorageService  {
         }
         
         let managedContext = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Dog")
         
         do {
@@ -72,15 +68,16 @@ class DogStorageService  {
         return dogsArr
     }
     
-    func getOneDogById(id: String) -> FetchDogCoreDataModel? {
+    func getOneDogBy(id: String) -> FetchDogCoreDataModel? {
         guard let appDelegate = appDelegate else {
             return nil
         }
         var dog: FetchDogCoreDataModel? = nil
         let managedContext = appDelegate.persistentContainer.viewContext
-        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return nil }
-        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
-        guard let objectID = objectID else { return nil }
+        
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return nil
+        }
+        guard let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url) else { return nil }
         let dogManagedObj = managedContext.object(with: objectID)
         
         guard let name = dogManagedObj.value(forKey: "name") as? String,
@@ -92,25 +89,41 @@ class DogStorageService  {
             guard let name = dogManagedObj.value(forKey: "name") as? String,
                   let breed = dogManagedObj.value(forKey: "breed") as? String,
                   let dateOfBirth = dogManagedObj.value(forKey: "dateOfBirth") as? String,
-                  let image = dogManagedObj.value(forKey: "image") as? Data  
+                  let image = dogManagedObj.value(forKey: "image") as? Data
             else {
                 return nil
             }
-            dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: nil)
+            dog = FetchDogCoreDataModel(
+                name: name,
+                breed: breed,
+                dateOfBirth: dateOfBirth,
+                image: image,
+                id: dogManagedObj.objectID.uriRepresentation().absoluteString,
+                dateOfWash: nil
+            )
             return dog
         }
-        dog = FetchDogCoreDataModel(name: name, breed: breed, dateOfBirth: dateOfBirth, image: image, id: dogManagedObj.objectID.uriRepresentation().absoluteString, dateOfWash: dateOfWash)
+        dog = FetchDogCoreDataModel(
+            name: name,
+            breed: breed,
+            dateOfBirth: dateOfBirth,
+            image: image,
+            id: dogManagedObj.objectID.uriRepresentation().absoluteString,
+            dateOfWash: dateOfWash
+        )
         return dog
     }
     
-    func deleteDog(id: String) -> Bool {
+    func deleteDogBy(id: String) -> Bool {
         guard let appDelegate = appDelegate else {
             return false
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false }
-        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
-        guard let objectID = objectID else { return false }
+        
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false
+        }
+        
+        guard let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url) else { return false }
         let dogManagedObj = managedContext.object(with: objectID)
         
         managedContext.delete(dogManagedObj)
@@ -125,14 +138,14 @@ class DogStorageService  {
     }
     
     func saveDogsDateOfWash(id: String, date: String) -> Bool {
-        
         guard let appDelegate = appDelegate else { return false }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         
-        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false }
-        let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url)
-        guard let objectID = objectID else { return false }
+        guard let url = URL(string: id), let storageCoordinator = managedContext.persistentStoreCoordinator else { return false
+        }
+        
+        guard let objectID = storageCoordinator.managedObjectID(forURIRepresentation: url) else { return false }
         let dogManagedObj = managedContext.object(with: objectID)
         
         dogManagedObj.setValue(date, forKey: "dateOfWash")

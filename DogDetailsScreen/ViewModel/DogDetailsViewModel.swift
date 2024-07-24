@@ -56,7 +56,7 @@ final class DogDetailsViewModel {
 
 extension DogDetailsViewModel: IDogDetailsViewModel {
     func getOneDogBy(_ id: String) {
-        if let dog = DogStorageService.shared.getOneDogById(id: id) {
+        if let dog = DogStorageService.shared.getOneDogBy(id: id) {
             let dogWashInfoText = dog.dateOfWash ?? "None"
             let dogModel = DogDetailsModel(
                 name: dog.name,
@@ -75,7 +75,7 @@ extension DogDetailsViewModel: IDogDetailsViewModel {
     }
     
     func deleteDogClicked() {
-        if !DogStorageService.shared.deleteDog(id: dogId) {
+        if !DogStorageService.shared.deleteDogBy(id: dogId) {
             onAction(DogDetailsAction.showError)
         } else {
             onAction(DogDetailsAction.closeScreen)

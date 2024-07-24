@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-protocol INotificationsViewModel {
+protocol INotificationListViewModel {
     var viewStateDidChange: (NotificationsState) -> () { get set }
     func getNotifications()
     func onNotificationClicked(index: Int)
@@ -26,11 +26,7 @@ final class NotificationListViewModel {
         }
     }
     
-    private var notifications = [NotificationModel]() {
-        didSet {
-            self.getNotifications()
-        }
-    }
+    private var notifications = [NotificationModel]()
     
     private var currentState: NotificationsState? = nil  {
         didSet {
@@ -42,12 +38,13 @@ final class NotificationListViewModel {
     
     private let dateFormatter = DateFormatter()
     
-    init(notifications: [NotificationModel]) {
-        self.notifications = notifications
+    init() {
+        self.getNotifications()
     }
+    
 }
 
-extension NotificationListViewModel: INotificationsViewModel {
+extension NotificationListViewModel: INotificationListViewModel {
     func getNotifications() {
         DogsNotificationsManager.shared.getNotificationRequests(onSuccess: { requests in
             requests.forEach({ request in
@@ -56,13 +53,23 @@ extension NotificationListViewModel: INotificationsViewModel {
                     let trigger = request.trigger as? UNCalendarNotificationTrigger
                     if let date = trigger?.nextTriggerDate() {
                         let dateString = date.formatted(date: .numeric, time: .shortened)
-                        notification = NotificationModel(body: request.content.body, date: dateString , dogName: dog.name, dogBreed: dog.breed, dogID: request.identifier, isSelected: false)
+                        notification = NotificationModel(
+                            body: request.content.body,
+                            date: dateString,
+                            dogName: dog.name, 
+                            dogBreed: dog.breed,
+                            dogID: request.identifier,
+                            isSelected: false
+                        )
                         self.notifications.append(notification)
                     }
                 }
             })
             if !self.notifications.isEmpty {
-                self.currentState = .success(notifications: self.notifications, isAtLeastOneNotificationSelected: false)
+                self.currentState = .success(
+                    notifications: self.notifications,
+                    atLeastOneNotificationSelected: false
+                )
             } else {
                 self.currentState = .empty
             }
@@ -71,7 +78,10 @@ extension NotificationListViewModel: INotificationsViewModel {
     
     func onNotificationClicked(index: Int) {
         notifications[index].isSelected = !notifications[index].isSelected
-        currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: notifications.contains(where: { $0.isSelected }))
+        currentState = .success(
+            notifications: notifications,
+            atLeastOneNotificationSelected: notifications.contains(where: { $0.isSelected })
+        )
     }
     
     
@@ -89,7 +99,7 @@ extension NotificationListViewModel: INotificationsViewModel {
         if notifications.isEmpty {
             currentState = .empty
         } else {
-            currentState = .success(notifications: notifications, isAtLeastOneNotificationSelected: false)
+            currentState = .success(notifications: notifications, atLeastOneNotificationSelected: false)
         }
     }
 }

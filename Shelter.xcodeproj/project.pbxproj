@@ -66,13 +66,16 @@
 		7CE854652C50A2DA007B3FC0 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854642C50A2DA007B3FC0 /* ButtonsFactory.swift */; };
 		7CE854682C50A5AA007B3FC0 /* ScheduleReminderScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854672C50A5AA007B3FC0 /* ScheduleReminderScreenAssembly.swift */; };
 		7CE8546B2C50A5DC007B3FC0 /* ScheduleReminderRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8546A2C50A5DC007B3FC0 /* ScheduleReminderRouter.swift */; };
+		7CE8546F2C50AE08007B3FC0 /* NotificationListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8546E2C50AE08007B3FC0 /* NotificationListContainerView.swift */; };
+		7CE854722C50B051007B3FC0 /* NotificationListCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854712C50B051007B3FC0 /* NotificationListCollectionViewDataSource.swift */; };
+		7CE854752C50B177007B3FC0 /* NotificationListScreenAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE854742C50B177007B3FC0 /* NotificationListScreenAssembly.swift */; };
 		7CED29A42B51570300EDF509 /* ScheduleReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */; };
 		7CED29A62B554C2B00EDF509 /* DogsNotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */; };
 		7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */; };
 		7CED29AB2B56AAA800EDF509 /* ScheduleReminderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29AA2B56AAA800EDF509 /* ScheduleReminderAction.swift */; };
-		7CED29AE2B57F03C00EDF509 /* NotificationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29AD2B57F03C00EDF509 /* NotificationsListViewController.swift */; };
+		7CED29AE2B57F03C00EDF509 /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29AD2B57F03C00EDF509 /* NotificationListViewController.swift */; };
 		7CED29B12B5948C000EDF509 /* NotificationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29B02B5948C000EDF509 /* NotificationCollectionViewCell.swift */; };
-		7CED29B52B594EA900EDF509 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29B42B594EA900EDF509 /* NotificationsViewModel.swift */; };
+		7CED29B52B594EA900EDF509 /* NotificationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29B42B594EA900EDF509 /* NotificationListViewModel.swift */; };
 		7CED29B72B594F2E00EDF509 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29B62B594F2E00EDF509 /* NotificationModel.swift */; };
 		7CED29B92B5AB8DB00EDF509 /* NotificationsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED29B82B5AB8DB00EDF509 /* NotificationsState.swift */; };
 		7CED29BB2B6F06A600EDF509 /* breeds.json in Resources */ = {isa = PBXBuildFile; fileRef = 7CED29BA2B6F06A600EDF509 /* breeds.json */; };
@@ -141,13 +144,16 @@
 		7CE854642C50A2DA007B3FC0 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		7CE854672C50A5AA007B3FC0 /* ScheduleReminderScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderScreenAssembly.swift; sourceTree = "<group>"; };
 		7CE8546A2C50A5DC007B3FC0 /* ScheduleReminderRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderRouter.swift; sourceTree = "<group>"; };
+		7CE8546E2C50AE08007B3FC0 /* NotificationListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListContainerView.swift; sourceTree = "<group>"; };
+		7CE854712C50B051007B3FC0 /* NotificationListCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		7CE854742C50B177007B3FC0 /* NotificationListScreenAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListScreenAssembly.swift; sourceTree = "<group>"; };
 		7CED29A32B51570300EDF509 /* ScheduleReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewController.swift; sourceTree = "<group>"; };
 		7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogsNotificationsManager.swift; sourceTree = "<group>"; };
 		7CED29A82B56A73000EDF509 /* ScheduleReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderViewModel.swift; sourceTree = "<group>"; };
 		7CED29AA2B56AAA800EDF509 /* ScheduleReminderAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleReminderAction.swift; sourceTree = "<group>"; };
-		7CED29AD2B57F03C00EDF509 /* NotificationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsListViewController.swift; sourceTree = "<group>"; };
+		7CED29AD2B57F03C00EDF509 /* NotificationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
 		7CED29B02B5948C000EDF509 /* NotificationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCollectionViewCell.swift; sourceTree = "<group>"; };
-		7CED29B42B594EA900EDF509 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		7CED29B42B594EA900EDF509 /* NotificationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewModel.swift; sourceTree = "<group>"; };
 		7CED29B62B594F2E00EDF509 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		7CED29B82B5AB8DB00EDF509 /* NotificationsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsState.swift; sourceTree = "<group>"; };
 		7CED29BA2B6F06A600EDF509 /* breeds.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = breeds.json; sourceTree = "<group>"; };
@@ -250,7 +256,7 @@
 				7CC0B4F52ADFCD9B007B80BD /* Utils */,
 				7CB798422AC1C8A9001E4801 /* DogsStorage */,
 				7C13C1182AE906B300D14041 /* SelectBreedScreen */,
-				7CED29AC2B57F01B00EDF509 /* NotificationsList */,
+				7CED29AC2B57F01B00EDF509 /* NotificationsListScreen */,
 				7C13C1142AE9031500D14041 /* DogFiltersScreen */,
 				7CB798382AC1BBD8001E4801 /* DogListScreen */,
 				7CB7983E2AC1C32E001E4801 /* AddNewDogScreen */,
@@ -545,6 +551,30 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		7CE8546C2C50AC90007B3FC0 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				7CE854742C50B177007B3FC0 /* NotificationListScreenAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		7CE854702C50B02A007B3FC0 /* CollectionViewDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				7CE854712C50B051007B3FC0 /* NotificationListCollectionViewDataSource.swift */,
+			);
+			path = CollectionViewDataSource;
+			sourceTree = "<group>";
+		};
+		7CE854732C50B147007B3FC0 /* NotificationsManager */ = {
+			isa = PBXGroup;
+			children = (
+				7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */,
+			);
+			path = NotificationsManager;
+			sourceTree = "<group>";
+		};
 		7CED29A12B5156C900EDF509 /* ScheduleReminderScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,22 +604,25 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		7CED29AC2B57F01B00EDF509 /* NotificationsList */ = {
+		7CED29AC2B57F01B00EDF509 /* NotificationsListScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7CED29A52B554C2B00EDF509 /* DogsNotificationsManager.swift */,
+				7CE854732C50B147007B3FC0 /* NotificationsManager */,
+				7CE854702C50B02A007B3FC0 /* CollectionViewDataSource */,
+				7CE8546C2C50AC90007B3FC0 /* Assembly */,
 				7CED29B32B594E8C00EDF509 /* Model */,
 				7CED29B22B594E8500EDF509 /* ViewModel */,
 				7CED29AF2B59489300EDF509 /* View */,
 			);
-			path = NotificationsList;
+			path = NotificationsListScreen;
 			sourceTree = "<group>";
 		};
 		7CED29AF2B59489300EDF509 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7CED29AD2B57F03C00EDF509 /* NotificationsListViewController.swift */,
+				7CED29AD2B57F03C00EDF509 /* NotificationListViewController.swift */,
 				7CED29B02B5948C000EDF509 /* NotificationCollectionViewCell.swift */,
+				7CE8546E2C50AE08007B3FC0 /* NotificationListContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -597,7 +630,7 @@
 		7CED29B22B594E8500EDF509 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				7CED29B42B594EA900EDF509 /* NotificationsViewModel.swift */,
+				7CED29B42B594EA900EDF509 /* NotificationListViewModel.swift */,
 				7CED29B82B5AB8DB00EDF509 /* NotificationsState.swift */,
 			);
 			path = ViewModel;
@@ -708,10 +741,12 @@
 				7CB7983D2AC1BC3D001E4801 /* DogListViewController.swift in Sources */,
 				7CE648652AC6B80700FD5DB1 /* AddNewDogViewModel.swift in Sources */,
 				7CE854432C4CE4F0007B3FC0 /* SelectBreedAssembly.swift in Sources */,
+				7CE8546F2C50AE08007B3FC0 /* NotificationListContainerView.swift in Sources */,
 				7CE854472C4CE556007B3FC0 /* AddNewDogRouter.swift in Sources */,
 				7C13C1222AEA5BC100D14041 /* SelectBreedState.swift in Sources */,
 				7CE8545C2C4F83AC007B3FC0 /* DogDetailsRouter.swift in Sources */,
 				7CE854612C4FC566007B3FC0 /* DogDetailsScreenAssembly.swift in Sources */,
+				7CE854722C50B051007B3FC0 /* NotificationListCollectionViewDataSource.swift in Sources */,
 				7CE6489F2ACFF69400FD5DB1 /* DogListDogModel.swift in Sources */,
 				7CC0B4FD2ADFE712007B80BD /* DogDetailsAction.swift in Sources */,
 				7CED29A42B51570300EDF509 /* ScheduleReminderViewController.swift in Sources */,
@@ -726,6 +761,7 @@
 				7CC0B4F42ADE8070007B80BD /* DogDetailsViewModel.swift in Sources */,
 				7C13C1382AFA4EB500D14041 /* BreedsDataModel.swift in Sources */,
 				7CE854282C4B9BE1007B3FC0 /* DogListContainerView.swift in Sources */,
+				7CE854752C50B177007B3FC0 /* NotificationListScreenAssembly.swift in Sources */,
 				7CED29B12B5948C000EDF509 /* NotificationCollectionViewCell.swift in Sources */,
 				7CE8544F2C4CFD3E007B3FC0 /* SelectBreedRouter.swift in Sources */,
 				7CE8542B2C4BA858007B3FC0 /* DogListCollectionViewDataSource.swift in Sources */,
@@ -733,14 +769,14 @@
 				7CED29A92B56A73000EDF509 /* ScheduleReminderViewModel.swift in Sources */,
 				7C13C1132AE9025900D14041 /* BreedsDataSource.swift in Sources */,
 				7CE854492C4CF59B007B3FC0 /* SelectBreedContainerView.swift in Sources */,
-				7CED29AE2B57F03C00EDF509 /* NotificationsListViewController.swift in Sources */,
+				7CED29AE2B57F03C00EDF509 /* NotificationListViewController.swift in Sources */,
 				7CB798252AC1BA83001E4801 /* AppDelegate.swift in Sources */,
 				7CE854572C4E0D0F007B3FC0 /* DogFiltersContainerView.swift in Sources */,
 				7C13C1312AF12DBA00D14041 /* DogFiltersModel.swift in Sources */,
 				7CE648942ACC6A1800FD5DB1 /* DogStorageService.swift in Sources */,
 				7CC0B4F92ADFD499007B80BD /* SaveDogCoreDataModel.swift in Sources */,
 				7CE854682C50A5AA007B3FC0 /* ScheduleReminderScreenAssembly.swift in Sources */,
-				7CED29B52B594EA900EDF509 /* NotificationsViewModel.swift in Sources */,
+				7CED29B52B594EA900EDF509 /* NotificationListViewModel.swift in Sources */,
 				7CE854372C4CCFC1007B3FC0 /* LabelsFactory.swift in Sources */,
 				7C13C1162AE9033400D14041 /* DogFiltersViewController.swift in Sources */,
 				7CE854532C4E0A52007B3FC0 /* DogFiltersScreenAssembly.swift in Sources */,

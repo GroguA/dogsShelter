@@ -7,8 +7,7 @@
 
 import UIKit
 
-class NotificationListViewController: UIViewController {
-    
+final class NotificationListViewController: UIViewController {
     private var viewModel: INotificationListViewModel
     
     private lazy var containerView = NotificationListContainerView(delegate: self)

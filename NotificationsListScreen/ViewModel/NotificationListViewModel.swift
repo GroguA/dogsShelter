@@ -16,7 +16,6 @@ protocol INotificationListViewModel {
 }
 
 final class NotificationListViewModel {
-    
     var viewStateDidChange: (NotificationsState) -> () = { _ in } {
         didSet {
             guard let currentState = currentState else {

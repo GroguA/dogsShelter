@@ -7,15 +7,13 @@
 
 import UIKit
 
-class NotificationCollectionViewCell: UICollectionViewCell {
-    
+final class NotificationCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: NotificationCollectionViewCell.self)
     
     private lazy var notificationStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .horizontal
         view.alignment = .leading
-        //        view.spacing = 16
         view.distribution = .fillProportionally
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

@@ -15,7 +15,7 @@ final class SelectBreedContainerView: UIView {
         collectionView.dataSource = dataSource
         collectionView.delegate = delegate
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(SelectBreedCollectionViewCell.self, forCellWithReuseIdentifier: SelectBreedCollectionViewCell.identifier)
         collectionView.allowsMultipleSelection = true
         return collectionView
@@ -59,7 +59,7 @@ final class SelectBreedContainerView: UIView {
 
 private extension SelectBreedContainerView {
     func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         addSubview(breedsCollectionView)
         addSubview(searchController.searchBar)
         
@@ -67,7 +67,6 @@ private extension SelectBreedContainerView {
     }
     
     func setupConstraints() {
-        
         var constraints: [NSLayoutConstraint] = []
         
         if !isSingleSelectMode {
@@ -98,7 +97,7 @@ private extension SelectBreedContainerView {
     
     func createLayout() -> UICollectionViewLayout {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.backgroundColor = .white
+        configuration.backgroundColor = .systemBackground
         configuration.showsSeparators = true
         
         let indexPathToHide = IndexPath()

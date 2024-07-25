@@ -1,5 +1,5 @@
 //
-//  DogDetailsScreenAssembly.swift
+//  DogDetailsAssembly.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 23.07.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum DogDetailsScreenAssembly {
+enum DogDetailsAssembly {
     static func createDogDetailsModule(with navigationController: UINavigationController, dogId: String) -> DogDetailsViewController {
         let router = DogDetailsRouter(navigationController: navigationController)
         let viewModel = DogDetailsViewModel(router: router, dogId: dogId)

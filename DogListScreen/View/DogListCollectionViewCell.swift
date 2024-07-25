@@ -48,6 +48,8 @@ class DogListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(ageLabel)
         contentView.addSubview(dogImage)
         
+        dogImage.image = nil
+        
         setupConstraints()
     }
     

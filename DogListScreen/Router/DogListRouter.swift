@@ -8,10 +8,10 @@
 import UIKit
 
 protocol IDogListRouter: AnyObject {
-    func showAddNewDogScreen()
-    func showDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
-    func showDogDetailsScreen(with dogId: String)
-    func showNotificationListScreen()
+    func navigateToAddNewDogScreen()
+    func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
+    func navigateToDogDetailsScreen(with dogId: String)
+    func navigateToNotificationListScreen()
 }
 
 final class DogListRouter: IDogListRouter {
@@ -21,24 +21,24 @@ final class DogListRouter: IDogListRouter {
         self.navigationController = navigationController
     }
     
-    func showAddNewDogScreen() {
-        let viewController = AddNewDogScreenAssembly.createAddNewDogModule(with: navigationController)
+    func navigateToAddNewDogScreen() {
+        let viewController = AddNewDogAssembly.createAddNewDogModule(with: navigationController)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void)) {
-        let viewController = DogFiltersScreenAssembly.createDogFiltersModule(with: navigationController)
+    func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void)) {
+        let viewController = DogFiltersAssembly.createDogFiltersModule(with: navigationController)
         viewController.onDogFiltersSelected = onDogFiltersSelected
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showDogDetailsScreen(with dogId: String) {
-        let viewController = DogDetailsScreenAssembly.createDogDetailsModule(with: navigationController, dogId: dogId)
+    func navigateToDogDetailsScreen(with dogId: String) {
+        let viewController = DogDetailsAssembly.createDogDetailsModule(with: navigationController, dogId: dogId)
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func showNotificationListScreen() {
-        let viewController = NotificationListScreenAssembly.createNotificationListModule()
+    func navigateToNotificationListScreen() {
+        let viewController = NotificationListAssembly.createNotificationListModule()
         navigationController.pushViewController(viewController, animated: true)
     }
 }

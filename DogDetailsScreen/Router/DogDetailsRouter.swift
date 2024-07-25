@@ -24,7 +24,7 @@ final class DogDetailsRouter: IDogDetailsRouter {
     }
     
     func navigateToScheduleReminderScreen(_ dogId: String) {
-        let viewController = ScheduleReminderScreenAssembly.createScheduleReminderScreen(with: navigationController, id: dogId)
+        let viewController = ScheduleReminderAssembly.createScheduleReminderScreen(with: navigationController, id: dogId)
         let isNotificationOn = DogsNotificationsManager.shared.getAvailability()
         if isNotificationOn {
             navigationController.pushViewController(viewController, animated: true)

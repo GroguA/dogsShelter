@@ -56,7 +56,7 @@ private extension DogDetailsContainerView {
         addSubview(lastDogsWashLabel)
         addSubview(updateWashDateButton)
         
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         infoStackView.addArrangedSubview(dogNameLabel)
         infoStackView.addArrangedSubview(dogBreedLabel)

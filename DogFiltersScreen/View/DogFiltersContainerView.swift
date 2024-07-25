@@ -69,7 +69,7 @@ final class DogFiltersContainerView: UIView {
 
 private extension DogFiltersContainerView {
     func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         addSubview(breedsStackView)
         addSubview(breedFilterIcon)

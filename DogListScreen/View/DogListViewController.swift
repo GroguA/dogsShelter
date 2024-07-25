@@ -8,22 +8,41 @@
 import UIKit
 
 final class DogListViewController: UIViewController {
-    private lazy var contentView = DogListContainerView(delegate: self, searchResultsUpdater: self, searchBarDelegate: self)
+    private lazy var contentView = DogListContainerView(
+        delegate: self,
+        searchResultsUpdater: self,
+        searchBarDelegate: self
+    )
     
     private var viewModel: IDogListViewModel & IDogListNavigation
     
     private lazy var resetFilterButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Reset filter", style: .plain, target: self, action: #selector(onResetFilterClicked))
+        let button = UIBarButtonItem(
+            title: "Reset filter",
+            style: .plain,
+            target: self,
+            action: #selector(onResetFilterClicked)
+        )
         return button
     }()
     
     private lazy var notificationsListButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Notifications list", style: .plain, target: self, action: #selector(onNotificationsButtonClicked))
+        let button = UIBarButtonItem(
+            title: "Notifications list",
+            style: .plain,
+            target: self,
+            action: #selector(onNotificationsButtonClicked)
+        )
         return button
     }()
     
     private lazy var addFilterButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(onFilterButtonClicked))
+        let button = UIBarButtonItem(
+            title: "Filter",
+            style: .plain,
+            target: self,
+            action: #selector(onFilterButtonClicked)
+        )
         return button
     }()
     
@@ -70,7 +89,7 @@ final class DogListViewController: UIViewController {
     }
     
     @objc private func onAddNewDogClicked(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        viewModel.navigateToAddNewDogScreen()
+        viewModel.showAddNewDogScreen()
     }
     
     private func renderViewState(state: DogListState) {
@@ -97,7 +116,7 @@ final class DogListViewController: UIViewController {
     }
     
     @objc private func onFilterButtonClicked() {
-        viewModel.navigateToDogFiltersScreen { [weak self] filter in
+        viewModel.showDogFiltersScreen { [weak self] filter in
             self?.viewModel.onFilterSelected(filter)
         }
     }
@@ -108,7 +127,7 @@ final class DogListViewController: UIViewController {
     }
     
     @objc private func onNotificationsButtonClicked() {
-        viewModel.navigateToNotificationListScreen()
+        viewModel.showNotificationListScreen()
     }
 }
 
@@ -116,7 +135,7 @@ final class DogListViewController: UIViewController {
 extension DogListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let clickedDog = contentView.dataSource.dogs[indexPath.row]
-        viewModel.navigateToDogDetailsScreen(with: clickedDog.id)
+        viewModel.showDogDetailsScreen(with: clickedDog.id)
     }
 }
 

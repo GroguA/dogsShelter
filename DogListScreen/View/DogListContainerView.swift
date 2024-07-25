@@ -13,7 +13,7 @@ final class DogListContainerView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.dataSource = dataSource
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(DogListCollectionViewCell.self, forCellWithReuseIdentifier: DogListCollectionViewCell.identifier)
         return collectionView
     }()
@@ -54,7 +54,7 @@ final class DogListContainerView: UIView {
 
 private extension DogListContainerView {
     func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         addSubview(dogsCollectionView)
         addSubview(addDogButton)
         addSubview(emptyDogsStorageLabel)
@@ -84,7 +84,7 @@ private extension DogListContainerView {
     
     func createLayout() -> UICollectionViewLayout {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.backgroundColor = .white
+        configuration.backgroundColor = .systemBackground
         configuration.showsSeparators = true
         
         let indexPathToHide = IndexPath()

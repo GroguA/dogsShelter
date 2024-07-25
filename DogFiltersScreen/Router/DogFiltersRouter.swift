@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IDogFilterRouters {
-    func showSelectBreedScreen(doOnMultiSelect: @escaping (([String]) -> Void))
+    func navigateToSelectBreedScreen(doOnMultiSelect: @escaping (([String]) -> Void))
     func popViewController()
 }
 
@@ -19,7 +19,7 @@ final class DogFiltersRouter: IDogFilterRouters {
         self.navigationController = navigationController
     }
     
-    func showSelectBreedScreen(doOnMultiSelect: @escaping (([String]) -> Void)) {
+    func navigateToSelectBreedScreen(doOnMultiSelect: @escaping (([String]) -> Void)) {
         let viewController = SelectBreedAssembly.createSelectBreedModule(with: navigationController)
         viewController.isSingleSelectMode = false
         viewController.doOnMultiSelect = doOnMultiSelect

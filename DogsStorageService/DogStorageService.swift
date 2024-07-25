@@ -137,7 +137,7 @@ final class DogStorageService  {
         }
     }
     
-    func saveDogsDateOfWash(id: String, date: String) -> Bool {
+    func saveDogDateOfWash(id: String, date: String) -> Bool {
         guard let appDelegate = appDelegate else { return false }
         
         let managedContext = appDelegate.persistentContainer.viewContext

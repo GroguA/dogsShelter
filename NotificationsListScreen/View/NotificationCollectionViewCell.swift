@@ -35,7 +35,7 @@ final class NotificationCollectionViewCell: UICollectionViewCell {
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
-        self.backgroundColor = .white
+        self.backgroundColor = .systemBackground
         contentView.addSubview(notificationStackView)
         
         let constraints = [

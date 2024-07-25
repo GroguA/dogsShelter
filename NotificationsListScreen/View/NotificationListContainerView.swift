@@ -40,7 +40,6 @@ final class NotificationListContainerView: UIView {
 private extension NotificationListContainerView {
     func setupViews() {
         addSubview(notificationsCollectionView)
-        //        view.addSubview(bottomBackground)
         backgroundColor = .systemBackground
         addSubview(emptyNotificationsLabel)
         

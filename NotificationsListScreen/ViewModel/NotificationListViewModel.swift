@@ -34,9 +34,7 @@ final class NotificationListViewModel {
             }
         }
     }
-    
-    private let dateFormatter = DateFormatter()
-    
+        
     init() {
         self.getNotifications()
     }

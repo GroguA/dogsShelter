@@ -17,7 +17,7 @@ protocol IDogDetailsViewModel {
 
 protocol IDogDetailsNavigation {
     func popDogDetailsScreen()
-    func navigateToScheduleReminderScreen()
+    func showScheduleReminderScreen()
 }
 
 final class DogDetailsViewModel {
@@ -85,7 +85,7 @@ extension DogDetailsViewModel: IDogDetailsViewModel {
     func updateDogWashClicked() {
         let date = DateUtils.shared.getCurrentDate()
         guard let dogBeforeWash = currentDog else { return }
-        if !DogStorageService.shared.saveDogsDateOfWash(id: dogBeforeWash.id, date: date) {
+        if !DogStorageService.shared.saveDogDateOfWash(id: dogBeforeWash.id, date: date) {
             onAction(DogDetailsAction.showError)
         } else {
             let dogAfterWash = DogDetailsModel(name: dogBeforeWash.name,
@@ -106,7 +106,7 @@ extension DogDetailsViewModel: IDogDetailsNavigation {
         router.popViewController()
     }
     
-    func navigateToScheduleReminderScreen() {
+    func showScheduleReminderScreen() {
         router.navigateToScheduleReminderScreen(dogId)
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol IAddNewDogRouter {
-    func showSelectBreedScreen()
+    func navigateSelectBreedScreen()
     func popViewController()
 }
 

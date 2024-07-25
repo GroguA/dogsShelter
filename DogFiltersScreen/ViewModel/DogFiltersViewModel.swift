@@ -84,7 +84,7 @@ extension DogFiltersViewModel: IDogFiltersViewModel {
 
 extension DogFiltersViewModel: IDogFiltersNavigation {
     func showSelectBreedScreen(doOnMultiSelect: @escaping ([String]) -> Void) {
-        router.showSelectBreedScreen(doOnMultiSelect: doOnMultiSelect)
+        router.navigateToSelectBreedScreen(doOnMultiSelect: doOnMultiSelect)
     }
     
     func popDogFiltersScreen() {

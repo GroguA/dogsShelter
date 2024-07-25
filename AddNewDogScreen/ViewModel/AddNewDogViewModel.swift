@@ -13,7 +13,7 @@ protocol IAddNewDogViewModel {
 }
 
 protocol IAddNewDogNavigation {
-    func navigateToSelectBreedScreen(doOnSingleSelect: @escaping (String) -> Void)
+    func showSelectBreedScreen(doOnSingleSelect: @escaping (String) -> Void)
     func popSelectBreedScreen()
 }
 
@@ -30,7 +30,7 @@ class AddNewDogViewModel: IAddNewDogViewModel {
     
     func onAddDogButtonClicked(name: String?, breed: String?, dateOfBirth: String?, image: Data?) {
         guard let name = name?.trimmingCharacters(in: .whitespaces),
-                !name.isEmpty,
+              !name.isEmpty,
               let breed = breed,
               !breed.isEmpty,
               let dateOfBirth = dateOfBirth,
@@ -49,7 +49,7 @@ class AddNewDogViewModel: IAddNewDogViewModel {
             image: image
         )
         
-        if dogStorage.saveDog(dog: dog) {
+        if dogStorage.saveDog(dog) {
             onAction(AddNewDogAction.closeScreen)
         } else {
             onAction(AddNewDogAction.showError(text: "Can't save this dog"))
@@ -59,7 +59,7 @@ class AddNewDogViewModel: IAddNewDogViewModel {
 }
 
 extension AddNewDogViewModel: IAddNewDogNavigation {
-    func navigateToSelectBreedScreen(doOnSingleSelect: @escaping (String) -> Void) {
+    func showSelectBreedScreen(doOnSingleSelect: @escaping (String) -> Void) {
         router.showSelectBreedScreen(doOnSingleSelect: doOnSingleSelect)
     }
     

@@ -16,7 +16,8 @@ class SelectBreedViewController: UIViewController {
     
     private lazy var containerView = SelectBreedContainerView(
         isSingleSelectMode: isSingleSelectMode,
-        delegate: self, searchBarDelegate: self,
+        delegate: self, 
+        searchBarDelegate: self,
         searchResultsUpdater: self
     )
     
@@ -54,7 +55,7 @@ private extension SelectBreedViewController {
     func setupViews() {
         navigationItem.title = "Breeds"
         navigationItem.searchController = containerView.searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         containerView.doneButtomMultiMode.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
 

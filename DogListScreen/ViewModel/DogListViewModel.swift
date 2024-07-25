@@ -17,10 +17,10 @@ protocol IDogListViewModel {
 }
 
 protocol IDogListNavigation {
-    func navigateToAddNewDogScreen()
-    func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
-    func navigateToDogDetailsScreen(with dogId: String)
-    func navigateToNotificationListScreen()
+    func showAddNewDogScreen()
+    func showDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void))
+    func showDogDetailsScreen(with dogId: String)
+    func showNotificationListScreen()
 }
 
 final class DogListViewModel {
@@ -131,19 +131,19 @@ extension DogListViewModel: IDogListViewModel {
 }
 
 extension DogListViewModel: IDogListNavigation {
-    func navigateToAddNewDogScreen() {
-        router.showAddNewDogScreen()
+    func showAddNewDogScreen() {
+        router.navigateToAddNewDogScreen()
     }
     
-    func navigateToDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void)) {
-        router.showDogFiltersScreen(onDogFiltersSelected: onDogFiltersSelected)
+    func showDogFiltersScreen(onDogFiltersSelected: @escaping ((_ filter: DogFiltersModel) -> Void)) {
+        router.navigateToDogFiltersScreen(onDogFiltersSelected: onDogFiltersSelected)
     }
     
-    func navigateToDogDetailsScreen(with dogId: String) {
-        router.showDogDetailsScreen(with: dogId)
+    func showDogDetailsScreen(with dogId: String) {
+        router.navigateToDogDetailsScreen(with: dogId)
     }
     
-    func navigateToNotificationListScreen() {
-        router.showNotificationListScreen()
+    func showNotificationListScreen() {
+        router.navigateToNotificationListScreen()
     }
 }

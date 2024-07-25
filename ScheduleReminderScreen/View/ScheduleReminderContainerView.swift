@@ -31,9 +31,10 @@ final class ScheduleReminderContainerView: UIView {
     lazy var dateOfReminderPicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.timeZone = .current
-        picker.backgroundColor = .white
+        picker.backgroundColor = .systemBackground
         picker.datePickerMode = .dateAndTime
         picker.minimumDate = Date()
+        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.timeZone = .autoupdatingCurrent
         picker.preferredDatePickerStyle = .wheels
         return picker

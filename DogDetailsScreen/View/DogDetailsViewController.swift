@@ -99,7 +99,7 @@ private extension DogDetailsViewController {
     }
     
     @objc func scheduleReminderTapped() {
-        viewModel.navigateToScheduleReminderScreen()
+        viewModel.showScheduleReminderScreen()
     }
     
     func showAlert() {

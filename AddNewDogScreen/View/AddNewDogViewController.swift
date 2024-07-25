@@ -57,7 +57,6 @@ class AddNewDogViewController: UIViewController, UINavigationControllerDelegate 
                 self.viewModel.popSelectBreedScreen()
             }
         }
-        
     }
 }
 
@@ -80,8 +79,8 @@ private extension AddNewDogViewController {
     }
     
     @objc func onBreedTextFieldClicked(_ sender: UITextField) {
-        viewModel.navigateToSelectBreedScreen() { selectedBreed in
-            self.contentView.breedTextField.text = selectedBreed
+        viewModel.showSelectBreedScreen() { [weak self] selectedBreed in
+            self?.contentView.breedTextField.text = selectedBreed
         }
     }
     

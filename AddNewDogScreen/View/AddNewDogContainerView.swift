@@ -27,12 +27,13 @@ class AddNewDogContainerView: UIView {
     lazy var dateOfBirthPicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.timeZone = .current
-        picker.backgroundColor = .white
-        picker.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+        picker.backgroundColor = .systemBackground
+        picker.maximumDate = Date()
         picker.minimumDate = Calendar.current.date(byAdding: .year, value: -30, to: Date())
         picker.datePickerMode = .date
         picker.timeZone = .autoupdatingCurrent
         picker.preferredDatePickerStyle = .wheels
+        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         return picker
     }()
@@ -63,7 +64,7 @@ class AddNewDogContainerView: UIView {
         button.setTitle("Save this dog", for: .normal)
         button.tintColor = .white
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = .systemFont(ofSize: 19, weight: .regular)
+        button.titleLabel?.font = .systemFont(ofSize: 19, weight: .semibold)
         return button
     }()
     
@@ -91,7 +92,7 @@ private extension AddNewDogContainerView {
         addSubview(dateOfBirthTextField)
         addSubview(dogImage)
         
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         addGestureRecognizer(tap)

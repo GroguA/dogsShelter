@@ -20,8 +20,7 @@ final class DogFiltersRouter: IDogFilterRouters {
     }
     
     func navigateToSelectBreedScreen(doOnMultiSelect: @escaping (([String]) -> Void)) {
-        let viewController = SelectBreedAssembly.createSelectBreedModule(with: navigationController)
-        viewController.isSingleSelectMode = false
+        let viewController = SelectBreedAssembly.createSelectBreedModule(with: navigationController, isSingleSelectMode: false)
         viewController.doOnMultiSelect = doOnMultiSelect
         navigationController.pushViewController(viewController, animated: true)
     }

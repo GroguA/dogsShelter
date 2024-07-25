@@ -23,9 +23,7 @@ final class DogFiltersContainerView: UIView {
     }()
     
     lazy var selectedBreedsLabel = LabelsFactory.createLabel()
-
     lazy var breedsStackView = StackViewsFactory.createStackView(axis: .vertical)
-    
     lazy var applyFilterButton = ButtonsFactory.createButton(with: "Apply")
     
     lazy var ageFilterIcon: UIImageView = {

@@ -7,12 +7,12 @@
 
 import UIKit
 
-enum StackViewAxis {
-    case vertical
-    case horizontal
-}
-
 struct StackViewsFactory {
+    enum StackViewAxis {
+        case vertical
+        case horizontal
+    }
+    
     static func createStackView(axis: StackViewAxis) -> UIStackView {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false

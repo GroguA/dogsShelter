@@ -34,7 +34,6 @@ final class ScheduleReminderContainerView: UIView {
         picker.backgroundColor = .systemBackground
         picker.datePickerMode = .dateAndTime
         picker.minimumDate = Date()
-        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.timeZone = .autoupdatingCurrent
         picker.preferredDatePickerStyle = .wheels
         return picker

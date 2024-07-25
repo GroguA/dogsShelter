@@ -33,7 +33,6 @@ class AddNewDogContainerView: UIView {
         picker.datePickerMode = .date
         picker.timeZone = .autoupdatingCurrent
         picker.preferredDatePickerStyle = .wheels
-        picker.translatesAutoresizingMaskIntoConstraints = false
         picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         return picker
     }()

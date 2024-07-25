@@ -10,9 +10,9 @@ import UIKit
 class DogListCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: DogListCollectionViewCell.self)
     
-    private lazy var nameTitleLabel = LabelsFactory.createLabel(with: "name: ", isTextBold: true)
-    private lazy var breedTitleLabel = LabelsFactory.createLabel(with: "breed: ", isTextBold: true)
-    private lazy var ageTitleLabel = LabelsFactory.createLabel(with: "age: ", isTextBold: true)
+    private lazy var nameTitleLabel = LabelsFactory.createLabel(with: "Name: ", isTextBold: true)
+    private lazy var breedTitleLabel = LabelsFactory.createLabel(with: "Breed: ", isTextBold: true)
+    private lazy var ageTitleLabel = LabelsFactory.createLabel(with: "Age: ", isTextBold: true)
     
     private lazy var nameLabel = LabelsFactory.createLabel()
     private lazy var breedLabel = LabelsFactory.createLabel()
@@ -56,7 +56,8 @@ class DogListCollectionViewCell: UICollectionViewCell {
     func setupConstraints() {
         let constraints = [
             dogImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: offsetForConstraints),
-            dogImage.widthAnchor.constraint(equalTo: dogImage.heightAnchor),
+            dogImage.widthAnchor.constraint(equalToConstant: 88),
+            dogImage.heightAnchor.constraint(equalToConstant: 88),
             dogImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             dogImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -offsetForConstraints),
             

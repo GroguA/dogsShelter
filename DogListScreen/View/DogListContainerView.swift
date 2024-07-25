@@ -9,7 +9,6 @@ import UIKit
 
 final class DogListContainerView: UIView {
     lazy var dogsCollectionView: UICollectionView = {
-        let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.dataSource = dataSource
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -17,7 +16,7 @@ final class DogListContainerView: UIView {
         collectionView.register(DogListCollectionViewCell.self, forCellWithReuseIdentifier: DogListCollectionViewCell.identifier)
         return collectionView
     }()
-
+    
     lazy var emptyDogsStorageLabel = LabelsFactory.createLabel(with: "No dogs added yet")
     
     lazy var searchController: UISearchController = {
@@ -37,7 +36,7 @@ final class DogListContainerView: UIView {
     }()
     
     let dataSource = DogListCollectionViewDataSource()
-        
+    
     init(delegate: UICollectionViewDelegate, searchResultsUpdater: UISearchResultsUpdating, searchBarDelegate: UISearchBarDelegate) {
         super.init(frame: .zero)
         dogsCollectionView.delegate = delegate
@@ -82,7 +81,7 @@ private extension DogListContainerView {
         NSLayoutConstraint.activate(constraint)
     }
     
-    func createLayout() -> UICollectionViewLayout {
+    func createLayout() -> UICollectionViewCompositionalLayout {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         configuration.backgroundColor = .systemBackground
         configuration.showsSeparators = true
@@ -100,10 +99,8 @@ private extension DogListContainerView {
         }
         
         let layout = UICollectionViewCompositionalLayout() { section, layoutEnvironment in
-            let layoutSection =  NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
-            
+            let layoutSection = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: -8, bottom: 0, trailing: 8)
-            
             return layoutSection
         }
         

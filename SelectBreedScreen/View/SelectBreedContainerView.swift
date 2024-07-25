@@ -113,10 +113,8 @@ private extension SelectBreedContainerView {
         }
         
         let layout = UICollectionViewCompositionalLayout() { section, layoutEnvironment in
-            let layoutSection =  NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
-            
+            let layoutSection = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: -8, bottom: 8, trailing: 8)
-            
             return layoutSection
         }
         

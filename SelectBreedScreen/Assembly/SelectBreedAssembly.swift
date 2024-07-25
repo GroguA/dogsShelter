@@ -8,10 +8,10 @@
 import UIKit
 
 enum SelectBreedAssembly {
-    static func createSelectBreedModule(with navigationController: UINavigationController) -> SelectBreedViewController {
+    static func createSelectBreedModule(with navigationController: UINavigationController, isSingleSelectMode: Bool = true) -> SelectBreedViewController {
         let router = SelectBreedRouter(navigationController: navigationController)
         let viewModel = SelectBreedViewModel(router: router)
-        let view = SelectBreedViewController(viewModel: viewModel)
+        let view = SelectBreedViewController(viewModel: viewModel, isSingleSelectMode: isSingleSelectMode)
         return view
     }
 }

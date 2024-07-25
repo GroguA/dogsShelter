@@ -47,9 +47,7 @@ final class SelectBreedViewModel {
     }
     
     private var currentBreeds = [SelectBreedModel]()
-    
     private let breedsDataSource = BreedsDataSource.shared
-    
     private var isSearching = false
     
     init(router: ISelectBreedRouter) {
@@ -71,7 +69,7 @@ extension SelectBreedViewModel: ISelectBreedViewModel {
     func onBreedClicked(breedIndex: Int) {
         if isSingleSelectMode {
             let breed = currentBreeds[breedIndex].breed
-            onAction(SelectBreedAction.closeWithBreed(breed: breed))
+            onAction(SelectBreedAction.closeWhileSingleSelectMode(breed: breed))
         } else {
             currentBreeds[breedIndex].isSelected = !currentBreeds[breedIndex].isSelected
 
@@ -90,7 +88,7 @@ extension SelectBreedViewModel: ISelectBreedViewModel {
     func onDoneButtonClicked() {
         let selectedBreeds = currentBreeds.filter({ $0.isSelected })
         if !selectedBreeds.isEmpty {
-            onAction(SelectBreedAction.closeWithBreeds(breeds: selectedBreeds.map({ $0.breed })))
+            onAction(SelectBreedAction.closeWhileMultiSelectMode(breeds: selectedBreeds.map({ $0.breed })))
         }
     }
     

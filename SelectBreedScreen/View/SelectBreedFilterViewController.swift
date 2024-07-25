@@ -1,5 +1,5 @@
 //
-//  BreedsListFilterViewController.swift
+//  SelectBreedViewController.swift
 //  Shelter
 //
 //  Created by Александра Сергеева on 25.10.2023.
@@ -10,7 +10,7 @@ import UIKit
 class SelectBreedViewController: UIViewController {
     var doOnSingleSelect: ((String) -> Void)?
     var doOnMultiSelect: (([String]) -> Void)?
-    var isSingleSelectMode = true
+    var isSingleSelectMode: Bool
     
     private var viewModel: ISelectBreedViewModel & ISelectBreedNavigation
     
@@ -21,8 +21,9 @@ class SelectBreedViewController: UIViewController {
         searchResultsUpdater: self
     )
     
-    init(viewModel: ISelectBreedViewModel & ISelectBreedNavigation) {
+    init(viewModel: ISelectBreedViewModel & ISelectBreedNavigation, isSingleSelectMode: Bool) {
         self.viewModel = viewModel
+        self.isSingleSelectMode = isSingleSelectMode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -71,10 +72,10 @@ private extension SelectBreedViewController {
     
     func processAction(action: SelectBreedAction) {
         switch action {
-        case .closeWithBreed(let breed):
+        case .closeWhileSingleSelectMode(let breed):
             doOnSingleSelect?(breed)
             viewModel.popSelectBreedScreen()
-        case .closeWithBreeds(let breeds):
+        case .closeWhileMultiSelectMode(let breeds):
             doOnMultiSelect?(breeds)
             viewModel.popSelectBreedScreen()
         }

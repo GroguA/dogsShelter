@@ -10,9 +10,9 @@ import UIKit
 class DogListCollectionViewCell: UICollectionViewCell {
     static let identifier = String(describing: DogListCollectionViewCell.self)
     
-    private lazy var name = LabelsFactory.createLabel(with: "name: ", isTextBold: true)
-    private lazy var breed = LabelsFactory.createLabel(with: "breed: ", isTextBold: true)
-    private lazy var age = LabelsFactory.createLabel(with: "age: ", isTextBold: true)
+    private lazy var nameTitleLabel = LabelsFactory.createLabel(with: "name: ", isTextBold: true)
+    private lazy var breedTitleLabel = LabelsFactory.createLabel(with: "breed: ", isTextBold: true)
+    private lazy var ageTitleLabel = LabelsFactory.createLabel(with: "age: ", isTextBold: true)
     
     private lazy var nameLabel = LabelsFactory.createLabel()
     private lazy var breedLabel = LabelsFactory.createLabel()
@@ -40,9 +40,9 @@ class DogListCollectionViewCell: UICollectionViewCell {
     }
     
     func setupViews() {
-        contentView.addSubview(name)
-        contentView.addSubview(breed)
-        contentView.addSubview(age)
+        contentView.addSubview(nameTitleLabel)
+        contentView.addSubview(breedTitleLabel)
+        contentView.addSubview(ageTitleLabel)
         contentView.addSubview(nameLabel)
         contentView.addSubview(breedLabel)
         contentView.addSubview(ageLabel)
@@ -60,25 +60,25 @@ class DogListCollectionViewCell: UICollectionViewCell {
             dogImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             dogImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -offsetForConstraints),
             
-            name.topAnchor.constraint(equalTo: dogImage.topAnchor),
-            name.leadingAnchor.constraint(equalTo: dogImage.trailingAnchor, constant: offsetForConstraints),
-            name.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            nameTitleLabel.topAnchor.constraint(equalTo: dogImage.topAnchor),
+            nameTitleLabel.leadingAnchor.constraint(equalTo: dogImage.trailingAnchor, constant: offsetForConstraints),
+            nameTitleLabel.trailingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: dogImage.topAnchor),
             
-            breed.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 4),
-            breed.leadingAnchor.constraint(equalTo: name.leadingAnchor),
-            breed.trailingAnchor.constraint(equalTo: breedLabel.leadingAnchor),
+            breedTitleLabel.topAnchor.constraint(equalTo: nameTitleLabel.bottomAnchor, constant: 4),
+            breedTitleLabel.leadingAnchor.constraint(equalTo: nameTitleLabel.leadingAnchor),
+            breedTitleLabel.trailingAnchor.constraint(equalTo: breedLabel.leadingAnchor),
             
             breedLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
             breedLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             breedLabel.widthAnchor.constraint(equalToConstant: 134),
             
-            age.topAnchor.constraint(equalTo: name.topAnchor),
-            age.leadingAnchor.constraint(lessThanOrEqualTo: breedLabel.trailingAnchor, constant: offsetForConstraints),
-            age.trailingAnchor.constraint(greaterThanOrEqualTo: ageLabel.leadingAnchor),
+            ageTitleLabel.topAnchor.constraint(equalTo: nameTitleLabel.topAnchor),
+            ageTitleLabel.leadingAnchor.constraint(lessThanOrEqualTo: breedLabel.trailingAnchor, constant: offsetForConstraints),
+            ageTitleLabel.trailingAnchor.constraint(greaterThanOrEqualTo: ageLabel.leadingAnchor),
             
-            ageLabel.topAnchor.constraint(equalTo: age.topAnchor),
+            ageLabel.topAnchor.constraint(equalTo: ageTitleLabel.topAnchor),
             ageLabel.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -offsetForConstraints)
             
         ]

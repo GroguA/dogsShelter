@@ -29,25 +29,21 @@ final class ScheduleReminderViewModel: IScheduleReminderViewModel {
     }
     
     func onScheduleReminderTapped(body: String?, date: Date?, isDaily: Bool) {
-        if let body, let date {
-           let hour = Calendar.current.component(.hour, from: date)
-           let minute = Calendar.current.component(.minute, from: date)
+        if let body, let date, !body.isEmpty {
+            let hour = Calendar.current.component(.hour, from: date)
+            let minute = Calendar.current.component(.minute, from: date)
             let month = Calendar.current.component(.month, from: date)
             let day = Calendar.current.component(.day, from: date)
-            if !body.isEmpty {
-                DogsNotificationsManager.shared.dispatchNotificationsDogDetailsVC(
-                    body: body,
-                    hour: hour,
-                    minute: minute,
-                    isDaily: isDaily,
-                    day: day,
-                    month: month,
-                    identifier: id
-                )
-                onAction(ScheduleReminderAction.closeScreen)
-            } else {
-                onAction(ScheduleReminderAction.showError)
-            }
+            DogsNotificationsManager.shared.dispatchNotificationsDogDetailsVC(
+                body: body,
+                hour: hour,
+                minute: minute,
+                isDaily: isDaily,
+                day: day,
+                month: month,
+                identifier: id
+            )
+            onAction(ScheduleReminderAction.closeScreen)
         } else {
             onAction(ScheduleReminderAction.showError)
         }

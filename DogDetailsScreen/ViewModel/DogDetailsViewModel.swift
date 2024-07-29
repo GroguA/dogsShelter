@@ -40,11 +40,10 @@ final class DogDetailsViewModel {
         }
     }
     
-    private var currentDog: DogDetailsModel? = nil
-    
-    private let router: IDogDetailsRouter
-    
+    private var currentDog: DogDetailsModel?
     private var dogId: String
+    private let router: IDogDetailsRouter
+
     
     init(router: IDogDetailsRouter, dogId: String) {
         self.router = router
@@ -75,19 +74,17 @@ extension DogDetailsViewModel: IDogDetailsViewModel {
     }
     
     func deleteDogClicked() {
-        if !DogStorageService.shared.deleteDogBy(id: dogId) {
-            onAction(DogDetailsAction.showError)
-        } else {
+        if DogStorageService.shared.deleteDogBy(id: dogId) {
             onAction(DogDetailsAction.closeScreen)
+        } else {
+            onAction(DogDetailsAction.showError)
         }
     }
     
     func updateDogWashClicked() {
         let date = DateUtils.shared.getCurrentDate()
         guard let dogBeforeWash = currentDog else { return }
-        if !DogStorageService.shared.saveDogDateOfWash(id: dogBeforeWash.id, date: date) {
-            onAction(DogDetailsAction.showError)
-        } else {
+        if DogStorageService.shared.saveDogDateOfWash(id: dogBeforeWash.id, date: date) {
             let dogAfterWash = DogDetailsModel(name: dogBeforeWash.name,
                                                breed: dogBeforeWash.breed,
                                                age: dogBeforeWash.age,
@@ -96,6 +93,8 @@ extension DogDetailsViewModel: IDogDetailsViewModel {
                                                dateOfWash: date)
             currentState = .success(dog: dogAfterWash)
             currentDog = dogAfterWash
+        } else {
+            onAction(DogDetailsAction.showError)
         }
     }
     

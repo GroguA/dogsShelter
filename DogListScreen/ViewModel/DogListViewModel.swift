@@ -85,7 +85,7 @@ extension DogListViewModel: IDogListViewModel {
             currentState = .empty(isFiltering: isFiltering)
         } else {
             isFiltering = true
-            let filteredDogs = dogsBeforeSearch.filter({ (dog: DogListDogModel) -> Bool in
+            let filteredDogs = dogsBeforeSearch.filter({ dog in
                 return dog.name.lowercased().contains(name.lowercased())
             })
             currentState = .success(dogs: filteredDogs, isFiltering: isFiltering)
@@ -94,11 +94,7 @@ extension DogListViewModel: IDogListViewModel {
     
     func disableSearch() {
         isFiltering = false
-        if !dogsBeforeSearch.isEmpty {
-            currentState = .success(dogs: dogsBeforeSearch, isFiltering: isFiltering)
-        } else {
-            currentState = .empty(isFiltering: isFiltering)
-        }
+        currentState = dogsBeforeSearch.isEmpty ? .empty(isFiltering: isFiltering) : .success(dogs: dogsBeforeSearch, isFiltering: isFiltering)
     }
     
     func onFilterSelected(_ filter: DogFiltersModel) {
@@ -117,11 +113,8 @@ extension DogListViewModel: IDogListViewModel {
             }
             return false
         }
-        if !filteredDogs.isEmpty {
-            currentState = .success(dogs: filteredDogs, isFiltering: isFiltering)
-        } else {
-            currentState = .empty(isFiltering: isFiltering)
-        }
+        
+        currentState = filteredDogs.isEmpty ? .empty(isFiltering: isFiltering) : .success(dogs: filteredDogs, isFiltering: isFiltering)
     }
     
     func onResetFilterTapped() {

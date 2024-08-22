@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BreedsDataSource {
+final class BreedsDataSource {
     static let shared = BreedsDataSource()
     
     private var breeds: [String]? = nil
